@@ -1,0 +1,2 @@
+module DatabaseWriterHelper
+end
