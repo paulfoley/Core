@@ -1,6 +1,18 @@
 require 'pg'
 
 class DatabaseWriter
+  def initialize(email, f_name, l_name, company, job_title, member_rating, last_changed, date_added, active)
+    @email = email
+    @f_name = f_name
+    @l_name = l_name
+    @company = company
+    @job_title = job_title
+    @member_rating = member_rating
+    @last_changed = last_changed
+    @date_added = date_added
+    @active = active
+  end
+
   def connect
     @conn = PG.connect(:hostaddr => "127.0.0.1", :port => 5432, :dbname => "core", :user => "jsong", :password => "FireDrive1!")
   end
@@ -11,8 +23,9 @@ class DatabaseWriter
   end
 
   # Add a mailchimp user.
-  def addUser(email, f_name, l_name, company, job_title, member_rating, last_changed, date_added, active)
-    @conn.exec_prepared("insert_user", [email, f_name, l_name, company, job_title, member_rating, last_changed, date_added, active])
+  def addUser()
+    @conn.exec_prepared("insert_user", ["#{@email}", "#{@f_name}", "#{@l_name}", "#{@company}", "#{@job_title}",
+                                        "#{@member_rating}", "#{@last_changed}", "#{@date_added}", "#{@active}" ])
   end
 
   # Disconnect the back-end connection.
@@ -21,12 +34,9 @@ class DatabaseWriter
   end
 end
 
-def main
-  db = DatabaseWriter.new
-  db.connect
-  db.prepareInsertUserStatement
-  db.addUser('adam@abholt.com','adam','holt','CU Boulder','Student',5,'5/5/12 2:30','6/27/13 5:00',true)
-  db.disconnect
-end
 
-main
+db = DatabaseWriter.new('adam@abholt.com','adam','holt','CU Boulder','Student',5,'5/5/12 2:30','6/27/13 5:00',true)
+db.connect
+db.prepareInsertUserStatement
+db.addUser()
+db.disconnect

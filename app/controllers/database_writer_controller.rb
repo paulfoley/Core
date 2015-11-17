@@ -19,13 +19,3 @@ class DatabaseWriterController < ApplicationController
     @conn.close
   end
 end
-
-def main
-  db = DatabaseWriterController.new
-  db.connect
-  db.prepareInsertUserStatement
-  db.addUser('adam@abholt.com','adam','holt','CU Boulder','Student',5,'5/5/12 2:30','6/27/13 5:00',true)
-  db.disconnect
-end
-
-main
