@@ -1,0 +1,44 @@
+#header {
+  background-color: #4d3571;
+  height: 120px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+#header img {
+  display: block;
+  position: relative;
+  float: left;
+  z-index: 2;
+  height: 100%;
+}
+
+.container {
+  width: 1200px;
+  height: 800px;
+  display: block;
+  margin-top: 20px;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.column {
+  height: 100%;
+  width: calc(100%/3 - 3px);
+  display: inline-block;
+  margin: auto;
+  border: 1px solid #AAAAAA;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.column img {
+  height: auto;
+  max-height: 100px;
+  width: auto;
+  max-width: 100%;
+  display:block;
+  margin: auto;
+  margin-bottom: 30px;
+}
