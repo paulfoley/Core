@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: core_production
-  username: core
-  password: <%= ENV['CORE_DATABASE_PASSWORD'] %>
+  username: jsong
+  password: FireDrive1!

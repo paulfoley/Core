@@ -1,4 +1,28 @@
 Rails.application.routes.draw do
+  get 'organization/create'
+
+  get 'organization/read'
+
+  get 'organization/update'
+
+  get 'organization/delete'
+
+  get 'user/create'
+
+  get 'user/read'
+
+  get 'user/update'
+
+  get 'user/delete'
+
+  get 'database_controller/create'
+
+  get 'database_controller/read'
+
+  get 'database_controller/update'
+
+  get 'database_controller/delete'
+
   get 'database_writer/Write'
 
   get 'database_writer/to'
