@@ -17,7 +17,6 @@ database.yml
 
 # ignore rubymine files
 /.idea
-/bin
 
 # ignore iml files
 *.iml
