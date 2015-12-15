@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  root 'welcome#index'
+
+
   get 'organization/create'
 
   get 'organization/read'
