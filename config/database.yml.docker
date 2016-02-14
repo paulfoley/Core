@@ -1,0 +1,22 @@
+#
+# Settings for local docker development
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: postgres
+  # please see the update below about using hostnames to
+  # access linked services via docker-compose
+  host: postgres
+  port: 5432
+
+
+development:
+  <<: *default
+  database: core_development
+
+test:
+  <<: *default
+  database: core_test

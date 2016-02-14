@@ -1,35 +1,21 @@
 # Core
 Repository for Core Project
 
-----
-Ben - 11/17/2015:
 
-I see we created a database writer, excellent! However, it's not quite in line with Rails conventions.
+## Getting Started
 
-To connect to databases Rails uses a system called ActiveRecord. Basically active record abstracts talking to databases away from SQL and moves it in to objects. For example if we want to create user records in the database we need to create a new model called User at `app/models/user.rb`
+I think most of you are using windows so I enabled Docker support which will hopefully make it easier for you guys to get started.
 
-First we need to create our database: `rake db:create` which will use the connection setting in `database.yml` and create the database listed for the `development` environment
+If you aren't familier with Docker it is a container technology that lets you quickly deploys apps.
+You can download the [Docker Toolbox](https://www.docker.com/products/docker-toolbox) to get started.
+Once you have docker intalled you should be able to make a machine, and start the app with a postgres db by doing:
 
-We also need to create a migration, for example: `rails generate migration CreateUsers`. We need migrations because postgres needs to know what the tables looks like, and since tables change over time, migrations are a central place to keep a running list of changes for your enter schema. Very useful.
+    docker-compose up
 
-Once we have a `users` table and a `User` model we can do stuff like:
+You will need to create and run database migrations by doing this:
 
-```
-user = User.new
-user.first_name = "Ben"
-user.email = "ben.j.jacobson@gmail.com"
-user.save # this generates a SQL insert statement
-puts user.id
-```
-```
-user = User.find(1) # this generates: SELECT * FROM users WHERE id = 1
-user.first_name == "Ben"
-```
-```
-users = User.where(first_name: "Ben") # this generates: SELECT * FROM users WHERE first_name = 'Ben'
-users == [...]
-```
+    docker-compose run web rake db:create db:migrate
 
-You should be able to look at the logs and see the SQL active record generated for the code above
-
+I have brought in Devise and Omniauth for authentication and API access. I have added Stripe and Quickbooks integrations as well.
+We should start with Stripe, Quickbooks still needs some work.
 
