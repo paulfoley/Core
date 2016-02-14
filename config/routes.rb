@@ -1,37 +1,14 @@
 Rails.application.routes.draw do
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
   root 'welcome#index'
 
+  get '/auth/:provider/callback', to: 'sessions#create'
 
-  get 'organization/create'
-
-  get 'organization/read'
-
-  get 'organization/update'
-
-  get 'organization/delete'
-
-  get 'user/create'
-
-  get 'user/read'
-
-  get 'user/update'
-
-  get 'user/delete'
-
-  get 'database_controller/create'
-
-  get 'database_controller/read'
-
-  get 'database_controller/update'
-
-  get 'database_controller/delete'
-
-  get 'database_writer/Write'
-
-  get 'database_writer/to'
-
-  get 'database_writer/db'
+  namespace :admin do
+    resources :users
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

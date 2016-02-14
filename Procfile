@@ -1,0 +1,1 @@
+web: rails server --port=$PORT --bind=0.0.0.0

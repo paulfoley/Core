@@ -1,18 +1,73 @@
-
 <style>
-  body, html {
-    background:#4D3571;
+  h2 {
+    color: #4D3571;
   }
-  .title {
-    font-weight:100;
-    color:#fff;
-    text-shadow:2px 2px 0 #372750;
+
+  .btn {
+    border: 1px solid #ccc;
+  }
+
+  .btn:hover {
+    border: 1px solid #4D3571;
+    box-shadow: 0px 0px 4px rgba(77, 53, 113, 0.5);
   }
 </style>
-<div class="container text-center">
+
+<div class="container">
   <br/>
   <br/>
-  <h1 class="title"><strong>CORE</strong> CLOUD APP</h1>
+  <h2 class="title text-center">
+    <i class="fa fa-cloud"></i>
+    Core Cloud App
+  </h2>
   <br/>
   <br/>
+
+  <h5 class="text-muted text-center">Sign in with one of the following services:</h5>
+
+  <br/>
+  <div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
+
+      <div class="row">
+        <div class="col-sm-6">
+          <a href="<%= user_omniauth_authorize_path(:stripe_connect) %>" class="btn btn-block">
+            <img src="<%= asset_path 'logos/thumbs/stripe.png' %>" height="60px"/>
+          </a>
+
+          <br/>
+          <table class="table table-condensed table-bordered text-muted small" style="opacity:0.75;">
+            <tr>
+              <th>Username</th>
+              <td>acme@corecloudapp.com</td>
+            </tr>
+            <tr>
+              <th>Password</th>
+              <td>TestCustomer123!</td>
+            </tr>
+          </table>
+          <br/>
+        </div>
+        <div class="col-sm-6">
+          <a href="<%= user_omniauth_authorize_path(:quickbooks) %>" class="btn btn-block">
+            <img src="<%= asset_path 'logos/thumbs/quickbooks.png' %>" height="60px"/>
+          </a>
+
+          <br/>
+          <table class="table table-condensed table-bordered text-muted small" style="opacity:0.75;">
+            <tr>
+              <th>Username</th>
+              <td>acme@corecloudapp.com</td>
+            </tr>
+            <tr>
+              <th>Password</th>
+              <td>TestCustomer123!</td>
+            </tr>
+          </table>
+          <br/>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
