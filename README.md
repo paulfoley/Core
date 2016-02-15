@@ -11,11 +11,11 @@ If you aren't familier with Docker it is a container technology that lets you qu
 This is going to radically change the way software is built and will be good for your careers to learn about it. I wish it was around when I was a student!
 
 You can download the [Docker Toolbox](https://www.docker.com/products/docker-toolbox) to get started.
-Once you have docker intalled you should be able to make a machine, and start the app with a postgres db by doing:
+Once you have docker intalled you should be able to make a machine, and start the app by doing:
 
     docker-compose up
 
-You will need to create and run database migrations by doing this:
+This will look at `docker-compose.yml` and bring up 2 services: the rails app and a postgres database. You will need to create and run database migrations by doing this:
 
     docker-compose run web rake db:create db:migrate
 
