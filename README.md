@@ -22,3 +22,11 @@ You will need to create and run database migrations by doing this:
 I have brought in Devise and Omniauth for authentication and API access. I have added Stripe and Quickbooks integrations as well.
 We should start with Stripe, Quickbooks still needs some work.
 
+## Configs
+
+We manage configs in the `.env` file. You will need to fill in the blanks with our tokens from stripe and quickbooks. These shouldn't be checked in to git- they are dependent on the environment. Development and Production will use different tokens.
+
+## Oauth
+
+TODO
+
