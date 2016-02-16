@@ -1,0 +1,54 @@
+{
+	"id": "b1214014-3153-f54b-f5cb-62b52b655e8e",
+	"name": "Zendesk OAuth",
+	"description": "",
+	"order": [
+		"240cc9ea-c876-9e40-b6a6-0add4b361831",
+		"14383d3d-03c6-d3ed-dedf-f81f54a2eddf"
+	],
+	"folders": [],
+	"timestamp": 1455576508893,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "14383d3d-03c6-d3ed-dedf-f81f54a2eddf",
+			"headers": "Authorization: User ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60=, Organization 52d24ebf350ceeb29afef2768b668852\nContent-Type: application/json\n",
+			"url": "https://console.cloud-elements.com/elements/api-v2/instances",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1455582225723,
+			"name": "/instances",
+			"description": "",
+			"collectionId": "b1214014-3153-f54b-f5cb-62b52b655e8e",
+			"responses": [],
+			"rawModeData": "{\n  \"element\": {\n    \"key\": \"zendesk\"\n  },\n  \"providerData\": {\n    \"code\": \"3b60a9744a9174f9706dea711c6ce02764da6eda7ea53e3ed7939536da28ca31\"\n  },\n  \"configuration\": {\n    \"oauth.api.key\": \"core_cloud_app\",\n    \"oauth.api.secret\": \"4f60f41925\",\n    \"oauth.callback.url\": \"https://bwgaydon.github.io/core/index.html\",\n    \"zendesk.subdomain\": \"nimbusinbound\"\n  },\n  \"name\": \"zendesk_Practice\"\n}"
+		},
+		{
+			"id": "240cc9ea-c876-9e40-b6a6-0add4b361831",
+			"headers": "",
+			"url": "https://api.cloud-elements.com/elements/api-v2/elements/zendesk/oauth/url?apiKey=core_cloud_app&apiSecret=4f60f41925&siteAddress=nimbusinbound&callbackUrl=https://bwgaydon.github.io/core/index.html&state=zendesk",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1455580801135,
+			"name": "/zendesk/oauth/url",
+			"description": "",
+			"collectionId": "b1214014-3153-f54b-f5cb-62b52b655e8e",
+			"responses": []
+		}
+	]
+}

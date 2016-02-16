@@ -1,0 +1,52 @@
+{
+	"id": "e7b5272b-d639-ad44-4627-fe6d3422f89b",
+	"name": "Mailchimp OAuth",
+	"timestamp": 1454973377259,
+	"order": [
+		"42f1edf3-c2d4-f08e-669d-47a4bcb31a9f",
+		"1e3c6d1b-4beb-fefe-1a06-18bbc9836f17"
+	],
+	"owner": 0,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "1e3c6d1b-4beb-fefe-1a06-18bbc9836f17",
+			"headers": "Authorization: User ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60=, Organization 52d24ebf350ceeb29afef2768b668852\nContent-Type: application/json\n",
+			"url": "https://console.cloud-elements.com/elements/api-v2/elements/mailchimp3/oauth/url?apiKey=627660219231&apiSecret=d357690f1092ae69025386228f126c2a&callbackUrl=https://bwgaydon.github.io/core/index.html",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1455581758047,
+			"name": "/mailchimp3/oauth/url",
+			"description": "",
+			"collectionId": "e7b5272b-d639-ad44-4627-fe6d3422f89b",
+			"rawModeData": "{\n  \"element\": {\n    \"key\": \"mailchimp3\"\n  },\n  \"providerData\": {\n    \"code\": \"aPrxMZkm7lCkgfRp6r.wjav5NvUUr2h30Yd_miQm3.7ccP4t9G3qte2_LwQ362xA2IQVpL.tQw%3D%3D\"\n  },\n  \"configuration\": {\n    \"oauth.callback.url\": \"https://fake.fake\",\n    \"oauth.api.key\": \"627660219231\",\n    \"oauth.api.secret\": \"d357690f1092ae69025386228f126c2a\"\n  },\n  \"tags\": [\n    \"api tag\"\n  ],\n  \"name\": \"sfdc api\"\n}"
+		},
+		{
+			"id": "42f1edf3-c2d4-f08e-669d-47a4bcb31a9f",
+			"headers": "Authorization: User ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60=, Organization 52d24ebf350ceeb29afef2768b668852\nContent-Type: application/json\n",
+			"url": "https://console.cloud-elements.com/elements/api-v2/instances",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1455582598451,
+			"name": "/instances",
+			"description": "",
+			"collectionId": "e7b5272b-d639-ad44-4627-fe6d3422f89b",
+			"responses": [],
+			"rawModeData": "{\n  \"element\": {\n    \"key\": \"mailchimp3\"\n  },\n  \"providerData\": {\n    \"code\": \"4a8d5f2cbaa9f777e0ab3bbddee85866\"\n  },\n  \"configuration\": {\n    \"oauth.callback.url\": \"https://bwgaydon.github.io/core/index.html\",\n    \"oauth.api.key\": \"627660219231\",\n    \"oauth.api.secret\": \"d357690f1092ae69025386228f126c2a\"\n  },\n  \"name\": \"mailchimp practice\"\n}"
+		}
+	]
+}

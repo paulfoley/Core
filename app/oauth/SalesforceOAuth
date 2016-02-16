@@ -1,0 +1,53 @@
+{
+	"id": "584d0eec-09b3-2105-90d1-68e34b610689",
+	"name": "Salesforce OAuth",
+	"description": "",
+	"order": [
+		"cbae4091-9c57-0925-36e9-50a200b76ed1",
+		"11cdcc7f-9d77-6b64-a84a-a957bbae675a"
+	],
+	"folders": [],
+	"timestamp": 1455575893474,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "11cdcc7f-9d77-6b64-a84a-a957bbae675a",
+			"headers": "Authorization: User ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60=, Organization 52d24ebf350ceeb29afef2768b668852\nContent-Type: application/json\n",
+			"url": "https://console.cloud-elements.com/elements/api-v2/instances",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1455576407663,
+			"name": "/instances",
+			"description": "",
+			"collectionId": "584d0eec-09b3-2105-90d1-68e34b610689",
+			"responses": [],
+			"rawModeData": "{\n  \"element\": {\n    \"key\": \"sfdc\"\n  },\n  \"providerData\": {\n    \"code\": \"aPrxtI4fE7jL0iTw5tdXXQKmHLf3NqBuuUVftNO8KDVfdbIjKAL2GP2ljL2WtxV0FAtylpcg1A%3D%3D\"\n  },\n  \"configuration\": {\n    \"oauth.callback.url\": \"https://fake.fake\",\n    \"oauth.api.key\": \"3MVG9uudbyLbNPZM9tgYt1cA4yglnVMRyvCK01x2K8j3Qo1I.MkpK2mm8xTrBdwNPR8BG1HLN4S_5aRnwYPUc\",\n    \"oauth.api.secret\": \"3910440158623989535\"\n  },\n  \"name\": \"salesforce_Practice\"\n}\n"
+		},
+		{
+			"id": "cbae4091-9c57-0925-36e9-50a200b76ed1",
+			"headers": "",
+			"url": "https://api.cloud-elements.com/elements/api-v2/elements/sfdc/oauth/url?apiKey=3MVG9uudbyLbNPZM9tgYt1cA4yglnVMRyvCK01x2K8j3Qo1I.MkpK2mm8xTrBdwNPR8BG1HLN4S_5aRnwYPUc&apiSecret=3910440158623989535&callbackUrl=https://bwgaydon.github.io/core/index.html&state=sfdc",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1455581500904,
+			"name": "/salesforce/oauth/url",
+			"description": "",
+			"collectionId": "584d0eec-09b3-2105-90d1-68e34b610689",
+			"responses": []
+		}
+	]
+}
