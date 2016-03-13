@@ -1,5 +1,14 @@
 <head>
+  <meta charset="utf-8">
+
   <title>CORE</title>
+
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
 </head>
 
@@ -9,44 +18,104 @@
     <img class="header_icon" src="https://i.imgur.com/1b3nJn0.png" alt="core">
   </a>
 </div>
-<div id="content">
-  <div id="metrics_button" class="menu_button">
-    Metrics
-  </div>
-  <div id="reports_button" class="menu_button">
-    Reports
-  </div>
-  <div id="settings_button" class="menu_button">
-    Settings
-  </div>
-  <a href="https://login.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9uudbyLbNPZM9tgYt1cA4yglnVMRyvCK01x2K8j3Qo1I.MkpK2mm8xTrBdwNPR8BG1HLN4S_5aRnwYPUc&client_secret=3910440158623989535&scope=full%20refresh_token&redirect_uri=https://bwgaydon.github.io/core/index.html&state=sfdc">
-    <div id="CRM" class="menu_button">
-      Salesforce
+<div id="container">
+  <div id="sidebar">
+    <div id="metrics_button" class="menu_button">
+      Metrics
     </div>
-  </a>
-  <a href="https://login.mailchimp.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fbwgaydon.github.io%2Fcore%2Findex.html&state=mailchimp3&client_id=627660219231">
-    <div id="marketing" class="menu_button">
-      Mailchimp
+    <div id="reports_button" class="menu_button">
+      Reports
     </div>
-  </a>
-  <a href="https://appcenter.intuit.com/Connect/Begin?oauth_token=qyprdvJhj3mdXIGNWgXPHSh6sQYf2b7wpOZzZVKQNmChzrSW&oauth_callback=https%3A%2F%2Fbwgaydon.github.io%2Fcore%2Findex.html%3Fstate%3Dquickbooks">
-    <div id="accounting" class="menu_button">
-      Quickbooks
+    <div id="settings_button" class="menu_button selected">
+      Settings
     </div>
-  </a>
-  <a href="https://nimbusinbound.zendesk.com/oauth/authorizations/new?scope=read+write&response_type=code&redirect_uri=https%3A%2F%2Fbwgaydon.github.io%2Fcore%2Findex.html&state=zendesk&client_id=core_cloud_app">
-    <div id="support" class="menu_button">
-      Zendesk
+    <div id="app_container">
+      <div id="sidebar_left">
+        <a href="#">
+          <div id="CRM" class="app_button">
+
+          </div>
+        </a>
+        <a href="#">
+          <div id="marketing" class="app_button">
+
+          </div>
+        </a>
+        <a href="#">
+          <div id="accounting" class="app_button">
+
+          </div>
+        </a>
+      </div>
+      <div id="sidebar_right">
+        <a href="#">
+          <div id="support" class="app_button">
+
+          </div>
+        </a>
+        <a href="#">
+          <div id="ecommerce" class="app_button">
+
+          </div>
+        </a>
+      </div>
     </div>
-  </a>
-  <div id="ecommerce" class="menu_button">
-    Shopify
+    <div id="admin_button" class="menu_button">
+      Admin
+    </div>
   </div>
-  <div id="admin_button" class="menu_button">
-    Admin
+  <div id="main">
+    <div class="pane" id="metrics">
+
+    </div>
+    <div class="pane" id="reports">
+
+    </div>
+    <div class="pane" id="settings">
+      <h2>User Settings</h2>
+      <ul class="wrapper">
+        <li>
+          <p>User 1</p>
+          <div class="s_item"></div>
+        </li>
+        <li>
+          <p>User 2</p>
+          <div class="s_item"></div>
+        </li>
+        <li>
+          <p>User 3</p>
+          <div class="s_item"></div>
+        </li>
+      </ul>
+    </div>
+    <div class="pane" id="admin">
+      <h2>Applications</h2>
+      <ul class="wrapper">
+        <li>
+          <p>CRM</p>
+          <div class="a_item" id="s_CRM"></div>
+        </li>
+        <li>
+          <p>Marketing</p>
+          <div class="a_item" id="s_marketing"></div>
+        </li>
+        <li>
+          <p>Accounting</p>
+          <div class="a_item" id="s_accounting"></div>
+        </li>
+        <li>
+          <p>Support</p>
+          <div class="a_item" id="s_support"></div>
+        </li>
+        <li>
+          <p>Ecommerce</p>
+          <div class="a_item" id="s_ecommerce"></div>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
+<script src="javascripts/core.js"></script>
+<script src="js/charts.js"></script>
 </body>
