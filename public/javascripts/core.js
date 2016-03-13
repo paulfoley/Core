@@ -19,11 +19,7 @@ function getQueryVariable(variable)
     return(false);
 }
 
-
-var ready;
-ready = function() {
-
-
+$(document).ready(function() {
     //global variables
     currentMenu = $("#metrics_button");
     currentMenu.addClass("selected");
@@ -41,7 +37,4 @@ ready = function() {
         console.log("code= " + code);
     }
 
-};
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
+});
