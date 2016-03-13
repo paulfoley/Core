@@ -2,11 +2,11 @@ class CoreController < ApplicationController
   def run
   end
 
-  def instance_salesforce
+  def create_instance(element)
     require 'net/http'
     require 'json'
 
-    @path = 'https://api.cloud-elements.com/elements/api-v2/elements/sfdc/oauth/url'
+    @path = "https://api.cloud-elements.com/elements/api-v2/elements/#{element}/oauth/url"
     @apiKey = '3MVG9uudbyLbNPZM9tgYt1cA4yglnVMRyvCK01x2K8j3Qo1I.MkpK2mm8xTrBdwNPR8BG1HLN4S_5aRnwYPUc'
     @apiSecret = '3910440158623989535'
     @callBack = 'http://127.0.0.1/core/run'
