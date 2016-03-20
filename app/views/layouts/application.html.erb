@@ -8,12 +8,16 @@
         integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
   <%= stylesheet_link_tag    '/stylesheets/core.css', media: 'all' %>
-  <%= javascript_include_tag '/javascripts/core.js' %>
   <%= csrf_meta_tags %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
 <%= yield %>
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<%= javascript_include_tag 'application' %>
 </body>
 </html>

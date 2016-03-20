@@ -69,7 +69,7 @@ $(document).ready(function() {
     });
     //load app icons/URLs
     //this requires each field in JSON be titled the same as the corresponding DOM element
-    appsObject = $.getJSON("/core/appdata/apps.json", function() {
+    appsObject = $.getJSON("/core/apps.json", function() {
         $('.app_button').each(function() {
             /*
              $('#'+this.id)[0].style.backgroundImage = " url('" + appsObject.responseJSON["this.id"].appIcon + "') ";
@@ -96,3 +96,5 @@ $(document).ready(function() {
     }
 
 });
+
+console.log("Hey core.js");

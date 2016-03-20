@@ -2,45 +2,17 @@ class CoreController < ApplicationController
   def run
   end
 
-  helper_method :create_instance
-
-  def create_instance(element, url_code, org_name)
-    require 'net/http'
-    require 'json'
-
-    @path = "https://api.cloud-elements.com/elements/api-v2/elements/#{element}/oauth/url"
-    @api_key = '3MVG9uudbyLbNPZM9tgYt1cA4yglnVMRyvCK01x2K8j3Qo1I.MkpK2mm8xTrBdwNPR8BG1HLN4S_5aRnwYPUc'
-    @api_secret = '3910440158623989535'
-    @call_back = 'http://127.0.0.1/core/run'
-    response = Net::HTTP::Get(URI.parse("#{@path}?@api_key=#{@api_key}&@api_secret=#{@api_secret}&callbackUrl=#{@call_back}&state=sfdc"))
-
-    response_hash = JSON.parse(response)
-
-    @element = response_hash['element']
-    @oauth_url = response_hash['@oauth_url']
-
-    @org_name = org_name
-    @user_secret = 'ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60='
-    @org_secret = '52d24ebf350ceeb29afef2768b668852'
-
-    @path = 'https://console.cloud-elements.com/elements/api-v2/instances'
-    @body = {
-        :element => {:key => @element},
-        :providerData => {:code => url_code},
-        :configuration => {
-        'oauth.callback.url' => @call_back,
-        'oauth.api.key' => @api_key,
-        'oauth.api.secret' => @api_secret},
-        :name => @org_name
-    }.to_json
-
-    @headers = {
-        :Authorization => "User => #{@user_secret} Organization #{@org_secret}",
-        'Content-Type' => 'application/json'
-    }.to_json
-
-    request = Net::HTTP::Post.new(@path, :body => @body, :headers => @headers)
-
-    @request_hash = JSON.parse(request)
+  def apps
+    render json: {
+        CRM: {
+            appName: "Salesforce",
+            appIcon: "http://s1.q4cdn.com/454432842/files/design/newlogo-company.png",
+            oauthURL: "https://login.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9uudbyLbNPZM9tgYt1cA4yglnVMRyvCK01x2K8j3Qo1I.MkpK2mm8xTrBdwNPR8BG1HLN4S_5aRnwYPUc&client_secret=3910440158623989535&scope=full%20refresh_token&redirect_uri=https://bwgaydon.github.io/core/index.html&state=sfdc"
+        },
+    }
   end
+
+
+
+
 end
