@@ -21,23 +21,22 @@ function contextSwitch(button) {
         //slide app icons in from left in aesthetic order
         if(active[0].id == "reports_button") {
             var i = 0;
-            $('.app_button').each(function() {
-                $(this).css("left","120px");
-                console.log($(this).css("transition-delay"));
+            $('.r_button').each(function() {
+                $(this).css("top","150px");
                 $(this).css("transition-delay", "0s," + i.toString() + "s");
                 i+=0.1;
             });
         }
+
         //slide app icons out to left in aesthetic order
         else {
-            var i = 0.4;
-            $('.app_button').each(function() {
-                $(this).css("left","0px");
-                console.log($(this).css("transition-delay"));
-                $(this).css("transition-delay", "0s," + i.toString() + "s");
-                i-=0.1;
+            var i = 0;
+            $('.r_button').each(function() {
+                $(this).css("top","-150px");
+                $(this).css("transition-delay", "0s,0.3s");
             });
         }
+
 
     }
 }
@@ -69,21 +68,18 @@ $(document).ready(function() {
     });
     //load app icons/URLs
     //this requires each field in JSON be titled the same as the corresponding DOM element
-    appsObject = $.getJSON("/core/apps.json", function() {
+    appsObject = $.getJSON("/apps.json", function() {
+        debugger;
         $('.app_button').each(function() {
-            /*
-             $('#'+this.id)[0].style.backgroundImage = " url('" + appsObject.responseJSON["this.id"].appIcon + "') ";
-             /*/
-            var first = "$('#" + this.id + "')[0].style.backgroundImage = ";
-            var second = '"' + "url('" + '"' + "+ appsObject.responseJSON." + this.id + ".appIcon + " + '"' + "')" + '"';
-            eval(first+second);
-
-            //eval("$(this).parent()[0].href = appsObject.responseJSON." + this.id + ".appURL");
-        });
-        $('.a_item').each(function() {
+            if($(this).hasClass("r_button")) {
+                eval("$(this).parent()[0].href = appsObject.responseJSON." + this.id + ".oauthURL");
+            }
             //$('#s_marketing')[0].style.backgroundImage = " url(' " + appsObject.responseJSON.marketing.appIcon + " ') ";
+
             var first = "$('#" + this.id + "')[0].style.backgroundImage = ";
-            var second = '"' + "url('" + '"' + "+ appsObject.responseJSON." + this.id.replace("s_","") + ".appIcon + " + '"' + "')" + '"';
+            var second = '"' + "url('" + '"' + "+ appsObject.responseJSON." + this.id.replace("a_","") + ".appIcon + " + '"' + "')" + '"';
+
+            console.log(first+second);
             eval(first+second);
         });
     });
@@ -96,5 +92,3 @@ $(document).ready(function() {
     }
 
 });
-
-console.log("Hey core.js");

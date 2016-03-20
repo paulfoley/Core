@@ -5,45 +5,14 @@
 </div>
 <div id="container">
   <div id="sidebar">
-    <div id="metrics_button" class="menu_button">
+    <div id="metrics_button" class="menu_button selected">
       Metrics
     </div>
     <div id="reports_button" class="menu_button">
       Reports
     </div>
-    <div id="settings_button" class="menu_button selected">
+    <div id="settings_button" class="menu_button">
       Settings
-    </div>
-    <div id="app_container">
-      <div id="sidebar_left">
-        <a href="#">
-          <div id="CRM" class="app_button">
-
-          </div>
-        </a>
-        <a href="#">
-          <div id="marketing" class="app_button">
-
-          </div>
-        </a>
-        <a href="#">
-          <div id="accounting" class="app_button">
-
-          </div>
-        </a>
-      </div>
-      <div id="sidebar_right">
-        <a href="#">
-          <div id="support" class="app_button">
-
-          </div>
-        </a>
-        <a href="#">
-          <div id="ecommerce" class="app_button">
-
-          </div>
-        </a>
-      </div>
     </div>
     <div id="admin_button" class="menu_button">
       Admin
@@ -54,47 +23,94 @@
 
     </div>
     <div class="pane" id="reports">
+      <div id="r_container">
+        <a href="#">
+          <div id="CRM" class="app_button r_button">
 
+          </div>
+        </a>
+        <a href="#">
+          <div id="marketing" class="app_button r_button">
+
+          </div>
+        </a>
+        <a href="#">
+          <div id="accounting" class="app_button r_button">
+
+          </div>
+        </a>
+        <a href="#">
+          <div id="support" class="app_button r_button">
+
+          </div>
+        </a>
+        <a href="#">
+          <div id="ecommerce" class="app_button r_button">
+
+          </div>
+        </a>
+      </div>
     </div>
     <div class="pane" id="settings">
-      <h2>User Settings</h2>
-      <ul class="wrapper">
-        <li>
-          <p>User 1</p>
-          <div class="s_item"></div>
-        </li>
-        <li>
-          <p>User 2</p>
-          <div class="s_item"></div>
-        </li>
-        <li>
-          <p>User 3</p>
-          <div class="s_item"></div>
-        </li>
-      </ul>
+      <div id="settings_container">
+        <div id="profile_picture">
+          <div class="edit_button">Edit</div>
+          <img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAASZAAAAJDc0YWJkMDA5LTU2MmMtNDRjOS1hZDZhLTgwNTNjYzk0ZGNlOA.jpg">
+        </div>
+        <div id="profile_info">
+          <h2>Paul Foley</h2>
+          <h4>CEO</h4><div class="edit_button">Edit</div>
+          <h4>Core Cloud App</h4><div class="edit_button">Edit</div>
+        </div>
+      </div>
     </div>
     <div class="pane" id="admin">
       <h2>Applications</h2>
       <ul class="wrapper">
         <li>
           <p>CRM</p>
-          <div class="a_item" id="s_CRM"></div>
+          <a href="#">
+            <div id="a_CRM" class="app_button admin_item"></div>
+          </a>
         </li>
         <li>
           <p>Marketing</p>
-          <div class="a_item" id="s_marketing"></div>
+          <a href="#">
+            <div id="a_marketing" class="app_button admin_item"></div>
+          </a>
         </li>
         <li>
           <p>Accounting</p>
-          <div class="a_item" id="s_accounting"></div>
+          <a href="#">
+            <div id="a_accounting" class="app_button admin_item"></div>
+          </a>
         </li>
         <li>
           <p>Support</p>
-          <div class="a_item" id="s_support"></div>
+          <a href="#">
+            <div id="a_support" class="app_button admin_item "></div>
+          </a>
         </li>
         <li>
           <p>Ecommerce</p>
-          <div class="a_item" id="s_ecommerce"></div>
+          <a href="#">
+            <div id="a_ecommerce" class="app_button admin_item"></div>
+          </a>
+        </li>
+      </ul>
+      <h2>Users</h2>
+      <ul class="wrapper">
+        <li>
+          <p>Paul Foley</p>
+          <div class="item user_item"></div>
+        </li>
+        <li>
+          <p>Ben Jacobson</p>
+          <div class="item user_item"></div>
+        </li>
+        <li>
+          <p>Larry Page</p>
+          <div class="item user_item"></div>
         </li>
       </ul>
     </div>
