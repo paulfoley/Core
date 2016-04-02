@@ -2,6 +2,7 @@ class AddDeviseToUsers < ActiveRecord::Migration
   def self.up
     change_table(:users) do |t|
       ## Database authenticatable
+      t.string :name,               null: false, default: ""
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
@@ -18,6 +19,7 @@ class AddDeviseToUsers < ActiveRecord::Migration
       t.datetime :last_sign_in_at
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
+#rails
 
       ## Confirmable
       # t.string   :confirmation_token
@@ -32,10 +34,11 @@ class AddDeviseToUsers < ActiveRecord::Migration
 
 
       # Uncomment below if timestamps were not included in your original model.
-      # t.timestamps
+      # t.timestamps u
     end
 
     add_index :users, :email,                unique: true
+    add_index :users, :name,                 unique: true
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
