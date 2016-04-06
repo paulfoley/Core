@@ -11,18 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160402191901) do
+ActiveRecord::Schema.define(version: 20160403212239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "user_orgs", force: :cascade do |t|
+  create_table "orgs", force: :cascade do |t|
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "name",       default: "", null: false
   end
 
-  add_index "user_orgs", ["name"], name: "index_user_orgs_on_name", unique: true, using: :btree
+  create_table "quickbooks_customers", force: :cascade do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "name",       default: "", null: false
+    t.string   "company",    default: "", null: false
+  end
+
+  add_index "quickbooks_customers", ["company"], name: "index_quickbooks_customers_on_company", unique: true, using: :btree
+  add_index "quickbooks_customers", ["name"], name: "index_quickbooks_customers_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                          null: false

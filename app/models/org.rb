@@ -1,5 +1,6 @@
-class UserOrg < ActiveRecord::Base
+class Org < ActiveRecord::Base
   has_many :users
+  has_many :quickbooks_customers
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

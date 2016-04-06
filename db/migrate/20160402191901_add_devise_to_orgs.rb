@@ -1,11 +1,10 @@
-class AddDeviseToUserOrgs < ActiveRecord::Migration
+class AddDeviseToOrgs < ActiveRecord::Migration
   def self.up
 
-    change_table(:user_orgs) do |t|
+    change_table(:orgs) do |t|
       ## Database authenticatable
       t.string :name,               null: false, default: ""
     end
-    add_index :user_orgs, :name,                unique: true
   end
 
   def self.down
