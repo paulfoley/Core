@@ -38,4 +38,68 @@ class CloudElements
     #
     # @request_hash = JSON.parse(request)
    end
+
+
+   #check if customer exists in quickbooks. Used for Stripe integration.
+   def self.quickbooksCheckForCustomer(token, customer)
+
+    user_secret = 'ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60='
+
+    path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers?where=companyName%3E%3D'#{customer}'"
+
+    @headers = {
+        :Authorization => "Element #{token}, User #{user_secret}"
+    }.to_json
+
+    request = Net::HTTP::Get.new(path, :headers => @headers)
+
+    #save the response to check if customer exists
+    @request_hash = JSON.parse(request)
+
+    #check if customer exists
+
+   end
+
+   def self.quickbooksCreateCustomer(token, customer)
+
+    user_secret = 'ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60='
+
+    path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers"
+
+    @body = {
+        #:primaryEmailAddr => {
+        #    'address' => 
+        #},
+        :displayName => "#{customer}"
+    }
+
+    @headers = {
+        :Authorization => "Element #{token}, User #{user_secret}"
+    }.to_json
+
+    request = Net::HTTP::Post.new(path, :body => @body, :headers => @headers)
+
+    @request_hash = JSON.parse(request)
+    
+    end
+    
+    def self.quickbooksCreatePayment(token, customer)
+      
+      user_secret = 'ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60='
+
+      path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/payments"
+
+      @body = {
+
+      }
+
+      @headers = {
+        :Authorization => "Element #{token}, User #{user_secret}"
+      }.to_json
+
+      request = Net::HTTP::Post.new(path, :body => @body, :headers => @headers)
+
+
+    end
+
  end
