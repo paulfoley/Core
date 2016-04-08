@@ -68,7 +68,7 @@ $(document).ready(function() {
     });
     //load app icons/URLs
     //this requires each field in JSON be titled the same as the corresponding DOM element
-    appsObject = $.getJSON("/appdata/apps.json", function() {
+    appsObject = $.getJSON("/apps.json", function() {
         $('.app_button').each(function() {
             if($(this).hasClass("r_button")) {
                 eval("$(this).parent()[0].href = appsObject.responseJSON." + this.id + ".oauthURL");

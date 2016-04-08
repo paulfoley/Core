@@ -5,6 +5,9 @@ body {
     overflow: hidden;
     margin:0;
 }
+html,body {
+    height:100%;
+}
 body > img {
     position:absolute;
     height:80%;
@@ -235,14 +238,6 @@ button {
 #r_container .app_button {
     height:5em;
     width:5em;
-}
-@media all and (max-width:1000px) {
-    #r_container {
-        width:100%;
-    }
-    #r_container .app_button {
-        width:15%;
-    }
 }
 #settings {
 
