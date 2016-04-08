@@ -68,17 +68,14 @@ $(document).ready(function() {
     });
     //load app icons/URLs
     //this requires each field in JSON be titled the same as the corresponding DOM element
-    appsObject = $.getJSON("/apps.json", function() {
-
+    appsObject = $.getJSON("/appdata/apps.json", function() {
         $('.app_button').each(function() {
             if($(this).hasClass("r_button")) {
                 eval("$(this).parent()[0].href = appsObject.responseJSON." + this.id + ".oauthURL");
             }
             //$('#s_marketing')[0].style.backgroundImage = " url(' " + appsObject.responseJSON.marketing.appIcon + " ') ";
-
             var first = "$('#" + this.id + "')[0].style.backgroundImage = ";
             var second = '"' + "url('" + '"' + "+ appsObject.responseJSON." + this.id.replace("a_","") + ".appIcon + " + '"' + "')" + '"';
-
             console.log(first+second);
             eval(first+second);
         });

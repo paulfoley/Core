@@ -24,11 +24,6 @@
     </div>
     <div class="pane" id="reports">
       <div id="r_container">
-      <div style="position:fixed;top:65px;">
-        <% QuickbooksCustomer.all.each do |cust| %>
-            <p><%= cust.email %></p>
-        <% end %>
-      </div>
         <a href="#">
           <div id="CRM" class="app_button r_button">
 
@@ -64,8 +59,10 @@
         </div>
         <div id="profile_info">
           <h2>Paul Foley</h2>
-          <h4>CEO</h4><div class="edit_button">Edit</div>
-          <h4>Core Cloud App</h4><div class="edit_button">Edit</div>
+          <h4>CEO</h4>
+          <div class="edit_button">Edit</div>
+          <h4>Core Cloud App</h4>
+          <div class="edit_button">Edit</div>
         </div>
       </div>
     </div>
