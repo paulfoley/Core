@@ -24,6 +24,11 @@
     </div>
     <div class="pane" id="reports">
       <div id="r_container">
+      <div style="position:fixed;top:65px;">
+        <% QuickbooksCustomer.all.each do |cust| %>
+            <p><%= cust.email %></p>
+        <% end %>
+      </div>
         <a href="#">
           <div id="CRM" class="app_button r_button">
 

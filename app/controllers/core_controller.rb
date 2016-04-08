@@ -2,6 +2,10 @@ class CoreController < ApplicationController
   def run
   end
 
+  def show
+    @cust = QuickbooksCustomer.first
+  end
+
   def apps
     render json: {
         CRM: {

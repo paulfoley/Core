@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   get 'core/run'
   get 'core/apps'
-  resources :elements
+  resources :elements do
+    member do
+      get :callback
+    end
+  end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
