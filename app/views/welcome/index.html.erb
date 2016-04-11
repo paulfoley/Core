@@ -1,73 +1,19 @@
-<style>
-  h2 {
-    color: #4D3571;
-  }
-
-  .btn {
-    border: 1px solid #ccc;
-  }
-
-  .btn:hover {
-    border: 1px solid #4D3571;
-    box-shadow: 0px 0px 4px rgba(77, 53, 113, 0.5);
-  }
-</style>
-
-<div class="container">
-  <br/>
-  <br/>
-  <h2 class="title text-center">
-    <i class="fa fa-cloud"></i>
-    Core Cloud App
-  </h2>
-  <br/>
-  <br/>
-
-  <h5 class="text-muted text-center">Sign in with one of the following services:</h5>
-
-  <br/>
-  <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2">
-
-      <div class="row">
-        <div class="col-sm-6">
-          <a href="<%= user_omniauth_authorize_path(:stripe_connect) %>" class="btn btn-block">
-            <img src="<%= asset_path 'logos/thumbs/stripe.png' %>" height="60px"/>
-          </a>
-
-          <br/>
-          <table class="table table-condensed table-bordered text-muted small" style="opacity:0.75;">
-            <tr>
-              <th>Username</th>
-              <td>acme@corecloudapp.com</td>
-            </tr>
-            <tr>
-              <th>Password</th>
-              <td>TestCustomer123!</td>
-            </tr>
-          </table>
-          <br/>
-        </div>
-        <div class="col-sm-6">
-          <a href="<%= user_omniauth_authorize_path(:quickbooks) %>" class="btn btn-block">
-            <img src="<%= asset_path 'logos/thumbs/quickbooks.png' %>" height="60px"/>
-          </a>
-
-          <br/>
-          <table class="table table-condensed table-bordered text-muted small" style="opacity:0.75;">
-            <tr>
-              <th>Username</th>
-              <td>acme@corecloudapp.com</td>
-            </tr>
-            <tr>
-              <th>Password</th>
-              <td>TestCustomer123!</td>
-            </tr>
-          </table>
-          <br/>
-        </div>
-      </div>
+<div class="header">
+  <a href="http://corecloudapp.com">
+    <img class="header_icon" src="https://i.imgur.com/1b3nJn0.png" alt="core">
+  </a>
+</div>
+<img src="http://i.imgur.com/CRjP7kU.png">
+<div id="login_container">
+  <form name="login" action="core/welcome" method="post">
+    <div>
+      <input type="email" id="email" name="email" placeholder="Email" required/>
     </div>
-  </div>
-
+    <div>
+      <input type="text" id="password" name="password" placeholder="Password" />
+    </div>
+    <input id="login_button" type="submit" value="Log In">
+    <div id="signup_button">Sign Up</div>
+    <a href="#">Forgot your login information?</a>
+  </form>
 </div>

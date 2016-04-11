@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160406231327) do
     t.string   "name",       default: "", null: false
     t.string   "email",      default: "", null: false
     t.string   "company",    default: "", null: false
+    t.integer  "org_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'core/run'
   get 'core/apps'
+  get 'core/login'
   resources :elements do
     member do
       get :callback
