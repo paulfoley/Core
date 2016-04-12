@@ -3,10 +3,6 @@ class CloudElements
     authorization = "Element ZE8J+lj7H01/8MnAVhZT5T6TwpW4d5eSPveoM+cTGh8=, User ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60="
     path = "https://console.cloud-elements.com/elements/api-v2/hubs/crm/accounts"
     url = "#{path}?returnTotalCount=true"
-    accept_header = "--header 'Accept: application/json' "
-    auth_header = "--header 'Authorization: #{authorization}' "
-    session_header = "--header 'Elements-Session: true' "
-    get_body= auth_header + "'https://console.cloud-elements.com/elements/api-v2/hubs/crm/accounts?returnTotalCount=true'"
 
     puts url
     url = URI.parse url
@@ -28,8 +24,6 @@ class CloudElements
 
     accounts = JSON.parse response.body
 
-    #puts hash
-    #puts accounts[1]["Name"]
     accounts.each do |key, value|
 
     end
