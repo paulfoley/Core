@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'core/run'
   get 'core/apps'
   get 'core/index'
+  post '/request' => 'callback#receive_data'
   
   
   resources :welcome
