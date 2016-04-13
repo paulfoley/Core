@@ -17,6 +17,9 @@ gem 'omniauth-quickbooks'
 gem 'tzinfo-data'
 gem 'json'
 
+gem 'stripe'
+gem 'stripe_event'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
