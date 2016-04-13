@@ -5,16 +5,14 @@ Rails.application.routes.draw do
   get 'core/run'
   get 'core/apps'
   get 'core/index'
-<<<<<<< HEAD
+
   #get 'callback/receive_data'
   post '/callback/receive_data' => 'callback#receive_data'
-=======
+
   post '/request' => 'callback#receive_data'
   
   get 'welcome/signup'
   get 'welcome/check_user'
-  
->>>>>>> origin/AdamWorking
   
   resources :welcome
   post '/welcome/check_user', to: 'welcome#check_user'
