@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'core/run'
   get 'core/apps'
   get 'core/index'
+  post '/request' => 'callback#receive_data'
   
   get 'welcome/signup'
   get 'welcome/check_user'

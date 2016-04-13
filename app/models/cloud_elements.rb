@@ -1,4 +1,34 @@
 class CloudElements
+  def self.get_accounts
+    authorization = "Element ZE8J+lj7H01/8MnAVhZT5T6TwpW4d5eSPveoM+cTGh8=, User ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60="
+    path = "https://console.cloud-elements.com/elements/api-v2/hubs/crm/accounts"
+    url = "#{path}?returnTotalCount=true"
+
+    puts url
+    url = URI.parse url
+    puts url
+    puts url.path + '?' + url.query
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true #(url.scheme == 'https')
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    #request = Net::HTTP::Get.new(url.path + '?' + url.query)
+    request = Net::HTTP::Get.new(url.path + '?' + url.query)
+      #request.basic_auth url.user, url.password
+    #request.body = (get_body)
+    request.initialize_http_header({"Authorization" => authorization})
+    response = http.request(request)
+
+   puts response
+
+   puts response.body
+
+    accounts = JSON.parse response.body
+
+    accounts.each do |key, value|
+
+    end
+  end
+
   def self.create_instance(element)
 
     #OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE

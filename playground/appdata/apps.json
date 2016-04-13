@@ -1,0 +1,27 @@
+{
+    "CRM": {
+        "appName":"Salesforce",
+        "appIcon":"http://s1.q4cdn.com/454432842/files/design/newlogo-company.png",
+        "oauthURL":"https://login.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9uudbyLbNPZM9tgYt1cA4yglnVMRyvCK01x2K8j3Qo1I.MkpK2mm8xTrBdwNPR8BG1HLN4S_5aRnwYPUc&client_secret=3910440158623989535&scope=full%20refresh_token&redirect_uri=https://bwgaydon.github.io/core/index.html&state=sfdc"
+    },
+    "marketing": {
+        "appName":"MailChimp",
+        "appIcon":"http://laketheatercafe.com/demo/wp-content/uploads/2015/04/mailchimp-big-logo1.png",
+        "oauthURL":"https://login.mailchimp.com/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fbwgaydon.github.io%2Fcore%2Findex.html&state=mailchimp3&client_id=627660219231"
+    },
+    "accounting": {
+        "appName":"QuickBooks",
+        "appIcon":"https://origin.ih.constantcontact.com/fs128/1109036754519/img/478.png",
+        "oauthURL":"https://appcenter.intuit.com/Connect/Begin?oauth_token=qyprdvJhj3mdXIGNWgXPHSh6sQYf2b7wpOZzZVKQNmChzrSW&oauth_callback=https%3A%2F%2Fbwgaydon.github.io%2Fcore%2Findex.html%3Fstate%3Dquickbooks"
+    },
+    "support": {
+        "appName":"ZenDesk",
+        "appIcon":"https://portalvhds06sf0zbnycwtg.blob.core.windows.net/uploads/ZENDESK_LOGO.png",
+        "oauthURL":"#"
+    },
+    "ecommerce": {
+        "appName":"Shopify",
+        "appIcon":"https://cdn.shopify.com/assets/images/logos/shopify-bag.png?1341928631",
+        "oauthURL":"#"
+    }
+}
