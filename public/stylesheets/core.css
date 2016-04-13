@@ -19,9 +19,29 @@ body > img {
 input {
     font-size:1em;
     color:#999999;
-    margin:0.5em;
+    margin:0.5em 25%;
     padding:0.25em;
     width:50%;
+}
+input[type=submit] {
+    width:25%;
+    padding:0.5em 0;
+    background-color:#4d3571;
+    border:1px solid #4d3571;
+    border-radius:2px;
+    color:#F0F0F0;
+    font-size:1em;
+}
+#login input[type=submit] {
+    float:left;
+    margin-top:7%;
+    margin-left:20%;
+    margin-right:0;
+}
+#signup input[type=submit] {
+    margin-top:7%;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 button {
@@ -30,39 +50,31 @@ button {
     border-radius:2px;
 }
 
-/*login*/
-#login_container {
-    position:relative;
-    top:30%;
+/*login page*/
+.login_container {
+    position:absolute;
     margin:0 auto;
-    width:50%;
+    top:30%;
+    left:25%;
+    right:25%;
+    width:auto;
     min-width:400px;
     text-align:center;
     overflow:hidden;
+    opacity:0;
+    transition: opacity 0.2s ease;
 }
-#login_container form {
+.login_container form {
     position:relative;
     z-index:1;
 }
-#login_container a {
+.login_container a {
     width:100%;
     margin-top:1em;
     color:#4d3571;
     font-size:0.75em;
     float:left;
     clear:both;
-}
-#login_button {
-    width:25%;
-    float:left;
-    margin-top:7%;
-    margin-left:20%;
-    padding:0.5em 0;
-    background-color:#4d3571;
-    border:1px solid #4d3571;
-    border-radius:2px;
-    color:#F0F0F0;
-    font-size:1em;
 }
 #signup_button {
     width:25%;
@@ -75,7 +87,10 @@ button {
     border-radius:2px;
     color:#4d3571;
     font-size:1em;
+    cursor:pointer;
 }
+
+/*main screen*/
 #sidebar a {
     width:20px;
 }
@@ -260,6 +275,7 @@ button {
     overflow-y:hidden;
     overflow-x:auto;
     white-space:nowrap;
+    margin-top:0.5em;
 }
 .wrapper li {
     position:relative;
@@ -267,7 +283,7 @@ button {
     height:auto;
     display:inline-block;
     text-align:center;
-    margin-right:1em;
+    margin:0 1em;
     z-index:1;
 }
 .wrapper li p {
@@ -370,4 +386,29 @@ button {
 }
 .edit_button:hover {
     font-size:0.85rem;
+}
+
+
+/*Utility classes*/
+.left {
+    float:left;
+}
+.right {
+    float:right;
+}
+.show {
+    opacity:1 !important;
+}
+.notice {
+    position:absolute;
+    top:70px;
+    width:20%;
+    left:40%;
+    right:40%;
+    padding:0.1em 0.5em;
+    border: 1px solid #FF1100;
+    border-radius:2px;
+    color:#FF1100;
+    background-color:#FFDADA;
+    text-align:center;
 }

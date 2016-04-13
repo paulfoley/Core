@@ -68,7 +68,20 @@ function getQueryVariable(variable)
 
 $(document).ready(function() {
     
-    if($('#login_container')) {
+    //if login page
+    if(!!document.getElementById("login")) {
+        document.getElementById("signup_button").addEventListener("click", function() {
+            $('#login').removeClass("show");
+            $('#signup').addClass("show");
+        });
+        document.getElementById("back").addEventListener("click", function() {
+            $('#signup').removeClass("show");
+            $('#login').addClass("show");
+        })
+    }
+    
+    //if main page
+    else if(!!document.getElementById("container")) {
         //global variables
         //view switches controlled via buttons
         active = $('.selected')
