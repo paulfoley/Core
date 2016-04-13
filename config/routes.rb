@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
+  
+  root 'welcome#index'
 
   get 'core/run'
   get 'core/apps'
   get 'core/index'
   
+  get 'welcome/signup'
+  get 'welcome/check_user'
   
-  resources :welcome
+  
+  post '/welcome/check_user', to: 'welcome#check_user'
+  post '/welcome/signup', to: 'welcome#signup'
   
   resources :elements do
     member do
@@ -14,8 +20,6 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-
-  root 'welcome#index'
 
   get '/auth/:provider/callback', to: 'sessions#create'
 
