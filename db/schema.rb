@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160413222157) do
+=======
+ActiveRecord::Schema.define(version: 20160413221854) do
+>>>>>>> a6b907b95015176a46ae24354a91147065844c9e
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160413222157) do
     t.integer  "org_id"
   end
 
+<<<<<<< HEAD
   create_table "salesforce_accounts", force: :cascade do |t|
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
@@ -48,6 +53,8 @@ ActiveRecord::Schema.define(version: 20160413222157) do
     t.string   "opportunity_id"
   end
 
+=======
+>>>>>>> a6b907b95015176a46ae24354a91147065844c9e
   create_table "stripe_customers", force: :cascade do |t|
     t.datetime "created_at",                                                            null: false
     t.datetime "updated_at",                                                            null: false
@@ -61,7 +68,10 @@ ActiveRecord::Schema.define(version: 20160413222157) do
     t.string   "Fees_for_charge_ID",                                      default: "",  null: false
     t.decimal  "Stripe_Account",                 precision: 15, scale: 2, default: 0.0, null: false
     t.string   "Net_for_charge_ID",                                       default: "",  null: false
+<<<<<<< HEAD
     t.integer  "org_id"
+=======
+>>>>>>> a6b907b95015176a46ae24354a91147065844c9e
   end
 
   create_table "users", force: :cascade do |t|

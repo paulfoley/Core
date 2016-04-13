@@ -14,8 +14,8 @@
   
   <%= form_tag(:action => "check_user") do %>
 
-    <%= text_field_tag("email",nil,placeholder:"Email") %>
-    <%= password_field_tag("password",nil,placeholder:"Password") %>
+    <%= text_field_tag("email",nil,:placeholder=>"Email",:required => true) %>
+    <%= password_field_tag("password",nil,:placeholder=>"Password",:required => true) %>
   
     <%= submit_tag("Log In")%>
     <div id="signup_button">Sign Up</div>
@@ -26,10 +26,9 @@
 <div id="signup" class="login_container">
   
   <%= form_tag(:action => "signup") do %>
-    <%= text_field_tag("username",nil,placeholder:"Enter Username") %>
-    <%= email_field_tag("email",nil,placeholder:"Enter Email") %>
-    <%= password_field_tag("password1",nil,placeholder:"Create Password") %>
-    <%= password_field_tag("password2",nil,placeholder:"Confirm Password") %>
+    <%= text_field_tag("username",nil,:placeholder=>"Enter Username",:required => true) %>
+    <%= email_field_tag("email",nil,:placeholder=>"Enter Email",:required => true) %>
+    <%= password_field_tag("password1",nil,:placeholder=>"Create Password",:required => true) %>
     
     <%= submit_tag("Sign Up!")%>
     <a id="back" href="#">Back to Login</a>

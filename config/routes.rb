@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   get 'welcome/check_user'
   
   resources :welcome
-  post '/welcome/check_user', to: 'welcome#check_user'
-  post '/welcome/signup', to: 'welcome#signup'
+  post '/welcome/check_user' => 'welcome#check_user'
+  post '/welcome/signup' => 'welcome#signup'
   
   resources :elements do
     member do

@@ -12,7 +12,7 @@ class WelcomeController < ApplicationController
     if User.exists?(email: @email)
       @user = User.find_by_email(@email)
       
-      if @password == @user.encrypted_password
+      if @user.valid_password?(@password)
         redirect_to controller:'core', action:'run'
       else 
         flash.notice = "Incorrect Password"
@@ -30,7 +30,8 @@ class WelcomeController < ApplicationController
     #if params[:password1] != params[:password2]
       #flash[:notice] = "Mismatched Passwords"
     #else
-      @new_user = User.create(:name=>params[:username], :email=>params[:email], :password=>params[:password1])
+      @user = User.create(:name=>params[:username], :email=>params[:email], :password=>params[:password1])
+      flash.notice = "User created!"
       redirect_to action:'index'
     #end
   end
