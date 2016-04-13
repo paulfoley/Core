@@ -9,18 +9,13 @@ gem 'rails', '4.2.5'
 gem 'pg'
 
 gem 'sass-rails'
-gem 'tzinfo'
-gem 'tzinfo-data'
 
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-stripe-connect'
 gem 'omniauth-quickbooks'
-
-gem 'stripe'
-gem 'stripe_event'
-
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'tzinfo-data'
+gem 'json'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -44,3 +39,4 @@ group :production do
   gem 'rails_12factor'
 end
 
+gem 'dotenv-rails', :groups => [:development, :test]
