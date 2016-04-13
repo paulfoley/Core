@@ -22,9 +22,6 @@ module Core
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-<<<<<<< HEAD
-   # config.force_ssl = true
-=======
->>>>>>> a6b907b95015176a46ae24354a91147065844c9e
+
   end
 end
