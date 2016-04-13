@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406231327) do
+ActiveRecord::Schema.define(version: 20160413222157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "databases", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "orgs", force: :cascade do |t|
     t.datetime "created_at",              null: false
@@ -28,6 +33,34 @@ ActiveRecord::Schema.define(version: 20160406231327) do
     t.string   "name",       default: "", null: false
     t.string   "email",      default: "", null: false
     t.string   "company",    default: "", null: false
+    t.integer  "org_id"
+  end
+
+  create_table "salesforce_accounts", force: :cascade do |t|
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "name",       default: "", null: false
+  end
+
+  create_table "salesforce_opportunities", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "opportunity_id"
+  end
+
+  create_table "stripe_customers", force: :cascade do |t|
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
+    t.string   "GENERAL_JOURNAL",                                         default: "",  null: false
+    t.string   "Description",                                                           null: false
+    t.string   "Email",                                                                 null: false
+    t.decimal  "Stripe_Sales",                   precision: 15, scale: 2, default: 0.0, null: false
+    t.string   "Charge_ID",                                               default: "",  null: false
+    t.string   "Rails_Stripe_customer",                                   default: "",  null: false
+    t.decimal  "Stripe_Payment_Processing_Fees", precision: 15, scale: 2, default: 0.0, null: false
+    t.string   "Fees_for_charge_ID",                                      default: "",  null: false
+    t.decimal  "Stripe_Account",                 precision: 15, scale: 2, default: 0.0, null: false
+    t.string   "Net_for_charge_ID",                                       default: "",  null: false
     t.integer  "org_id"
   end
 
