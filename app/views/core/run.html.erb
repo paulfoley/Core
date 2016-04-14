@@ -52,7 +52,9 @@
       </div>
       
       <div id="CRM_pane" class="r_app_pane">
-        
+        <% SalesforceAccount.all.each do |account| %>
+          <%= account.name %><br>
+        <% end %>
       </div>
       <div id="marketing_pane" class="r_app_pane">
         

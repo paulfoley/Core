@@ -6,7 +6,9 @@ class CoreController < ApplicationController
     
   end
 
-
+  def report
+  
+  end
 
 
 end
