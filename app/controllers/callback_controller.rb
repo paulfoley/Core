@@ -4,9 +4,17 @@ class CallbackController < ApplicationController
   respond_to :json
 
   def receive_data
+    render json:{}
 
-    payload  = response.body.to_json
-    payload = JSON.parse(payload)
-    puts payload
+
+    data = params[:_json]
+    puts data
+
+
+    data.each do |account|
+      Database.create_salesforce_account(account['Name'])
+
+
+    end
   end
 end

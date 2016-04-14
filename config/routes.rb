@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
   
+  get 'database/add_salesforce_account'
+
   root 'welcome#index'
 
   get 'core/run'
   get 'core/apps'
   get 'core/index'
 
-  #get 'callback/receive_data'
   post '/callback/receive_data' => 'callback#receive_data'
-
-  post '/request' => 'callback#receive_data'
   
   get 'welcome/signup'
   get 'welcome/check_user'
