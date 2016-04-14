@@ -77,13 +77,22 @@ $(document).ready(function() {
     
     //if login page
     if(!!document.getElementById("login")) {
+        if(document.getElementsByClassName("notice")[0]) {
+            setTimeout(function(){
+                document.getElementsByClassName("notice")[0].style.opacity = 0;
+            }, 5000);
+        }
         document.getElementById("signup_button").addEventListener("click", function() {
             $('#login').removeClass("show");
-            $('#signup').addClass("show");
+             setTimeout(function(){
+                $('#signup').addClass("show");
+            }, 150);
         });
         document.getElementById("back").addEventListener("click", function() {
             $('#signup').removeClass("show");
-            $('#login').addClass("show");
+             setTimeout(function(){
+                $('#login').addClass("show");
+            }, 150);
         })
     }
     
