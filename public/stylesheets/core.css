@@ -260,7 +260,8 @@ button {
     top:calc(55px + 5em);
     width:50%;
     height:auto;
-    overflow:scroll;
+    padding-top:1em;
+    overflow-y:scroll;
     left:25%;
     right:25%;
     border: 1px solid #4d3571;
