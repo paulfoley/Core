@@ -243,19 +243,42 @@ button {
 #reports {
     overflow-y:visible;
 }
-#r_container {
+#r_button_container {
     position:absolute;
     left:0;
     right:0;
     top:-150px;
-    margin:0 auto;
     width:auto;
     text-align:center;
 }
-.r_button{
+.r_button {
     height:5em;
     width:5em;
 }
+.r_app_pane {
+    position:absolute;
+    top:calc(55px + 5em);
+    width:50%;
+    height:50%;
+    left:25%;
+    right:25%;
+    border: 1px solid #4d3571;
+    border-radius:2px;
+    box-shadow:3px 3px 2px #d5c8e5;
+    opacity:0;
+    text-align:center;
+}
+#CRM_pane {
+}
+#marketing_pane {
+}
+#accounting_pane {
+}
+#support_pane {
+}
+#ecommerce_pane {
+}
+
 #settings {
 
 }

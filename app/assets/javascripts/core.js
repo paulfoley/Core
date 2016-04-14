@@ -42,15 +42,22 @@ function contextSwitch(button) {
 function reportSwitch(button) {
     
     $(button).css("filter","grayscale(0%)");
-        $(button).css("-webkit-filter","grayscale(0%)");
-        $(button).css("background-size","100%");
-        $(".r_button").each(function() {
-            if(this != button) {
-                $(this).css("filter","grayscale(100%)");
-                $(this).css("-webkit-filter","grayscale(100%)");
-                $(this).css("background-size","90%");
-            }
-        });
+    $(button).css("-webkit-filter","grayscale(0%)");
+    $(button).css("background-size","100%");
+    $(".r_button").each(function() {
+        if(this != button) {
+            $(this).css("filter","grayscale(100%)");
+            $(this).css("-webkit-filter","grayscale(100%)");
+            $(this).css("background-size","90%");
+        }
+    });
+    $(".r_app_pane").each(function() {
+        if(this.id.replace("_pane","") != button.id) {
+            $(this).removeClass("show");
+        }
+    });
+    $(document.getElementById(button.id+"_pane")).addClass("show");
+    
         
 }
 
