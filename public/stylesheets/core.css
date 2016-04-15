@@ -31,6 +31,7 @@ input[type=submit] {
     border-radius:2px;
     color:#F0F0F0;
     font-size:1em;
+    cursor:pointer;
 }
 #login input[type=submit] {
     float:left;
@@ -62,7 +63,7 @@ button {
     text-align:center;
     overflow:hidden;
     opacity:0;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.15s ease;
 }
 .login_container form {
     position:relative;
@@ -260,7 +261,8 @@ button {
     top:calc(55px + 5em);
     width:50%;
     height:auto;
-    overflow:scroll;
+    padding-top:1em;
+    overflow-y:scroll;
     left:25%;
     right:25%;
     border: 1px solid #4d3571;
@@ -421,7 +423,9 @@ button {
     float:right;
 }
 .show {
+    display:block !important;
     opacity:1 !important;
+    z-index:2;
 }
 .notice {
     position:absolute;
@@ -435,4 +439,6 @@ button {
     color:#FF1100;
     background-color:#FFDADA;
     text-align:center;
+    opacity: 1;
+    transition: opacity 1s ease;
 }
