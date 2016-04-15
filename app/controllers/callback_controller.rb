@@ -8,14 +8,23 @@ class CallbackController < ApplicationController
 
     accounts = params[:message][:raw][:Account]
     events = params[:message][:events]
+
+    # If the received JSON object contains account inforrmation
     if accounts != nil
       accounts.zip(events).each do |account, event|
         name = account[:Name]
         action = event[:eventType]
-        element = event[:element]
+        element = event[:elementKey]
 
         if action == "CREATED"
-          Database.create_salesforce_account(name)
+          Database.create_account(element, name)
+
+        elsif action == "DELETED"
+          #Do delete action
+          Database.delete_account(element, name)
+        elsif action == "CHANGED"
+          #Do change action
+
         end
       end
     end
