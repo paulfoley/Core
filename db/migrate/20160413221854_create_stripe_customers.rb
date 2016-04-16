@@ -1,6 +1,7 @@
 class CreateStripeCustomers < ActiveRecord::Migration
   def change
     create_table :stripe_customers do |t|
+      t.string :account_id, primary: true
       t.datetime "created_at",                                                              null: false
       t.datetime "updated_at",                                                              null: false
       t.string   "GENERAL_JOURNAL",                 default: "", null: false

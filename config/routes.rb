@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  mount StripeEvent::Engine => '/stripe_event'
   
   get 'database/add_salesforce_account'
 
