@@ -1,5 +1,5 @@
 class Database
-  def self.create_account(element, name, id)
+  def self.create_account(element, id, name)
 
     if element == "sfdc"
       SalesforceAccount.create(name: name, account_id: id).save
@@ -10,8 +10,16 @@ class Database
   def self.delete_account(element, id)
 
     if element == "sfdc"
+      SalesforceAccount.where(account_id: id).delete_all
+    end
 
-      SalesforceAccount.destroy_all(id)
+  end
+
+  def self.update_account(element, id, name)
+
+    if element == "sfdc"
+      SalesforceAccount.where(:account_id => id).update_all(name: name)
+
     end
 
   end

@@ -3,7 +3,7 @@ class CreateSalesforceAccounts < ActiveRecord::Migration
     create_table :salesforce_accounts, id: false do |t|
 
       t.timestamps null: false
-      t.string :account_id, primary: true
+      t.string :account_id, primary_key: true
       t.string :name
 
     end

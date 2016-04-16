@@ -21,14 +21,16 @@ class CallbackController < ApplicationController
 
         if action == "CREATED"
           if output == nil
-            Database.create_account(element, name, id)
+            Database.create_account(element, id, name)
           end
 
         elsif action == "DELETED"
           Database.delete_account(element, id)
 
-        elsif action == "UPDATES"
-          #Do change action
+        elsif action == "UPDATED"
+          if output != nil
+            Database.update_account(element, id, name)
+          end
 
         end
       end
