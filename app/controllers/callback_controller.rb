@@ -13,16 +13,21 @@ class CallbackController < ApplicationController
     if accounts != nil
       accounts.zip(events).each do |account, event|
         name = account[:Name]
+        id = account[:Id]
         action = event[:eventType]
         element = event[:elementKey]
 
+        output = SalesforceAccount.where(account_id: id).select(:account_id, :name).take
+
         if action == "CREATED"
-          Database.create_account(element, name)
+          if output == nil
+            Database.create_account(element, name, id)
+          end
 
         elsif action == "DELETED"
-          #Do delete action
-          Database.delete_account(element, name)
-        elsif action == "CHANGED"
+          Database.delete_account(element, id)
+
+        elsif action == "UPDATES"
           #Do change action
 
         end

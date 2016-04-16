@@ -1,17 +1,17 @@
 class Database
-  def self.create_account(element, name)
+  def self.create_account(element, name, id)
 
     if element == "sfdc"
-      SalesforceAccount.create(name: name).save
+      SalesforceAccount.create(name: name, account_id: id).save
     end
 
   end
 
-  def self.delete_account(element, name)
+  def self.delete_account(element, id)
 
     if element == "sfdc"
 
-      # Delete SalesforceAccount here.
+      SalesforceAccount.destroy_all(id)
     end
 
   end
