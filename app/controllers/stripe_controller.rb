@@ -1,7 +1,6 @@
-require 'json'
 class StripeController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  #protect_from_forgery :except => :webhook
+  skip_before_filter  :verify_authenticity_token
+  protect_from_forgery :except => :webhook
 
   def webhook
     #data_json = JSON.parse(request.body.read)
@@ -11,7 +10,10 @@ class StripeController < ApplicationController
     puts "Webhook function called"
 
     #event = Stripe::Event.retrieve(params[:id])
-    event = Stripe::Event.retrieve({id: params[:id]}, ENV['SECRET_KEY'])
+
+    data_json = JSON.parse(request.body.read)
+
+    event = Stripe::Event.retrieve({id: data_json[:id]}, ENV['SECRET_KEY'])
     if event.type = "charge.succeeded"
       charge = Stripe::Charge.retrieve(event.data.object.id.to_s)
       balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction.to_s)
