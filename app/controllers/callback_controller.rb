@@ -17,7 +17,7 @@ class CallbackController < ApplicationController
         action = event[:eventType]
         element = event[:elementKey]
 
-        data = [account[:Name], account[:]
+        data = [account[:Name], account[:id]]
 
         output = SalesforceAccount.where(account_id: id).select(:account_id, :name).take
 
