@@ -82,7 +82,7 @@ $(document).ready(function() {
                 name: 'Microsoft',
                 y: 4.77
             }, {
-                name: 'Opera',
+                name: 'Other',
                 y: 1.11
             }]
         }]
@@ -130,7 +130,7 @@ $(document).ready(function() {
                 name: 'Microsoft',
                 y: 4.77
             }, {
-                name: 'Opera',
+                name: 'Other',
                 y: 1.11
             }]
         }]
@@ -178,7 +178,7 @@ $(document).ready(function() {
                 name: 'Microsoft',
                 y: 4.77
             }, {
-                name: 'Opera',
+                name: 'Other',
                 y: 1.11
             }]
         }]

@@ -15,11 +15,11 @@
 
 <div id="login" class="login_container <%=@show_login%>">
   
-  <%= form_tag(:action => "check_user") do %>
+  <%= form_tag :action=>"check_user" do %>
 
-    <%= text_field_tag("email",nil,:placeholder=>"Email",:required => true) %>
+    <%= email_field_tag("email",nil,:placeholder=>"Email",:required => true) %>
     <%= password_field_tag("password",nil,:placeholder=>"Password",:required => true) %>
-  
+    
     <%= submit_tag("Log In")%>
     <div id="signup_button">Sign Up</div>
     <a href="#">Forgot your login information?</a>
@@ -29,7 +29,7 @@
 <div id="signup" class="login_container <%=@show_signup%>">
   
   <%= form_tag(:action => "signup") do %>
-    <%= text_field_tag("username",nil,:placeholder=>"Enter Username",:required => true) %>
+    <%= text_field_tag("org",nil,:placeholder=>"Organization Name",:required => true) %>
     <%= email_field_tag("email",nil,:placeholder=>"Enter Email",:required => true) %>
     <%= password_field_tag("password1",nil,:placeholder=>"Create Password",:required => true) %>
     

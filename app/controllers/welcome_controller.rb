@@ -22,6 +22,8 @@ class WelcomeController < ApplicationController
       @user = User.find_by_email(@email)
       
       if @user.valid_password?(@password)
+        session[:name] = @user.name
+        session[:email] = @email
         redirect_to controller:'core', action:'run'
       else 
         flash[:failure] = "Incorrect Password"
@@ -35,18 +37,29 @@ class WelcomeController < ApplicationController
   helper_method :check_user
   
   def signup
+    
+    if Org.exists?(name: params[:org])
+      flash[:failure] = "Organization already exists"
+      redirect_to action:'index', view:'signup'
+    end
+    
     @email = params[:email]
-    #if params[:password1] != params[:password2]
-      #flash[:notice] = "Mismatched Passwords"
-    #else
+    
     if User.exists?(email: @email)
-      flash[:failure] = "User already exists"
+      flash[:failure] = "A user with that email already exists"
       redirect_to action:'index', view:"signup"
     else
-      @user = User.create(:name=>params[:username], :email=>params[:email], :password=>params[:password1])
+      @org = Org.create(:name=>params[:org])
+      @user = User.create(:name=>params[:email], :email=>params[:email], :password=>params[:password1], :org=>@org)
       flash[:success] = "User created!"
       redirect_to action:'index', view:"login"
     end
+  end
+  
+  def login
+  end
+  
+  def logout
   end
   
   def run
