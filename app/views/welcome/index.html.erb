@@ -6,11 +6,14 @@
 
 <img src="http://i.imgur.com/CRjP7kU.png">
 
-<% if flash.notice %>
-  <div class="notice"><%= flash.notice %></div>
+<% if flash[:success] %>
+  <div class="notice success"><%= flash[:success] %></div>
+<% end %>
+<% if flash[:failure] %>
+  <div class="notice failure"><%= flash[:failure] %></div>
 <% end %>
 
-<div id="login" class="login_container show">
+<div id="login" class="login_container <%=@show_login%>">
   
   <%= form_tag(:action => "check_user") do %>
 
@@ -23,7 +26,7 @@
   <% end %>
   
 </div>
-<div id="signup" class="login_container">
+<div id="signup" class="login_container <%=@show_signup%>">
   
   <%= form_tag(:action => "signup") do %>
     <%= text_field_tag("username",nil,:placeholder=>"Enter Username",:required => true) %>

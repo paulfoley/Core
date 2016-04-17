@@ -6,16 +6,34 @@ class CallbackController < ApplicationController
   def receive_data
     render json:{}
 
-    message = params[:message]
-    raw = message[:raw]
-    account = raw[:Account]
-    events = message[:events]
-    name = account[0][:Name]
-    action = events[0][:eventType]
+    accounts = params[:message][:raw][:Account]
+    events = params[:message][:events]
 
-    if action == "CREATED"
-      Database.create_salesforce_account(name)
+    # If the received JSON object contains account inforrmation
+    if accounts != nil
+      accounts.zip(events).each do |account, event|
+        name = account[:Name]
+        id = account[:Id]
+        action = event[:eventType]
+        element = event[:elementKey]
+
+        output = SalesforceAccount.where(account_id: id).select(:account_id, :name).take
+
+        if action == "CREATED"
+          if output == nil
+            Database.create_account(element, id, name)
+          end
+
+        elsif action == "DELETED"
+          Database.delete_account(element, id)
+
+        elsif action == "UPDATED"
+          if output != nil
+            Database.update_account(element, id, name)
+          end
+
+        end
+      end
     end
-
   end
 end

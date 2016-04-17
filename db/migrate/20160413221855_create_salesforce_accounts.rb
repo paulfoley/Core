@@ -1,9 +1,10 @@
 class CreateSalesforceAccounts < ActiveRecord::Migration
   def change
-    create_table :salesforce_accounts do |t|
+    create_table :salesforce_accounts, id: false do |t|
 
       t.timestamps null: false
-      t.string :name,           null: false, default: ""
+      t.string :account_id, primary_key: true
+      t.string :name
 
     end
   end
