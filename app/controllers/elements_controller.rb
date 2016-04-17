@@ -14,14 +14,12 @@ class ElementsController < ApplicationController
 
 
   def callback
-    @uri = URI.parse(request.original_url)
-    @uri_params = CGI.parse(@uri.query)
-    @state = @uri_params['state']
+    @uri_params = params
     redirect_to "https://corecloudapp.herokuapp/core/run"
-    if @state == "sfdc"
-      CloudElements.salesforce_instance(@uri_params['code'])
+    if @uri_params[:state] == "sfdc"
+      CloudElements.salesforce_instance(@uri_params[:code])
     elsif @state == "quickbooks"
-      CloudElements.quickbooks_instance(@uri_params['oauth_token'], @uri_params['oauth_verifier'], @uri_params['realmId'], @uri_params['dataSource'])
+      CloudElements.quickbooks_instance(@uri_params[:oauth_token], @uri_params[:oauth_verifier], @uri_params[:realmId], @uri_params[:dataSource])
     end
   end
 
