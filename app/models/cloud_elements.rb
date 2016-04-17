@@ -176,7 +176,7 @@ class CloudElements
 
 
   def self.setup_polling
-    
+
   end
 
 
