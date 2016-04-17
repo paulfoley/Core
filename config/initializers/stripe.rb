@@ -6,6 +6,7 @@ Rails.configuration.stripe = {
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
 STRIPE_PUBLIC_KEY = Rails.configuration.stripe[:publishable_key]
 
+=begin
 StripeEvent.configure do |events|
   events.subscribe 'charge.succeeded' do |event|
     # Define subscriber behavior based on the event object
@@ -15,6 +16,7 @@ StripeEvent.configure do |events|
     ChargeSucceeded.call(event)
   end
 end
+=end
 
 =begin
 StripeEvent.setup do

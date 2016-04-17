@@ -1,6 +1,7 @@
 class ChargeSucceeded
   def call(event)
-    Rails.logger.log("Somebody paid us! Woohoo!")
+    #Rails.logger.log("Somebody paid us! Woohoo!")
+    puts "Now in the charge succeeded class"
 
     charge = Stripe::Charge.retrieve(event.data.object.id.to_s)
     balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction.to_s)
