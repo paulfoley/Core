@@ -30,8 +30,9 @@ class CallbackController < ApplicationController
         elsif action == "UPDATED"
           if output != nil
             Database.update_account(element, id, name)
+          elsif output == nil
+            Database.create_account(element, id, name)
           end
-
         end
       end
     end
