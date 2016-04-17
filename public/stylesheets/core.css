@@ -233,14 +233,24 @@ button {
     opacity:0;
     position:absolute;
     width:100%;
-    height:90%;
+    height:calc(100% - 55px);
     font-size:1.5rem;
     transition: opacity 0.1s ease;
     overflow-y:scroll;
 }
 #metrics {
-
+    text-align:center;
 }
+#metrics_container {
+    width:90%;
+    margin:0 auto;
+    overflow:hidden;
+}
+.metrics_div {
+    height:12em;
+    margin-bottom:0.5em;
+}
+
 #reports {
     overflow-y:visible;
 }
@@ -408,19 +418,34 @@ button {
     border-radius:3px;
     color:#FFFFFF;
     background-color:#4d3571;
-    transition:font-size 0.3s ease
+    transition:font-size 0.3s linear;
 }
 .edit_button:hover {
-    font-size:0.85rem;
+    font-size: 0.85rem;
 }
 
 
 /*Utility classes*/
 .left {
     float:left;
+    clear:left;
 }
 .right {
     float:right;
+    clear:right;
+}
+.middle {
+    float:left;
+}
+.fullwidth {
+    width:100%;
+    clear:both;
+}
+.halfwidth {
+    width:50%;
+}
+.thirdwidth {
+    width:33.3%;
 }
 .show {
     display:block !important;
@@ -434,11 +459,19 @@ button {
     left:40%;
     right:40%;
     padding:0.1em 0.5em;
-    border: 1px solid #FF1100;
     border-radius:2px;
-    color:#FF1100;
-    background-color:#FFDADA;
     text-align:center;
     opacity: 1;
     transition: opacity 1s ease;
+}
+
+.success {
+    border: 1px solid #1E7000;
+    color:#1E7000;
+    background-color:#B3FFA0;
+}
+.failure {
+    border: 1px solid #FF1100;
+    color:#FF1100;
+    background-color:#FFDADA;
 }

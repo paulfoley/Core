@@ -77,6 +77,7 @@ $(document).ready(function() {
     
     //if login page
     if(!!document.getElementById("login")) {
+        
         if(document.getElementsByClassName("notice")[0]) {
             setTimeout(function(){
                 document.getElementsByClassName("notice")[0].style.opacity = 0;
@@ -93,7 +94,8 @@ $(document).ready(function() {
              setTimeout(function(){
                 $('#login').addClass("show");
             }, 150);
-        })
+        });
+        
     }
     
     //if main page
