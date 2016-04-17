@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   
   get 'welcome/signup'
   get 'welcome/check_user'
+
+  get 'elements/callback'
   
   resources :welcome
   post '/welcome/check_user' => 'welcome#check_user'
