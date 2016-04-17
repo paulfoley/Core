@@ -17,6 +17,8 @@ class CallbackController < ApplicationController
         action = event[:eventType]
         element = event[:elementKey]
 
+        data = [account[:Name], account[:]
+
         output = SalesforceAccount.where(account_id: id).select(:account_id, :name).take
 
         if action == "CREATED"

@@ -4,7 +4,8 @@ class CreateOrgs < ActiveRecord::Migration
     create_table :orgs do |t|
       t.timestamps null: false
       t.string :name,           null: false, default: ""
-      #t.has_many :users, index: true
+      t.string :salesforce_token
+      t.string :quickbooks_token
     end
 
   end

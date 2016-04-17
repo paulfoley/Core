@@ -1,9 +1,15 @@
 class Database
 
-  def self.create_user(name, email, password, is_admin)
+  def self.create_org(name)
+    if User.where(name: name).select(:name).take == nil
+      Org.create(:name => name)
+    end
+  end
+
+  def self.create_user(name, email, password, is_admin, org)
 
     if User.where(email: email).select(:email).take == nil
-      User.create(:name => name, :email => email, :password => password, :is_admin => is_admin)
+      User.create(:name => name, :email => email, :password => password, :is_admin => is_admin, :org => org)
     end
 
   end
