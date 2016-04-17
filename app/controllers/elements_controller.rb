@@ -1,16 +1,31 @@
 class ElementsController < ApplicationController
 
+  require 'cgi'
+  require 'uri'
+
   def show
-    response =  CloudElements.create_instance(params[:id])
-    redirect_to response['oauthUrl']
-    #render json: {stuff:'here'}
+    @app = params[:app_name]
+    if @app == "a_CRM"
+      redirect_to CloudElements.salesforce_oauthurl
+    elsif @app == "a_accounting"
+      redirect_to CloudElements.quickbooks_oauthtoken
+    end
+  end
+
+
+  def oauth_url
+
   end
 
   def callback
-    # Step 3: get the params from the oauth callback
-    # step 4: make another post to cloud elements
-    # save the info somewhere
-    # redirect the user to the admin ui
+    uri = URI.parse(@object.location)
+    uri_params = CGI.parse(uri.query)
+    @state = uri_params['state']
+    if @state == "sfdc"
+      CloudElements.salesforce_instance(code)
+    elsif @state == "quickbooks"
+      CloudElements.quickbooks_instance(oauth_token, oauth_verifier, realmId, dataSource)
+    end
 
     puts "doing stuff here"
     render json: params

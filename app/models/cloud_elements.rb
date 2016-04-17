@@ -1,45 +1,84 @@
 class CloudElements
-  def self.get_accounts
-    authorization = "Element ZE8J+lj7H01/8MnAVhZT5T6TwpW4d5eSPveoM+cTGh8=, User ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60="
-    path = "https://console.cloud-elements.com/elements/api-v2/hubs/crm/accounts"
-    url = "#{path}?returnTotalCount=true"
 
-    puts url
+  def self.salesforce_oauthurl
+    api_key = ENV['SALESFORCE_API_KEY']
+    api_secret = ENV['SALESFORCE_API_SECRET']
+    callback_url = ENV['INSTANCE_CALLBACK_URL']
+
+    path = "https://api.cloud-elements.com/elements/api-v2/elements/sfdc/oauth/url"
+    url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}&state=sfdc"
+
+#    puts url
     url = URI.parse url
-    puts url
-    puts url.path + '?' + url.query
+ #   puts url
+#    puts url.path + '?' + url.query
     http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true #(url.scheme == 'https')
+    http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    #request = Net::HTTP::Get.new(url.path + '?' + url.query)
     request = Net::HTTP::Get.new(url.path + '?' + url.query)
-      #request.basic_auth url.user, url.password
-    #request.body = (get_body)
-    request.initialize_http_header({"Authorization" => authorization})
     response = http.request(request)
 
-   puts response
+    response_parsed = JSON.parse(response.body)
+    oauth_url = response_parsed['oauthUrl']
+#    puts oauth_url
+    return oauth_url
 
-   puts response.body
-
-    accounts = JSON.parse response.body
-
-    accounts.each do |key, value|
-
-    end
   end
 
-  def self.create_instance(element)
 
-    #OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-    path = "https://api.cloud-elements.com/elements/api-v2/elements/#{element}/oauth/url"
-    api_key = '3MVG9uudbyLbNPZM9tgYt1cA4yglnVMRyvCK01x2K8j3Qo1I.MkpK2mm8xTrBdwNPR8BG1HLN4S_5aRnwYPUc'
-    api_secret = '3910440158623989535'
-    call_back = "https://127.0.0.1/elements/#{element}/callback"
-    #redirect  to elements/callback
-    url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{call_back}&state=#{element}"
+  def self.salesforce_instance(code)
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
+    api_key = ENV['SALESFORCE_API_KEY']
+    api_secret = ENV['SALESFORCE_API_SECRET']
+    callback_url = ENV['INSTANCE_CALLBACK_URL']
+
+    headers = {
+        'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
+        'Content-Type' => 'application/json'
+    }
+
+    body = {
+        'element' => {
+        'key' => 'sfdc'
+        },
+        'providerData' => {
+        'code' => code
+        },
+        'configuration' => {
+        'oauth.callback.url' => callback_url,
+        'oauth.api.key' => api_key,
+        'oauth.api.secret' => api_secret
+        },
+        'name' => 'temp_name'
+    }.to_json
+
+
+    uri = URI('https://api.cloud-elements.com/elements/api-v2/instances')
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    post = Net::HTTP::Post.new(uri.path, headers)
+    post.body = body
+
+    response = http.request(post)
+
+    puts response.body
+    puts response.code
+
+  end
+
+
+  def self.quickbooks_oauthtoken
+    api_key = ENV['QUICKBOOKS_API_KEY']
+    api_secret = ENV['QUICKBOOKS_API_SECRET']
+    callback_url = ENV['INSTANCE_CALLBACK_URL']
+
+    path = "https://api.cloud-elements.com/elements/api-v2/elements/quickbooks/oauth/token"
+    url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}"
+
     puts url
-    #response = Net::HTTP.get(URI.parse(url))
     url = URI.parse url
     puts url
     puts url.path + '?' + url.query
@@ -47,43 +86,98 @@ class CloudElements
     http.use_ssl = true #(url.scheme == 'https')
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url.path + '?' + url.query)
-    #request.basic_auth url.user, url.password
     response = http.request(request)
 
-    puts response
+    response_parsed = JSON.parse(response.body)
+    $quickbooks_request_secret = response_parsed['secret']
+    request_token = response_parsed['token']
+
+    oauth_url = self.quickbooks_oauthurl(request_token)
+    return oauth_url
+  end
+
+
+  def self.quickbooks_oauthurl(token)
+    api_key = ENV['QUICKBOOKS_API_KEY']
+    api_secret = ENV['QUICKBOOKS_API_SECRET']
+    callback_url = ENV['INSTANCE_CALLBACK_URL']
+
+    path = "https://api.cloud-elements.com/elements/api-v2/elements/quickbooks/oauth/url"
+    url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}&requestToken=#{token}&state=quickbooks"
+
+    puts url
+    url = URI.parse url
+    puts url
+    puts url.path + '?' + url.query
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true #(url.scheme == 'https')
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url.path + '?' + url.query)
+    response = http.request(request)
 
     puts response.body
 
-    return JSON.parse(response.body)
-    #response_hash = JSON.parse(response)
+    response_parsed = JSON.parse(response.body)
+    oauth_url = response_parsed['oauthUrl']
+    puts oauth_url
+    return oauth_url
 
-    # @element = response_hash['element']
-    # oauth_url = response_hash['@oauth_url']
+  end
 
-    # org_name = org_name
-    # user_secret = ENV['CLOUDLEMENTS_USER_SECRET'] #'ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60='
-    # org_secret = '52d24ebf350ceeb29afef2768b668852'
-    #
-    # path = 'https://console.cloud-elements.com/elements/api-v2/instances'
-    # @body = {
-    #     :element => {:key => @element},
-    #     :providerData => {:code => url_code},
-    #     :configuration => {
-    #         'oauth.callback.url' => call_back,
-    #         'oauth.api.key' => api_key,
-    #         'oauth.api.secret' => api_secret},
-    #     :name => org_name
-    # }.to_json
-    #
-    # @headers = {
-    #     :Authorization => "User => #{user_secret} Organization #{org_secret}",
-    #     'Content-Type' => 'application/json'
-    # }.to_json
-    #
-    # request = Net::HTTP::Post.new(path, :body => @body, :headers => @headers)
-    #
-    # @request_hash = JSON.parse(request)
-   end
+
+  def self.quickbooks_instance(oauth_token, oauth_verifier, realmId, dataSource)
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
+    api_key = ENV['QUICKBOOKS_API_KEY']
+    api_secret = ENV['QUICKBOOKS_API_SECRET']
+    callback_url = ENV['INSTANCE_CALLBACK_URL']
+
+    headers = {
+        'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
+        'Content-Type' => 'application/json'
+    }
+
+    body = {
+        'name' => 'temp_name',
+        'element' => {
+           'key' => 'quickbooks'
+        },
+        'providerData' => {
+           'secret' => $quickbooks_request_secret,
+           'oauth_token' => oauth_token,
+           'realmId' => realmId,
+           'state' => 'quickbooks',
+           'dataSource' => dataSource,
+           'oauth_verifier' => oauth_verifier
+        },
+        'configuration' => {
+           'oauth.api.key' => api_key,
+           'oauth.api.secret' => api_secret,
+           'oauth.callback.url' => callback_url
+        }
+    }.to_json
+
+
+    uri = URI('https://api.cloud-elements.com/elements/api-v2/instances')
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    post = Net::HTTP::Post.new(uri.path, headers)
+    post.body = body
+
+    response = http.request(post)
+
+    puts response.body
+    puts response.code
+
+  end
+
+
+
+  def self.setup_polling
+    
+  end
 
 
    #check if customer exists in quickbooks. Used for Stripe integration.
@@ -93,14 +187,14 @@ class CloudElements
 
     path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers?where=companyName%3E%3D'#{customer}'"
 
-    @headers = {
+    headers = {
         :Authorization => "Element #{token}, User #{user_secret}"
     }.to_json
 
-    request = Net::HTTP::Get.new(path, :headers => @headers)
+    request = Net::HTTP::Get.new(path, :headers => headers)
 
     #save the response to check if customer exists
-    @request_hash = JSON.parse(request)
+    request_hash = JSON.parse(request)
 
     #check if customer exists
 
@@ -112,20 +206,20 @@ class CloudElements
 
     path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers"
 
-    @body = {
+    body = {
         #:primaryEmailAddr => {
         #    'address' => 
         #},
         :displayName => "#{customer}"
     }
 
-    @headers = {
+    headers = {
         :Authorization => "Element #{token}, User #{user_secret}"
     }.to_json
 
-    request = Net::HTTP::Post.new(path, :body => @body, :headers => @headers)
+    request = Net::HTTP::Post.new(path, :body => body, :headers => headers)
 
-    @request_hash = JSON.parse(request)
+    request_hash = JSON.parse(request)
     
     end
     
@@ -135,15 +229,15 @@ class CloudElements
 
       path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/payments"
 
-      @body = {
+      body = {
 
       }
 
-      @headers = {
+      headers = {
         :Authorization => "Element #{token}, User #{user_secret}"
       }.to_json
 
-      request = Net::HTTP::Post.new(path, :body => @body, :headers => @headers)
+      request = Net::HTTP::Post.new(path, :body => body, :headers => headers)
 
 
     end

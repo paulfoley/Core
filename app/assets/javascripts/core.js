@@ -120,13 +120,17 @@ $(document).ready(function() {
         //this requires each field in JSON be titled the same as the corresponding DOM element
         appsObject = $.getJSON("/apps.json", function() {
             $('.app_button').each(function() {
-                if($(this).hasClass("admin_item")) {
-                    eval("$(this).parent()[0].href = appsObject.responseJSON." + this.id.replace("a_","") + ".oauthURL");
-                }
                 //$('#s_marketing')[0].style.backgroundImage = " url(' " + appsObject.responseJSON.marketing.appIcon + " ') ";
                 var first = "$('#" + this.id + "')[0].style.backgroundImage = ";
                 var second = '"' + "url('" + '"' + "+ appsObject.responseJSON." + this.id.replace("a_","") + ".appIcon + " + '"' + "')" + '"';
                 eval(first+second);
+            });
+        });
+        
+        
+        $('.admin_item').each(function() {
+            this.addEventListener('click', function() {
+                window.location = "/elements/show/?app_name=" + this.id;
             });
         });
     
