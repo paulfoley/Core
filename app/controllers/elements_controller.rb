@@ -16,7 +16,7 @@ class ElementsController < ApplicationController
   def callback
     @uri_params = params
     redirect_to "http://corecloudapp.herokuapp.com/core/run"
-    @state = uri_params[:state]
+    @state = @uri_params[:state]
     if @state == "sfdc"
       CloudElements.salesforce_instance(@uri_params[:code])
     elsif @state == "quickbooks"
