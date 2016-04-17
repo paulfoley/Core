@@ -17,7 +17,7 @@ class ElementsController < ApplicationController
     @uri = URI.parse(request.original_url)
     @uri_params = CGI.parse(@uri.query)
     @state = @uri_params['state']
-    redirect_to "http://corecloudapp.herokuapp/core/run"
+    redirect_to "https://corecloudapp.herokuapp/core/run"
     if @state == "sfdc"
       CloudElements.salesforce_instance(@uri_params['code'])
     elsif @state == "quickbooks"
