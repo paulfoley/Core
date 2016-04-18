@@ -18,9 +18,9 @@ class ElementsController < ApplicationController
     redirect_to "http://corecloudapp.herokuapp.com/core/run"
     @state = @uri_params[:state]
     if @state == "sfdc"
-      CloudElements.salesforce_instance(@uri_params[:code])
+      CloudElements.salesforce_instance(session[:org], @uri_params[:code])
     elsif @state == "quickbooks"
-      CloudElements.quickbooks_instance(@uri_params[:oauth_token], @uri_params[:oauth_verifier], @uri_params[:realmId], @uri_params[:dataSource])
+      CloudElements.quickbooks_instance(session[:org], @uri_params[:oauth_token], @uri_params[:oauth_verifier], @uri_params[:realmId], @uri_params[:dataSource])
     end
   end
 
