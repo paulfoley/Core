@@ -86,14 +86,20 @@ $(document).ready(function() {
         document.getElementById("signup_button").addEventListener("click", function() {
             $('#login').removeClass("show");
              setTimeout(function(){
+                $('#login').css("display","none");
+                $('#signup').css("display","block");
                 $('#signup').addClass("show");
             }, 150);
+            
         });
         document.getElementById("back").addEventListener("click", function() {
             $('#signup').removeClass("show");
              setTimeout(function(){
+                $('#signup').css("display","none");
+                $('#login').css("display","block");
                 $('#login').addClass("show");
             }, 150);
+            
         });
         
     }
