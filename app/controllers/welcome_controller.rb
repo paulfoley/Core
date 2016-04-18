@@ -45,18 +45,17 @@ class WelcomeController < ApplicationController
     if Org.exists?(name: params[:org])
       flash[:failure] = "Organization already exists"
       redirect_to action:'index', view:'signup'
-    end
-    
-    @email = params[:email]
-    
-    if User.exists?(email: @email)
-      flash[:failure] = "A user with that email already exists"
-      redirect_to action:'index', view:"signup"
     else
-      @org = Org.create(:name=>params[:org])
-      @user = User.create(:name=>params[:email], :email=>params[:email], :password=>params[:password1], :org=>@org, :is_admin=>true)
-      flash[:success] = "User created!"
-      redirect_to action:'index', view:"login"
+      @email = params[:email]
+      if User.exists?(email: @email)
+        flash[:failure] = "A user with that email already exists"
+        redirect_to action:'index', view:"signup"
+      else
+        @org = Org.create(:name=>params[:org])
+        @user = User.create(:name=>params[:email], :email=>params[:email], :password=>params[:password1], :org=>@org, :is_admin=>true)
+        flash[:success] = "User created!"
+        redirect_to action:'index', view:"login"
+      end
     end
   end
   
