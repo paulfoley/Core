@@ -22,9 +22,11 @@ ActiveRecord::Schema.define(version: 20160417212211) do
   end
 
   create_table "orgs", force: :cascade do |t|
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "name",       default: "", null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "name",             default: "", null: false
+    t.string   "salesforce_token"
+    t.string   "quickbooks_token"
   end
 
   create_table "quickbooks_customers", force: :cascade do |t|
