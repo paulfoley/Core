@@ -53,7 +53,7 @@ button {
     text-align:center;
     overflow:hidden;
     opacity:0;
-    transition: opacity 0.15s ease;
+    transition: opacity 0.2s ease;
 }
 .login_container form {
     position:relative;

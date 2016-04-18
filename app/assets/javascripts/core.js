@@ -78,6 +78,10 @@ $(document).ready(function() {
     //if login page
     if(!!document.getElementById("login")) {
         
+        //hack to get login and signup transitions working properly
+        $('#signup').css("display","none");
+        $('#login').css("display","block");
+        
         if(document.getElementsByClassName("notice")[0]) {
             setTimeout(function(){
                 document.getElementsByClassName("notice")[0].style.opacity = 0;
@@ -89,7 +93,7 @@ $(document).ready(function() {
                 $('#login').css("display","none");
                 $('#signup').css("display","block");
                 $('#signup').addClass("show");
-            }, 150);
+            }, 200);
             
         });
         document.getElementById("back").addEventListener("click", function() {
@@ -98,7 +102,7 @@ $(document).ready(function() {
                 $('#signup').css("display","none");
                 $('#login').css("display","block");
                 $('#login').addClass("show");
-            }, 150);
+            }, 200);
             
         });
         
