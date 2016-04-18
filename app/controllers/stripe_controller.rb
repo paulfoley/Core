@@ -9,11 +9,24 @@ class StripeController < ApplicationController
     #Rails.logger.log("Webhook function called")
     puts "Webhook function called"
 
+=begin
+    StripeEvent.event_retriever = lambda do |params|
+      if params[:livemode]
+        ::Stripe::Event.retrieve(params[:id])
+      elsif Rails.env.development?
+        # This will return an event as is from the request (security concern in production)
+        ::Stripe::Event.construct_from(params.deep_symbolize_keys)
+      else
+        nil
+      end
+    end
+=end
+
     #event = Stripe::Event.retrieve(params[:id])
 
     data_json = JSON.parse(request.body.read)
 
-    event = Stripe::Event.retrieve({id: data_json[:id]}, ENV['SECRET_KEY'])
+    event = Stripe::Event.retrieve({id: data_json[:id]})
     if event.type = "charge.succeeded"
       charge = Stripe::Charge.retrieve(event.data.object.id.to_s)
       balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction.to_s)

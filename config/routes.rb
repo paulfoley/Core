@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  mount StripeEvent::Engine => '/stripe/webhook'
-
-  #post '/stripe/webhook' => 'stripe#webhook'
+  resources :stripe
+  mount StripeEvent::Engine => '/stripe-Webhooks'
+  post '/stripe/webhook' => 'stripe#webhook'
   
   get 'database/add_salesforce_account'
 
