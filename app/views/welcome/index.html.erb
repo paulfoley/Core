@@ -29,7 +29,7 @@
   <div id="signup" class="login_container <%=@show_signup%>">
     
     <%= form_tag(:action => "signup") do %>
-      <%= text_field_tag("org",nil,:placeholder=>"Organization Name",:require=>true) %>
+      <%= text_field_tag("org",nil,:placeholder=>"Organization Name",:required=>true) %>
       <%= text_field_tag("firstname",nil,:placeholder=>"First Name",:required=>true,:class=>"name") %>
       <%= text_field_tag("lastname",nil,:placeholder=>"Last Name",:required=>true,:class=>"name") %>
       <%= email_field_tag("email",nil,:placeholder=>"Enter Email",:required=>true) %>

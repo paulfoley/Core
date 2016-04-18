@@ -93,7 +93,7 @@
       <div id="settings_container">
         <div id="profile_picture">
           <div class="edit_button">Edit</div>
-          <img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAASZAAAAJDc0YWJkMDA5LTU2MmMtNDRjOS1hZDZhLTgwNTNjYzk0ZGNlOA.jpg">
+          <img src="http://www.eataway.com/assets/img/profile-no-image.png">
         </div>
         <div id="profile_info">
           <h2><%= session[:name] %></h2>
@@ -105,54 +105,56 @@
       </div>
     </div>
     <div class="pane" id="admin">
-      <h2>Applications</h2>
-      <ul class="wrapper">
-        <li>
-          <p>CRM</p>
-          <a href="#">
-            <div id="a_CRM" class="app_button admin_item"></div>
-          </a>
-        </li>
-        <li>
-          <p>Marketing</p>
-          <a href="#">
-            <div id="a_marketing" class="app_button admin_item"></div>
-          </a>
-        </li>
-        <li>
-          <p>Accounting</p>
-          <a href="#">
-            <div id="a_accounting" class="app_button admin_item"></div>
-          </a>
-        </li>
-        <li>
-          <p>Support</p>
-          <a href="#">
-            <div id="a_support" class="app_button admin_item "></div>
-          </a>
-        </li>
-        <li>
-          <p>Ecommerce</p>
-          <a href="#">
-            <div id="a_ecommerce" class="app_button admin_item"></div>
-          </a>
-        </li>
-      </ul>
-      <h2>Users</h2>
-      <ul class="wrapper">
-        <li>
-          <p>Paul Foley</p>
-          <div class="item user_item"></div>
-        </li>
-        <li>
-          <p>Ben Jacobson</p>
-          <div class="item user_item"></div>
-        </li>
-        <li>
-          <p>Larry Page</p>
-          <div class="item user_item"></div>
-        </li>
-      </ul>
+      <div id="admin_container">
+        <h2>Applications</h2>
+        <ul class="wrapper">
+          <li>
+            <p>CRM</p>
+            <a href="#">
+              <div id="a_CRM" class="app_button admin_item"></div>
+            </a>
+          </li>
+          <li>
+            <p>Marketing</p>
+            <a href="#">
+              <div id="a_marketing" class="app_button admin_item"></div>
+            </a>
+          </li>
+          <li>
+            <p>Accounting</p>
+            <a href="#">
+              <div id="a_accounting" class="app_button admin_item"></div>
+            </a>
+          </li>
+          <li>
+            <p>Support</p>
+            <a href="#">
+              <div id="a_support" class="app_button admin_item "></div>
+            </a>
+          </li>
+          <li>
+            <p>Ecommerce</p>
+            <a href="#">
+              <div id="a_ecommerce" class="app_button admin_item"></div>
+            </a>
+          </li>
+        </ul>
+        <h2>Users</h2>
+        <ul class="wrapper">
+          <li>
+            <p>Paul Foley</p>
+            <div class="item user_item"></div>
+          </li>
+          <li>
+            <p>Ben Jacobson</p>
+            <div class="item user_item"></div>
+          </li>
+          <li>
+            <p>Larry Page</p>
+            <div class="item user_item"></div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
