@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
 
   def index
+    session[:logged_in] = false
     if params[:view] == "login"
       @show_login = "show"
       @show_signup = ""
@@ -24,6 +25,8 @@ class WelcomeController < ApplicationController
       if @user.valid_password?(@password)
         session[:name] = @user.name
         session[:email] = @email
+        session[:org] = @user.org.name
+        session[:logged_in] = true
         redirect_to controller:'core', action:'run'
       else 
         flash[:failure] = "Incorrect Password"
@@ -35,6 +38,7 @@ class WelcomeController < ApplicationController
     end
   end
   helper_method :check_user
+  
   
   def signup
     
@@ -50,7 +54,7 @@ class WelcomeController < ApplicationController
       redirect_to action:'index', view:"signup"
     else
       @org = Org.create(:name=>params[:org])
-      @user = User.create(:name=>params[:email], :email=>params[:email], :password=>params[:password1], :org=>@org)
+      @user = User.create(:name=>params[:email], :email=>params[:email], :password=>params[:password1], :org=>@org, :is_admin=>true)
       flash[:success] = "User created!"
       redirect_to action:'index', view:"login"
     end
