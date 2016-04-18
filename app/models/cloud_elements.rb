@@ -63,9 +63,11 @@ class CloudElements
     post.body = body
 
     response = http.request(post)
+    response_parsed = JSON.parse(response.body)
 
-    puts response.body
-    puts response.code
+    org = Org.where(name: org_name).select(:name).take
+    org.quickbooks_token = response_parsed['token']
+    org.save
 
   end
 
@@ -167,15 +169,19 @@ class CloudElements
     post.body = body
 
     response = http.request(post)
+    response_parsed = JSON.parse(response.body)
 
-    puts response.body
-    puts response.code
+    org = Org.where(name: org_name).select(:name).take
+    org.quickbooks_token = response_parsed['token']
+    org.save
+
 
   end
 
 
 
   def self.setup_polling
+
 
   end
 
@@ -218,9 +224,12 @@ class CloudElements
      end
    end
 
+
+
    def self.quickbooksCreateCustomer(customer)
 
     user_secret = 'ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60='
+    token = "KIx65kljd0EL3O0DlwGAMCDjR6drDbwIl3sSSHtkyq4="
 
     path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers"
 
