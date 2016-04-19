@@ -16,12 +16,19 @@ Rails.application.routes.draw do
   
   get 'welcome/signup'
   get 'welcome/check_user'
+  get 'welcome/setup'
 
   get 'elements/callback'
   
-  resources :welcome
+  resources :welcome do
+    post :pw_mail, :on => :collection
+  end
   post '/welcome/check_user' => 'welcome#check_user'
   post '/welcome/signup' => 'welcome#signup'
+  get '/welcome/pw_email'
+  post '/welcome/pw_email' => 'welcome#pw_email'
+  
+  post '/welcome/add_user' => 'welcome#add_user'
   
   resources :elements do
     member do

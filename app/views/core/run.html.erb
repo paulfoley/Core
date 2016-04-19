@@ -14,29 +14,31 @@
     <div id="settings_button" class="menu_button">
       Settings
     </div>
-    <div id="admin_button" class="menu_button">
-      Admin
-    </div>
+    <% if !!session[:is_admin] %>
+      <div id="admin_button" class="menu_button">
+        Admin
+      </div>
+    <% end %>
   </div>
   <div id="main">
     <div class="pane" id="metrics">
       <div id="metrics_container">
-        <div id="monthly_sales" class="metrics_div fullwidth">
+        <div id="monthly_sales" class="graph_container fullwidth">
           
         </div>
-        <div id="market_share" class="metrics_div thirdwidth left">
+        <div id="market_share" class="graph_container thirdwidth left">
           
         </div>
-        <div id="market" class="metrics_div thirdwidth middle">
+        <div id="market" class="graph_container thirdwidth middle">
           
         </div>
-        <div id="share" class="metrics_div thirdwidth right">
+        <div id="share" class="graph_container thirdwidth right">
           
         </div>
-        <div class="metrics_div halfwidth left">
+        <div class="graph_container halfwidth left">
           
         </div>
-        <div class="metrics_div halfwidth right">
+        <div class="graph_container halfwidth right">
           
         </div>
       </div>
@@ -104,57 +106,59 @@
         </div>
       </div>
     </div>
-    <div class="pane" id="admin">
-      <div id="admin_container">
-        <h2>Applications</h2>
-        <ul class="wrapper">
-          <li>
-            <p>CRM</p>
-            <a href="#">
-              <div id="a_CRM" class="app_button admin_item"></div>
-            </a>
-          </li>
-          <li>
-            <p>Marketing</p>
-            <a href="#">
-              <div id="a_marketing" class="app_button admin_item"></div>
-            </a>
-          </li>
-          <li>
-            <p>Accounting</p>
-            <a href="#">
-              <div id="a_accounting" class="app_button admin_item"></div>
-            </a>
-          </li>
-          <li>
-            <p>Support</p>
-            <a href="#">
-              <div id="a_support" class="app_button admin_item "></div>
-            </a>
-          </li>
-          <li>
-            <p>Ecommerce</p>
-            <a href="#">
-              <div id="a_ecommerce" class="app_button admin_item"></div>
-            </a>
-          </li>
-        </ul>
-        <h2>Users</h2>
-        <ul class="wrapper">
-          <li>
-            <p>Paul Foley</p>
-            <div class="item user_item"></div>
-          </li>
-          <li>
-            <p>Ben Jacobson</p>
-            <div class="item user_item"></div>
-          </li>
-          <li>
-            <p>Larry Page</p>
-            <div class="item user_item"></div>
-          </li>
-        </ul>
+    <% if !!session[:is_admin] %>
+      <div class="pane" id="admin">
+        <div id="admin_container">
+          <h2>Applications</h2>
+          <ul class="wrapper">
+            <li>
+              <p>CRM</p>
+              <a href="#">
+                <div id="a_CRM" class="app_button admin_item"></div>
+              </a>
+            </li>
+            <li>
+              <p>Marketing</p>
+              <a href="#">
+                <div id="a_marketing" class="app_button admin_item"></div>
+              </a>
+            </li>
+            <li>
+              <p>Accounting</p>
+              <a href="#">
+                <div id="a_accounting" class="app_button admin_item"></div>
+              </a>
+            </li>
+            <li>
+              <p>Support</p>
+              <a href="#">
+                <div id="a_support" class="app_button admin_item "></div>
+              </a>
+            </li>
+            <li>
+              <p>Ecommerce</p>
+              <a href="#">
+                <div id="a_ecommerce" class="app_button admin_item"></div>
+              </a>
+            </li>
+          </ul>
+          <h2>Users</h2>
+          <ul class="wrapper">
+            <li>
+              <p>Paul Foley</p>
+              <div class="item user_item"></div>
+            </li>
+            <li>
+              <p>Ben Jacobson</p>
+              <div class="item user_item"></div>
+            </li>
+            <li>
+              <p>Larry Page</p>
+              <div class="item user_item"></div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
