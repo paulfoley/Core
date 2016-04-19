@@ -15,13 +15,17 @@ class ElementsController < ApplicationController
 
   def callback
     @uri_params = params
-    redirect_to "http://corecloudapp.herokuapp.com/core/run"
+#    redirect_to "http://corecloudapp.herokuapp.com/core/run"
     @state = @uri_params[:state]
     if @state == "sfdc"
-      CloudElements.salesforce_instance(@uri_params[:code])
+      CloudElements.salesforce_instance(session[:org], @uri_params[:code])
+      @var = Org.where(name: session[:org]).select(:salesforce_token).take
     elsif @state == "quickbooks"
-      CloudElements.quickbooks_instance(@uri_params[:oauth_token], @uri_params[:oauth_verifier], @uri_params[:realmId], @uri_params[:dataSource])
+      CloudElements.quickbooks_instance(session[:org], @uri_params[:oauth_token], @uri_params[:oauth_verifier], @uri_params[:realmId], @uri_params[:dataSource])
+      @var = Org.where(name: session[:org]).select(:quickbooks_token).take
     end
+
+
   end
 
 end
