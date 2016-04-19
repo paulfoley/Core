@@ -65,9 +65,9 @@ class CloudElements
     response = http.request(post)
     response_parsed = JSON.parse(response.body)
 
-    org = Org.where(name: org_name).select(:name).take
-    org['salesforce_token'] = response_parsed['token']
-    org.save
+    # org = Org.where(name: org_name).select(:name).take
+    # org.salesforce_token = response_parsed['token']
+    # org.save
 
   end
 
@@ -171,16 +171,106 @@ class CloudElements
     response = http.request(post)
     response_parsed = JSON.parse(response.body)
 
-    org = Org.where(name: org_name).select(:name).take
-    org['quickbooks_token'] = response_parsed['token']
-    org.save
+    # org = Org.where(name: org_name).select(:name).take
+    # org.quickbooks_token = response_parsed['token']
+    # org.save
+
+    self.setup_polling(response_parsed['id'])
 
 
   end
 
 
 
-  def self.setup_polling
+  def self.setup_polling(instance_id)
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
+
+    headers = {
+        'Authorization' => 'User '+ user_secret + ', Organization ' + org_secret
+    }
+
+    url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration")
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url, headers)
+    response = http.request(request)
+
+    response_parsed = JSON.parse(response.body)
+
+
+    event_poller_refresh_interval_id = response_parsed.find { |h| h['key'] == 'event.poller.refresh_interval' }['id']
+
+    event_notification_callback_url_id = response_parsed.find { |h| h['key'] == 'event.notification.callback.url' }['id']
+
+    event_notification_enabled_id = response_parsed.find { |h| h['key'] == 'event.notification.enabled' }['id']
+
+    poller_refresh_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_poller_refresh_interval_id}")
+
+    poller_refresh_body = {
+        'name' => 'Event poller refresh interval',
+        'key' => 'event.poller.refresh_interval',
+        'propertyValue' => '2'
+    }.to_json
+
+    configuration_headers = {
+        'Authorization' => 'User '+ user_secret + ', Organization ' + org_secret,
+        'Content-Type' => 'application/json'
+    }
+
+    http = Net::HTTP.new(poller_refresh_url.host, poller_refresh_url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Patch.new(poller_refresh_url, configuration_headers)
+    request.body = poller_refresh_body
+    response = http.request(request)
+
+
+    response_parsed = JSON.parse(response.body)
+
+    puts response_parsed
+
+    notification_callback_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_notification_callback_url_id}")
+
+    notification_callback_body = {
+        'name' => 'Event Notification Callback URL',
+        'key' => 'event.notifcation.callback.url',
+        'propertyValue' => 'http://corecloudapp.herokuapp.com/callback/receive_data'
+    }.to_json
+
+    http = Net::HTTP.new(notification_callback_url.host, notification_callback_url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Patch.new(notification_callback_url, configuration_headers)
+    request.body = notification_callback_body
+    response = http.request(request)
+
+
+    response_parsed = JSON.parse(response.body)
+
+    puts response_parsed
+
+    enable_notification_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_notification_enabled_id}")
+
+    enable_notification_body = {
+        'name' => 'Enable/Disable Event Notification',
+        'key' => 'event.notification.enabled',
+        'propertyValue' => 'true'
+    }.to_json
+
+    http = Net::HTTP.new(enable_notification_url.host, enable_notification_url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Patch.new(enable_notification_url, configuration_headers)
+    request.body = enable_notification_body
+    response = http.request(request)
+
+
+    response_parsed = JSON.parse(response.body)
+
+    puts response_parsed
+
 
 
   end
@@ -190,7 +280,7 @@ class CloudElements
    def self.quickbooksCheckForCustomer(customer)
 
      user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
-     token = "KIx65kljd0EL3O0DlwGAMCDjR6drDbwIl3sSSHtkyq4="
+     token = "Ls4F34CO7Rz8GLkCn29OiSVJCe2yQbqblQ3NxlRn1P0="
 
 #    token = Org.where(:name => name).select(salesforce_token).take
 
@@ -216,7 +306,6 @@ class CloudElements
 
      response_parsed = JSON.parse(response.body)
 
-
      if response_parsed[0]['companyName'] == customer
        puts "TRUE"
      else
@@ -228,25 +317,31 @@ class CloudElements
 
    def self.quickbooksCreateCustomer(customer)
 
-    user_secret = 'ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60='
-    token = "KIx65kljd0EL3O0DlwGAMCDjR6drDbwIl3sSSHtkyq4="
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    token = "Ls4F34CO7Rz8GLkCn29OiSVJCe2yQbqblQ3NxlRn1P0="
 
-    path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers"
+    url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers")
 
     body = {
-        #:primaryEmailAddr => {
-        #    'address' => 
-        #},
-        :displayName => "#{customer}"
-    }
-
-    headers = {
-        :Authorization => "Element #{token}, User #{user_secret}"
+        'displayName' => customer,
+        'companyName' => customer
     }.to_json
 
-    request = Net::HTTP::Post.new(path, :body => body, :headers => headers)
+    headers = {
+        'Authorization' => 'Element ' + token + ', User ' + user_secret
+    }
 
-    request_hash = JSON.parse(request)
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Post.new(url, headers)
+    request.body = body
+    response = http.request(request)
+
+    response_parsed = JSON.parse(response.body)
+
+     puts response_parsed
     
     end
     
