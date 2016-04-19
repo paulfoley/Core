@@ -1,0 +1,44 @@
+<div class="header">
+  <a href="http://corecloudapp.com">
+    <img class="header_icon" src="https://i.imgur.com/1b3nJn0.png" alt="core">
+  </a>
+</div>
+<div id="container">
+    <div id="link_apps_container" class="setup_container <%= @show_apps %>">
+        <h2>Link your organization's apps.</h2>
+        <ul class="wrapper">
+            <li>
+                <a href="#">
+                <div id="link_CRM" class="app_button">
+                    <%= image_tag("salesforce.png") %>
+                </div>
+              </a>
+            </li>
+            <li>
+                <a href="#">
+                <div id="link_accounting" class="app_button">
+                    <%= image_tag("quickbooks.png") %>
+                </div>
+              </a>
+            </li>
+            <li>
+                <a href="#">
+                <div id="link_ecommerce" class="app_button">
+                    <%= image_tag("stripe.png") %>
+                </div>
+              </a>
+            </li>
+        </ul>
+        <%= link_to("Invite Users", :action=>'setup', :view=>'add_user') %>
+    </div>
+    <div id="add_user_container" class="setup_container <%= @show_users %>">
+        <h2>Invite a user to your organization.</h2>
+        <%= form_tag(:action => "add_user") do %>
+          <%= text_field_tag("org",nil,:placeholder=>"First Name",:required=>true) %>
+          <%= text_field_tag("firstname",nil,:placeholder=>"Last Name",:required=>true) %>
+          <%= text_field_tag("lastname",nil,:placeholder=>"Email",:required=>true) %>
+          
+          <%= submit_tag("Invite User")%>
+        <% end %>
+    </div>
+</div>

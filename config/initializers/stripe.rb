@@ -3,8 +3,6 @@ Rails.configuration.stripe = {
     :secret_key      => ENV['STRIPE_SECRET']
 }
 
-#puts "In the stripe.rb file"
-
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
 STRIPE_PUBLIC_KEY = Rails.configuration.stripe[:publishable_key]
 
@@ -20,16 +18,18 @@ StripeEvent.configure do |events|
   # we're creating our features, we need to turn it off.
   #
   # REMOVE THIS BLOCK AFTER MAKING YOUR FIXTURES!
+
   events.event_retriever = lambda { |params|
     event = Stripe::Event.construct_from(params.deep_symbolize_keys)
-    puts "within the stripe event retriever in the stripe.rb file"
-    puts event.data.object.id.to_s
+    charge = Stripe::Charge.retrieve(event.data.object.id.to_s)
+    customer = Stripe::Customer.retrieve(charge.customer)
+    balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction.to_s)
+    puts customer
+    puts balance_transaction
 
 =begin
-    charge = Stripe::Charge.retrieve(event.data.object.id.to_s)
-    balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction.to_s)
     @date = Time.at(charge.created)
-    @stripe_customer = stripe_customer.new
+    @stripe_customer = StripeCustomer.new
     @stripe_customer.GENERAL_JOURNAL = @date.strftime("%m/%d/%Y")
     @stripe_customer.Stripe_Sales = charge.amount * -0.01
     @stripe_customer.Charge_ID = charge.id
@@ -41,8 +41,8 @@ StripeEvent.configure do |events|
     @stripe_customer.Net_for_charge_ID = charge.id
     @stripe_customer.save
 =end
-
   }
+
 end
 
 =begin

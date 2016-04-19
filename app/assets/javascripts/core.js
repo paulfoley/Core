@@ -77,12 +77,14 @@ $(document).ready(function() {
     
     //if login page
     if(!!document.getElementById("login")) {
+        var view = getQueryVariable("view");
         
         //hack to get login and signup transitions working properly
-        $('#signup').css("display","none");
         $('#login').css("display","block");
+        $('#signup').css("display","none");
+        $('#pw').css("display","none")
         
-        if(document.getElementsByClassName("notice")[0]) {
+        if(!!document.getElementsByClassName("notice")[0]) {
             setTimeout(function(){
                 document.getElementsByClassName("notice")[0].style.opacity = 0;
             }, 5000);
@@ -96,14 +98,25 @@ $(document).ready(function() {
             }, 200);
             
         });
-        document.getElementById("back").addEventListener("click", function() {
-            $('#signup').removeClass("show");
+        document.getElementById("forgot_pw").addEventListener("click", function() {
+            $('#login').removeClass("show");
              setTimeout(function(){
-                $('#signup').css("display","none");
-                $('#login').css("display","block");
-                $('#login').addClass("show");
+                $('#login').css("display","none");
+                $('#pw').css("display","block");
+                $('#pw').addClass("show");
             }, 200);
             
+        });
+        $('.back').each(function() {
+            this.addEventListener("click", function() {
+                var grandparent = this.parentElement.parentElement;
+                $(grandparent).removeClass("show");
+                 setTimeout(function(){
+                    $(grandparent).css("display","none");
+                    $('#login').css("display","block");
+                    $('#login').addClass("show");
+                }, 200);
+            });
         });
         
     }
