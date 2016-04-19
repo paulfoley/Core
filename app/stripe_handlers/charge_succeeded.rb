@@ -3,10 +3,12 @@ class ChargeSucceeded
     #Rails.logger.log("Somebody paid us! Woohoo!")
     puts "Now in the charge succeeded class"
 
+    event = Stripe::Event.construct_from(params.deep_symbolize_keys)
     charge = Stripe::Charge.retrieve(event.data.object.id.to_s)
+    customer = Stripe::Customer.retrieve(charge.customer)
     balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction.to_s)
     @date = Time.at(charge.created)
-    @stripe_customer = stripe_customer.new
+    @stripe_customer = StripeCustomer.new
     @stripe_customer.GENERAL_JOURNAL = @date.strftime("%m/%d/%Y")
     @stripe_customer.Stripe_Sales = charge.amount * -0.01
     @stripe_customer.Charge_ID = charge.id
