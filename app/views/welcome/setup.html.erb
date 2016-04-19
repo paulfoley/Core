@@ -4,17 +4,7 @@
   </a>
 </div>
 <div id="container">
-    <div id="add_user_container" class="setup_container ">
-        <h2>Invite a user to your organization.</h2>
-        <%= form_tag(:action => "add_user") do %>
-          <%= text_field_tag("org",nil,:placeholder=>"First Name",:required=>true) %>
-          <%= text_field_tag("firstname",nil,:placeholder=>"Last Name",:required=>true) %>
-          <%= text_field_tag("lastname",nil,:placeholder=>"Email",:required=>true) %>
-          
-          <%= submit_tag("Invite User")%>
-        <% end %>
-    </div>
-    <div id="link_apps_container" class="setup_container show">
+    <div id="link_apps_container" class="setup_container <%= @show_apps %>">
         <h2>Link your organization's apps.</h2>
         <ul class="wrapper">
             <li>
@@ -39,6 +29,16 @@
               </a>
             </li>
         </ul>
-        <%= link_to("Go To App", :controller=>'core', :action=>'run') %>
+        <%= link_to("Invite Users", :action=>'setup', :view=>'add_user') %>
+    </div>
+    <div id="add_user_container" class="setup_container <%= @show_users %>">
+        <h2>Invite a user to your organization.</h2>
+        <%= form_tag(:action => "add_user") do %>
+          <%= text_field_tag("org",nil,:placeholder=>"First Name",:required=>true) %>
+          <%= text_field_tag("firstname",nil,:placeholder=>"Last Name",:required=>true) %>
+          <%= text_field_tag("lastname",nil,:placeholder=>"Email",:required=>true) %>
+          
+          <%= submit_tag("Invite User")%>
+        <% end %>
     </div>
 </div>

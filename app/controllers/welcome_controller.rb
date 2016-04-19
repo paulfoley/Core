@@ -72,6 +72,16 @@ class WelcomeController < ApplicationController
   
   def setup
     @org = Org.find_by(:name=>session[:org])
+    if params[:view] == "link_apps"
+      @show_apps = "show"
+      @show_users = ""
+    elsif params[:view] == "add_user"
+      @show_apps = ""
+      @show_users = "show"
+    else 
+      @show_apps = "show"
+      @show_users = ""
+    end
   end
   
   def add_user
