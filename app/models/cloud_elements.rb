@@ -65,7 +65,7 @@ class CloudElements
     response = http.request(post)
     response_parsed = JSON.parse(response.body)
 
-    org = Org.where(name: org_name).select(:name).take
+    org = Org.where(name: org_name).select(:name, :salesforce_token).take
     org.salesforce_token = response_parsed['token']
     org.save
 
@@ -171,7 +171,7 @@ class CloudElements
     response = http.request(post)
     response_parsed = JSON.parse(response.body)
 
-    org = Org.where(name: org_name).select(:name).take
+    org = Org.where(name: org_name).select(:name, :quickbooks_token).take
     org.quickbooks_token = response_parsed['token']
     org.save
 
