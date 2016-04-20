@@ -65,9 +65,9 @@ class CloudElements
     response = http.request(post)
     response_parsed = JSON.parse(response.body)
 
-    # org = Org.where(name: org_name).select(:name).take
-    # org.salesforce_token = response_parsed['token']
-    # org.save
+    org = Org.where(name: org_name).select(:name).take
+    org.salesforce_token = response_parsed['token']
+    org.save
 
   end
 
@@ -171,11 +171,11 @@ class CloudElements
     response = http.request(post)
     response_parsed = JSON.parse(response.body)
 
-    # org = Org.where(name: org_name).select(:name).take
-    # org.quickbooks_token = response_parsed['token']
-    # org.save
+    org = Org.where(name: org_name).select(:name).take
+    org.quickbooks_token = response_parsed['token']
+    org.save
 
-    self.setup_polling(response_parsed['id'])
+    # self.setup_polling(response_parsed['id'])
 
 
   end
@@ -266,14 +266,31 @@ class CloudElements
     request.body = enable_notification_body
     response = http.request(request)
 
-
     response_parsed = JSON.parse(response.body)
 
     puts response_parsed
 
+  end
 
+
+  def self.stripe_oauth(code)
+    client_secret = ENV['STRIPE_LIVE_SECRET_KEY']
+
+    url = URI('https://connect.stripe.com/oauth/token')
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Post.new(url)
+    request.set_form_data({'client_secret' => client_secret, 'code' => code, 'grant_type' => 'authorization_code'})
+
+    response = http.request(request)
+    response_parsed = JSON.parse(response.body)
+
+    puts response_parsed
 
   end
+
 
 
    #check if customer exists in quickbooks. Used for Stripe integration.
