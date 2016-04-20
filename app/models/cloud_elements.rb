@@ -277,7 +277,7 @@ class CloudElements
 
 
    #check if customer exists in quickbooks. Used for Stripe integration.
-   def self.quickbooksCheckForCustomer(customer)
+   def self.quickbooks_payment(customer_name, amount_paid)
 
      user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
      token = "Ls4F34CO7Rz8GLkCn29OiSVJCe2yQbqblQ3NxlRn1P0="
@@ -288,7 +288,7 @@ class CloudElements
          'Authorization' => 'Element '+ token + ', User ' + user_secret
      }
 
-     encoded_customer = URI::encode(customer)
+     encoded_customer = URI::encode(customer_name)
 
      path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers"
      url = "#{path}?where=displayName%3E%3D%27#{encoded_customer}%27"
@@ -306,31 +306,33 @@ class CloudElements
 
      response_parsed = JSON.parse(response.body)
 
-     if response_parsed[0]['companyName'] == customer
-       puts "TRUE"
+     if response_parsed[0]['companyName'] == customer_name
+       # puts "TRUE"
+       self.quickbooks_add_payment_to_customer(token, response_parsed[0]['id'], customer_name, amount_paid)
      else
-       puts "FALSE"
+       # puts "FALSE"
+       self.quickbooks_create_customer_and_payment(token, customer_name, amount_paid)
      end
    end
 
 
 
-   def self.quickbooksCreateCustomer(customer)
+   def self.quickbooks_create_customer_and_payment(token, customer_name, amount_paid)
 
     user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
-    token = "Ls4F34CO7Rz8GLkCn29OiSVJCe2yQbqblQ3NxlRn1P0="
-
-    url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers")
 
     body = {
-        'displayName' => customer,
-        'companyName' => customer
+        'displayName' => customer_name,
+        'companyName' => customer_name
     }.to_json
 
     headers = {
-        'Authorization' => 'Element ' + token + ', User ' + user_secret
+        'Authorization' => 'Element ' + token + ', User ' + user_secret,
+        'Content-Type' => 'application/json'
     }
 
+
+    url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers")
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
@@ -341,25 +343,76 @@ class CloudElements
 
     response_parsed = JSON.parse(response.body)
 
-     puts response_parsed
+    # puts response_parsed
+    # puts response_parsed['id']
+
+
+
+
+    payment_body = {
+        'customerRef' => {
+            'name' => customer_name,
+            'value' => response_parsed['id']
+        },
+        'depositToAccountRef' => {
+            'value' => '4'
+        },
+        'paymentMethodRef' => {
+            'value' => '3'
+        },
+        'totalAmt' => amount_paid
+    }.to_json
+
+    payment_url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/finance/payments")
+
+    http = Net::HTTP.new(payment_url.host, payment_url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Post.new(payment_url, headers)
+    request.body = payment_body
+    response = http.request(request)
+
+    # response_parsed = JSON.parse(response.body)
+    #
+    # puts response_parsed
     
     end
     
-    def self.quickbooksCreatePayment(token, customer)
+    def self.quickbooks_add_payment_to_customer(token, customer_id, customer_name, amount_paid)
       
       user_secret = 'ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60='
 
-      path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/payments"
-
       body = {
-
-      }
-
-      headers = {
-        :Authorization => "Element #{token}, User #{user_secret}"
+          'customerRef' => {
+          'name' => customer_name,
+          'value' => customer_id
+      },
+          'depositToAccountRef' => {
+          'value' => '4'
+      },
+          'paymentMethodRef' => {
+          'value' => '3'
+      },
+          'totalAmt' => amount_paid
       }.to_json
 
-      request = Net::HTTP::Post.new(path, :body => body, :headers => headers)
+      headers = {
+          'Authorization' => 'Element ' + token + ', User ' + user_secret,
+          'Content-Type' => 'application/json'
+      }
+
+      url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/finance/payments")
+
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      request = Net::HTTP::Post.new(url, headers)
+      request.body = body
+      response = http.request(request)
+
+      # response_parsed = JSON.parse(response.body)
+      #
+      # puts response_parsed
 
 
     end
