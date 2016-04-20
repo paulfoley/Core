@@ -7,6 +7,5 @@ class CreateOrgs < ActiveRecord::Migration
       t.string :salesforce_token
       t.string :quickbooks_token
     end
-
   end
 end
