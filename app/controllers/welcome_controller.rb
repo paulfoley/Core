@@ -56,7 +56,7 @@ class WelcomeController < ApplicationController
         redirect_to action:'index', view:'signup'
       else
         @org = Org.create(:name=>params[:org])
-        @user = User.create(:name=>params[:firstname]+" "+params[:lastname], :email=>params[:email], :password=>params[:password1], :org=>@org, :is_admin=>true)
+        @user = User.create(:name=>params[:firstname] + " " + params[:lastname], :email=>params[:email], :password=>params[:password1], :org=>@org, :is_admin=>true)
         #flash[:success] = "User created!"
         login(@user)
         redirect_to action:'setup'
@@ -67,7 +67,6 @@ class WelcomeController < ApplicationController
   def pw_mail
     PwMailer.pw_mail(params[:email]).deliver_now
     flash[:success] = "Email Sent"
-    redirect_to action:'index', view:'login'
   end
   
   def setup
@@ -85,8 +84,8 @@ class WelcomeController < ApplicationController
   end
   
   def add_user
+    @org = Org.find_by(:name=>session[:org])
     @email1 = params[:email1]
-    flash[:success] = @email1
     redirect_to controller:'core', action:'run'
   end
   

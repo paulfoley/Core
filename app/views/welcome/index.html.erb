@@ -2,16 +2,15 @@
   <a href="http://corecloudapp.com">
     <img class="header_icon" src="https://i.imgur.com/1b3nJn0.png" alt="core">
   </a>
-</div>
-<div id="container">
-  <img class="rotating" src="http://i.imgur.com/CRjP7kU.png">
-  
   <% if flash[:success] %>
     <div class="notice success"><%= flash[:success] %></div>
   <% end %>
   <% if flash[:failure] %>
     <div class="notice failure"><%= flash[:failure] %></div>
   <% end %>
+</div>
+<div id="container">
+  <img class="rotating" src="http://i.imgur.com/CRjP7kU.png">
   
   <div id="login" class="login_container <%=@show_login%>">
     

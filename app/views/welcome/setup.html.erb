@@ -29,7 +29,9 @@
               </a>
             </li>
         </ul>
-        <%= link_to("Invite Users", :action=>'setup', :view=>'add_user') %>
+        <div class="button">
+            <%= link_to("Next", :action=>'setup', :view=>'add_user') %>
+        </div>
     </div>
     <div id="add_user_container" class="setup_container <%= @show_users %>">
         <h2>Invite a user to your organization.</h2>

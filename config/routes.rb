@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'core/run'
   get 'core/apps'
   get 'core/index'
+  get 'core/logout'
 
   post '/callback/receive_data' => 'callback#receive_data'
   
