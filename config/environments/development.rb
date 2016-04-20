@@ -39,13 +39,14 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
-  #smtp settings for gmail
+  #smtp settings for email
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
+    :address              => "smtp.sendgrid.net",
     :port                 => 587,
-    :user_name            => ENV['GMAIL_USERNAME'],
-    :password             => ENV['GMAIL_PASSWORD'],
+    :user_name            => "developers@corecloudapp.com",
+    :password             => "Sendgrid101",
     :authentication       => "plain",
-    :enable_starttls_auto => true
+    :enable_starttls_auto => 'true',
+    :openssl_verify_mode => 'none'
   }
 end

@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "corecloudappmailer@gmail.com"
+  default from: "developers@corecloudapp.com"
   layout 'mailer'
 end
