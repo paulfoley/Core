@@ -65,9 +65,10 @@ class CloudElements
     response = http.request(post)
     response_parsed = JSON.parse(response.body)
 
-    org = Org.where(name: org_name).select(:name, :salesforce_token).take
-    org.salesforce_token = response_parsed['token']
-    org.save
+    org = Org.where(name: org_name).select(:name, :salesforce_token, :id).take
+    org.update_attributes(:salesforce_token => response_parsed['token'])
+
+    self.setup_polling(response_parsed['id'])
 
   end
 
