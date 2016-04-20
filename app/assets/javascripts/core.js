@@ -122,7 +122,7 @@ $(document).ready(function() {
     }
 
 
-     else if(!!document.getElementsByClassName("setup_container")) {
+    else if(!!document.getElementsByClassName("setup_container")) {
         $('.app_button').each(function() {
             this.addEventListener('click', function() {
                 window.location = "/elements/show/?app_name=" + this.id;

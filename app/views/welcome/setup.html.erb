@@ -31,7 +31,8 @@
         </ul>
         <div class="button">
             <%= link_to("Next", :action=>'setup', :view=>'add_user') %>
-        </div>
+        </div><br>
+        <%= link_to("Skip to App", :controller=>'core', :action=>'run') %>
     </div>
     <div id="add_user_container" class="setup_container <%= @show_users %>">
         <h2>Invite a user to your organization.</h2>
