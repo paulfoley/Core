@@ -122,7 +122,7 @@ $(document).ready(function() {
     }
 
 
-     else if(!!document.getElementsByClassName("setup_container")) {
+    else if(!!document.getElementsByClassName("setup_container")[0]) {
         $('.app_button').each(function() {
             this.addEventListener('click', function() {
                 window.location = "/elements/show/?app_name=" + this.id;
@@ -134,7 +134,7 @@ $(document).ready(function() {
     else if(!!document.getElementById("container")) {
         //global variables
         //view switches controlled via buttons
-        active = $('.selected')
+        active = $('.selected');
         document.getElementById(active[0].id.replace("_button", "")).style.opacity = 1;
         document.getElementById(active[0].id.replace("_button", "")).style.zIndex = 2;
     
@@ -161,12 +161,6 @@ $(document).ready(function() {
             });
         });
     
-    
-        //if redirect from oauth page, catch codes
-        if(window.location.search.substring(1) != "") {
-            var code = getQueryVariable("code");
-            console.log("code= " + code);
-        }
     }
 
 });
