@@ -120,7 +120,16 @@ $(document).ready(function() {
         });
         
     }
-    
+
+
+     else if(!!document.getElementsByClassName("setup_container")) {
+        $('.app_button').each(function() {
+            this.addEventListener('click', function() {
+                window.location = "/elements/show/?app_name=" + this.id;
+            });
+        });
+    }
+
     //if main page
     else if(!!document.getElementById("container")) {
         //global variables
@@ -149,13 +158,6 @@ $(document).ready(function() {
                 var first = "$('#" + this.id + "')[0].style.backgroundImage = ";
                 var second = '"' + "url('" + '"' + "+ appsObject.responseJSON." + this.id.replace("a_","") + ".appIcon + " + '"' + "')" + '"';
                 eval(first+second);
-            });
-        });
-        
-        
-        $('.admin_item').each(function() {
-            this.addEventListener('click', function() {
-                window.location = "/elements/show/?app_name=" + this.id;
             });
         });
     
