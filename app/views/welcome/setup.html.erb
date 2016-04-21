@@ -42,6 +42,7 @@
           <%= text_field_tag("lastname",nil,:placeholder=>"Email",:required=>true) %>
           
           <%= submit_tag("Invite User")%>
+          <%= link_to("Skip to App", :controller=>'core', :action=>'run') %>
         <% end %>
     </div>
 </div>

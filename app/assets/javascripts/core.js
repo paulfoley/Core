@@ -156,16 +156,6 @@ $(document).ready(function() {
                 window.location = "/elements/show/?app_name=" + this.id;
             });
         });
-        //load app icons/URLs
-        //this requires each field in JSON be titled the same as the corresponding DOM element
-        appsObject = $.getJSON("/apps.json", function() {
-            $('.app_button').each(function() {
-                //$('#s_marketing')[0].style.backgroundImage = " url(' " + appsObject.responseJSON.marketing.appIcon + " ') ";
-                var first = "$('#" + this.id + "')[0].style.backgroundImage = ";
-                var second = '"' + "url('" + '"' + "+ appsObject.responseJSON." + this.id.replace("a_","") + ".appIcon + " + '"' + "')" + '"';
-                eval(first+second);
-            });
-        });
     
     }
 
