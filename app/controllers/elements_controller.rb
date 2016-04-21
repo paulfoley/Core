@@ -18,7 +18,7 @@ class ElementsController < ApplicationController
 
   def callback
     @uri_params = params
-    redirect_to "http://corecloudapp.herokuapp.com/core/run"
+    redirect_to "https://corecloudapp.herokuapp.com/core/run"
     @state = @uri_params[:state]
     if @state == "sfdc"
       CloudElements.salesforce_instance(session[:org], @uri_params[:code])
@@ -32,7 +32,7 @@ class ElementsController < ApplicationController
 
   def stripe_callback
     @uri_params = params
-    redirect_to "http://corecloudapp.herokuapp.com/core/run"
+    redirect_to "https://corecloudapp.herokuapp.com/core/run"
     CloudElements.stripe_oauth(@uri_params[:code])
   end
 
