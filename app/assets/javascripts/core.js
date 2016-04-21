@@ -61,6 +61,22 @@ function reportSwitch(button) {
         
 }
 
+var inactivity_time = function () {
+   var t;
+   window.onload = reset_timer;
+   document.onmousemove = reset_timer;
+   document.onkeypress = reset_timer;
+
+   function logout() {
+       alert("You have been logged out.");
+       window.location = '/welcome#index';
+   }
+
+   function reset_timer() {
+       t = setTimeout(function(){ logout(); }, 900000);
+   }
+}
+
 //get "xyz" from "variable=xyz"
 function getQueryVariable(variable)
 {
@@ -74,7 +90,7 @@ function getQueryVariable(variable)
 }
 
 $(document).ready(function() {
-
+    inactivity_time();
     //if login page
     if(!!document.getElementById("login")) {
         var view = getQueryVariable("view");
