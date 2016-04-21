@@ -137,7 +137,7 @@ $(document).ready(function() {
         
     }
 
-
+    //set up page
     else if(!!document.getElementsByClassName("setup_container")[0]) {
         $('.app_button').each(function() {
             this.addEventListener('click', function() {
@@ -166,7 +166,7 @@ $(document).ready(function() {
                 reportSwitch(this);
             });
         });
-
+        //admin page
         $('.app_button').each(function() {
             this.addEventListener('click', function() {
                 window.location = "/elements/show/?app_name=" + this.id;
