@@ -150,6 +150,12 @@ $(document).ready(function() {
                 reportSwitch(this);
             });
         });
+
+        $('.app_button').each(function() {
+            this.addEventListener('click', function() {
+                window.location = "/elements/show/?app_name=" + this.id;
+            });
+        });
         //load app icons/URLs
         //this requires each field in JSON be titled the same as the corresponding DOM element
         appsObject = $.getJSON("/apps.json", function() {

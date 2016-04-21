@@ -5,11 +5,11 @@ class ElementsController < ApplicationController
 
   def show
     @app = params[:app_name]
-    if @app == "link_CRM"
+    if @app == "link_CRM" || @app == "a_CRM"
       redirect_to CloudElements.salesforce_oauthurl
-    elsif @app == "link_accounting"
+    elsif @app == "link_accounting" || @app == "a_accounting"
       redirect_to CloudElements.quickbooks_oauthtoken
-    elsif @app == "link_ecommerce"
+    elsif @app == "link_ecommerce" || @app == "a_ecommerce"
       redirect_to "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_84qPNMWLjrw7mUSm1MMKofy3ChAglggB&scope=read_write"
     end
 
