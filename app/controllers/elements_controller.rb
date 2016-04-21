@@ -4,13 +4,26 @@ class ElementsController < ApplicationController
   require 'uri'
 
   def show
+    @org_name = session[:org]
     @app = params[:app_name]
     if @app == "link_CRM" || @app == "a_CRM"
+      if Org.where(name: @org_name).select(:salesforce_token).take.salesforce_token
+        flash[:failure] = "You have already connected a Salesforce account to Core"
+      elsif
       redirect_to CloudElements.salesforce_oauthurl
+      end
     elsif @app == "link_accounting" || @app == "a_accounting"
+      if Org.where(name: @org_name).select(:quickbooks_token).take.quickbooks_token
+        flash[:failure] = "You have already connected a Quickbooks account to Core"
+      elsif
       redirect_to CloudElements.quickbooks_oauthtoken
+      end
     elsif @app == "link_ecommerce" || @app == "a_ecommerce"
+      if Org.where(name: @org_name).select(:stripe_token).take.stripe_token
+        flash[:failure] = "You have already connected a Stripe account to Core"
+      elsif
       redirect_to "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_84qPNMWLjrw7mUSm1MMKofy3ChAglggB&scope=read_write"
+      end
     end
 
   end
