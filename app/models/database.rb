@@ -14,6 +14,12 @@ class Database
 
   end
 
+  def self.delete_org(name)
+    org = Org.where(name: name).select(:name, :id).take
+    org.users.delete_all
+    org.delete
+  end
+
   def self.create_account(element, data)
 
     if element == "sfdc"

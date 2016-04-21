@@ -74,7 +74,7 @@ function getQueryVariable(variable)
 }
 
 $(document).ready(function() {
-    
+
     //if login page
     if(!!document.getElementById("login")) {
         var view = getQueryVariable("view");
@@ -148,6 +148,12 @@ $(document).ready(function() {
         $(".r_button").each(function() {
             this.addEventListener("click", function() {
                 reportSwitch(this);
+            });
+        });
+
+        $('.app_button').each(function() {
+            this.addEventListener('click', function() {
+                window.location = "/elements/show/?app_name=" + this.id;
             });
         });
     

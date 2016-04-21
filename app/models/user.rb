@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  belongs_to :org
+  belongs_to :org, :dependent => :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

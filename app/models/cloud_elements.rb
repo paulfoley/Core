@@ -65,9 +65,10 @@ class CloudElements
     response = http.request(post)
     response_parsed = JSON.parse(response.body)
 
-    org = Org.where(name: org_name).select(:name, :salesforce_token).take
-    org.salesforce_token = response_parsed['token']
-    org.save
+    org = Org.where(name: org_name).select(:name, :salesforce_token, :id).take
+    org.update_attributes(:salesforce_token => response_parsed['token'])
+
+    self.setup_polling(response_parsed['id'])
 
   end
 
@@ -128,6 +129,9 @@ class CloudElements
 
 
   def self.quickbooks_instance(org_name, oauth_token, oauth_verifier, realmId, dataSource)
+
+    # org = Org.where(name: org_name).select(:name, :quickbooks_token).take
+
     user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
     org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
     api_key = ENV['QUICKBOOKS_API_KEY']
@@ -159,7 +163,6 @@ class CloudElements
         }
     }.to_json
 
-
     uri = URI('https://api.cloud-elements.com/elements/api-v2/instances')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
@@ -171,11 +174,11 @@ class CloudElements
     response = http.request(post)
     response_parsed = JSON.parse(response.body)
 
-    org = Org.where(name: org_name).select(:name, :quickbooks_token).take
-    org.quickbooks_token = response_parsed['token']
-    org.save
+    org = Org.where(name: org_name).select(:name, :quickbooks_token, :id).take
+    org.update_attributes(:quickbooks_token => response_parsed['token'])
 
-    # self.setup_polling(response_parsed['id'])
+    puts org.quickbooks_token
+    self.setup_polling(response_parsed['id'])
 
 
   end
