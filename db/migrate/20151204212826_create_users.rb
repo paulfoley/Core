@@ -7,5 +7,6 @@ class CreateUsers < ActiveRecord::Migration
       t.json :settings
     end
 
+
   end
 end

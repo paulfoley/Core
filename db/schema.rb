@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417212211) do
+ActiveRecord::Schema.define(version: 20160421002020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,10 +29,26 @@ ActiveRecord::Schema.define(version: 20160417212211) do
     t.string   "quickbooks_token"
   end
 
+  add_index "orgs", ["name"], name: "index_orgs_on_name", unique: true, using: :btree
+
   create_table "quickbooks_customers", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.string   "account_id"
     t.string   "name"
     t.string   "org_id"
+    t.string   "display_name"
+    t.string   "company_name"
+    t.string   "fully_qualified_name"
+    t.string   "print_on_check_name"
+    t.string   "domain"
+    t.boolean  "taxable"
+    t.boolean  "active"
+    t.decimal  "balance"
+    t.decimal  "balance_with_jobs"
+  end
+
+  create_table "quickbooks_invoices", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -77,13 +93,6 @@ ActiveRecord::Schema.define(version: 20160417212211) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "opportunity_id"
-  end
-
-  create_table "sessions", force: :cascade do |t|
-    t.string   "session_id"
-    t.string   "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "stripe_customers", force: :cascade do |t|

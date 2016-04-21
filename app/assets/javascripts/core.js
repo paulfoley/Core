@@ -74,7 +74,7 @@ function getQueryVariable(variable)
 }
 
 $(document).ready(function() {
-    
+
     //if login page
     if(!!document.getElementById("login")) {
         var view = getQueryVariable("view");

@@ -7,5 +7,11 @@ class CreateOrgs < ActiveRecord::Migration
       t.string :salesforce_token
       t.string :quickbooks_token
     end
+
+    add_index :orgs, :name,                unique: true
+
+    #Test Org
+    Org.create :name => "Acme Inc."
+
   end
 end
