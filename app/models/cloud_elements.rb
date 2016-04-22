@@ -200,7 +200,7 @@ class CloudElements
     org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
     quickbooks_instance_id = Org.where(name: org_name).select(:quickbooks_instance_id).take.quickbooks_instance_id
     salesforce_instance_id = Org.where(name: org_name).select(:salesforce_instance_id).take.salesforce_instance_id
-    formula_id = "355"
+    formula_id = "324"
 
     body = {
         'formula' => {
