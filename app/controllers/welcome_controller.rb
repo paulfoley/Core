@@ -96,11 +96,12 @@ class WelcomeController < ApplicationController
   
   #page for new users
   def new_user
-    
+    #get org from URL
   end
   
   #adds a user to a specified org
-  def add_user()
+  def add_user(org)
+    @org = org
     @user = User.create(:name=>params[:firstname] + " " + params[:lastname], :email=>params[:email], :password=>params[:password1], :org=>@org, :is_admin=>false)
     login(@user)
     redirect_to :controller=>'core',:action=>'run'

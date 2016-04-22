@@ -64,16 +64,22 @@ function reportSwitch(button) {
 var inactivity_time = function () {
    var t;
    window.onload = reset_timer;
-   document.onmousemove = reset_timer;
-   document.onkeypress = reset_timer;
+   //document.addEventListener("mousemove",console.log("BUTTS"));
+   //window.addEventListener("keypress",console.log("POOP"));
+   $(document).mousemove(console.log("BUTTS"));
+   $(document).keypress(console.log("POOP"));
 
    function logout() {
+       stop_timer();
        alert("You have been logged out.");
        window.location = '/welcome#index';
    }
 
    function reset_timer() {
-       t = setTimeout(function(){ logout(); }, 900000);
+       t = setTimeout(function(){ logout(); }, 9000000);
+   }
+   function stop_timer() {
+       t = 0;
    }
 }
 
@@ -90,8 +96,6 @@ function getQueryVariable(variable)
 }
 
 $(document).ready(function() {
-    //log out after x inactivity time
-    inactivity_time();
     //fade flash notices
     if(!!document.getElementsByClassName("notice")[0]) {
         setTimeout(function(){
@@ -142,6 +146,8 @@ $(document).ready(function() {
 
     //set up page
     else if(!!document.getElementsByClassName("setup_container")[0]) {
+        //log out after x inactivity time
+        inactivity_time();
         $('.app_button').each(function() {
             this.addEventListener('click', function() {
                 window.location = "/elements/show/?app_name=" + this.id;
@@ -151,8 +157,16 @@ $(document).ready(function() {
 
     //if main page
     else if(!!document.getElementById("container")) {
-        //global variables
+        
+        //log out after x inactivity time
+        inactivity_time();
+        
         //view switches controlled via buttons
+        if(getQueryVariable("view")) {
+            $('#' + getQueryVariable('view') + '_button').addClass('selected');
+        }
+        else document.getElementById('metrics_button').addClass('selected');
+        
         active = $('.selected');
         document.getElementById(active[0].id.replace("_button", "")).style.opacity = 1;
         document.getElementById(active[0].id.replace("_button", "")).style.zIndex = 2;
