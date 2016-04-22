@@ -8,8 +8,9 @@ class CoreController < ApplicationController
     @connected_to_stripe = !!Org.where(name: session[:org]).select(:stripe_token).take.stripe_token
   end
   
-  def add_user
-    @org = Org.find_by(:name=>session[:org])
+  def invite_user
+    #@org = Org.find_by(:name=>session[:org])
+    @org = params[:org]
     InviteMailer.invite_mail(params[:email])
     flash[:success] = "User Invited!"
     redirect_to :action=>'run'
