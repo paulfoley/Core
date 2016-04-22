@@ -257,14 +257,15 @@ class CloudElements
 
     response_parsed = JSON.parse(response.body)
 
-    event_poller_refresh_interval = response_parsed.find { |h| h['key'] == 'event.poller.refresh_interval' }
-    event_notification_callback_url = response_parsed.find { |h| h['key'] == 'event.notification.callback.url' }
-    event_notification_enabled = response_parsed.find { |h| h['key'] == 'event.notification.enabled' }
 
-    event_poller_refresh_interval_id = event_poller_refresh_interval['id']
-    event_notification_callback_url_id = event_notification_callback_url['id']
-    event_notification_enabled_id = event_notification_enabled['id']
-    
+    event_poller_refresh_interval_id = response_parsed.find {|h1| h1['key'] == 'event.poller.refresh_interval'}['id']
+    puts event_poller_refresh_interval_id
+
+    event_notification_callback_url_id = response_parsed.find {|h1| h1['key'] == 'event.notification.callback.url'}['id']
+    puts event_notification_callback_url_id
+
+    event_notification_enabled_id = response_parsed.find {|h1| h1['key'] == 'event.notification.enabled'}['id']
+    puts event_notification_enabled_id
 
     poller_refresh_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_poller_refresh_interval_id}")
 
