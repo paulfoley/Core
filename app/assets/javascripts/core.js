@@ -90,7 +90,14 @@ function getQueryVariable(variable)
 }
 
 $(document).ready(function() {
+    //log out after x inactivity time
     inactivity_time();
+    //fade flash notices
+    if(!!document.getElementsByClassName("notice")[0]) {
+        setTimeout(function(){
+            document.getElementsByClassName("notice")[0].style.opacity = 0;
+        }, 5000);
+    }
     //if login page
     if(!!document.getElementById("login")) {
         var view = getQueryVariable("view");
@@ -100,11 +107,6 @@ $(document).ready(function() {
         $('#signup').css("display","none");
         $('#pw').css("display","none")
         
-        if(!!document.getElementsByClassName("notice")[0]) {
-            setTimeout(function(){
-                document.getElementsByClassName("notice")[0].style.opacity = 0;
-            }, 5000);
-        }
         document.getElementById("signup_button").addEventListener("click", function() {
             $('#login').removeClass("show");
              setTimeout(function(){
