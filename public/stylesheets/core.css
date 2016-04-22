@@ -302,6 +302,9 @@ input[type=submit] {
     height:5em;
     width:5em;
 }
+.r_button img {
+    width:100%;
+}
 .r_app_pane {
     position:absolute;
     top:calc(55px + 5em);

@@ -32,9 +32,9 @@
     <div id="add_user_container" class="setup_container <%= @show_users %>">
         <h2>Invite a user to your organization.</h2>
         <%= form_tag(:action => "add_user") do %>
-          <%= text_field_tag("org",nil,:placeholder=>"First Name",:required=>true) %>
-          <%= text_field_tag("firstname",nil,:placeholder=>"Last Name",:required=>true) %>
-          <%= text_field_tag("lastname",nil,:placeholder=>"Email",:required=>true) %>
+          <%= text_field_tag("firstname",nil,:placeholder=>"First Name",:required=>true) %>
+          <%= text_field_tag("lastname",nil,:placeholder=>"Last Name",:required=>true) %>
+          <%= email_field_tag("email",nil,:placeholder=>"Email",:required=>true) %>
           
           <%= submit_tag("Invite User")%>
           <%= link_to("Skip to App", :controller=>'core', :action=>'run') %>

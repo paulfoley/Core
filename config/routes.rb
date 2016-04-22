@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'welcome/signup'
   get 'welcome/check_user'
   get 'welcome/setup'
+  get 'welcome/new_user'
 
   get 'elements/callback'
   

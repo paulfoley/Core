@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-
+  
   def index
     session[:logged_in] = false
     if params[:view] == "login"
@@ -88,6 +88,10 @@ class WelcomeController < ApplicationController
     @org = Org.find_by(:name=>session[:org])
     @email1 = params[:email1]
     redirect_to controller:'core', action:'run'
+  end
+  
+  def new_user
+    
   end
   
   def run
