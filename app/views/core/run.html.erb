@@ -131,18 +131,18 @@
             </li>
         </ul>
           <h2>Users</h2>
-          <ul class="wrapper">
+          <ul class="wrapper users_wrapper">
             <% User.where(org: @org).all.each do |u|%>
             <li>
-              <div class="user_wrapper">
+              <div class="user_container">
                 <p><%= u.name %></p>
                 <div class="item user_item"></div>
               </div>
             </li>
             <% end %>
             </ul>
-            <ul class="wrapper">
-              <div class="user_wrapper">
+            <ul id="add_button" class="wrapper">
+              <div class="user_container">
                 <div class="item" id="invite_user">
                   <div class="plus">+</div>
                 </div>

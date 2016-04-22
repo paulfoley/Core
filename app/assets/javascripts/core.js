@@ -98,6 +98,7 @@ $(document).ready(function() {
             document.getElementsByClassName("notice")[0].style.opacity = 0;
         }, 5000);
     }
+    
     //if login page
     if(!!document.getElementById("login")) {
         var view = getQueryVariable("view");
