@@ -84,6 +84,7 @@ class WelcomeController < ApplicationController
     end
   end
   
+  #invites a user to an org
   def invite_user
     @org = Org.find_by(:name=>session[:org])
     @email = params[:email]
@@ -92,7 +93,13 @@ class WelcomeController < ApplicationController
     redirect_to controller:'core', action:'run'
   end
   
+  #page for new users
   def new_user
+    
+  end
+  
+  #adds a user to a specified org
+  def add_user
     
   end
   
