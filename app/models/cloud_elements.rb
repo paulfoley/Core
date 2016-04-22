@@ -71,7 +71,7 @@ class CloudElements
     org = Org.where(name: org_name).select(:name, :salesforce_instance_id, :id).take
     org.update_attributes(:salesforce_instance_id => response_parsed['id'])
 
-    self.setup_polling(response_parsed['id'])
+#    self.setup_polling(response_parsed['id'])
 
     if Org.where(name: org_name).select(:quickbooks_token).take.quickbooks_token
       self.create_salesforce_to_quickbooks_formula_instance(org_name)
