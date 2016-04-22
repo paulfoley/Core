@@ -156,6 +156,9 @@ $(document).ready(function() {
                 window.location = "/elements/show/?app_name=" + this.id;
             });
         });
+        document.getElementById("invite_user").addEventListener("click", function() {
+            $('#popup_wrapper').show();
+        })
     
     }
 

@@ -6,6 +6,14 @@ class CoreController < ApplicationController
     
   end
   
+  def add_user
+    @org = Org.find_by(:name=>session[:org])
+    @email1 = params[:email1]
+    InviteMailer.invite_mail(@email)
+    flash[:success] = "User Invited!"
+    redirect_to :action=>'run'
+  end
+  
   def logout
     session[:logged_in] = false
     flash[:failure] = "Logged Out"

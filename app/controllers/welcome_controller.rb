@@ -67,6 +67,7 @@ class WelcomeController < ApplicationController
   def pw_mail
     PwMailer.pw_mail(params[:email]).deliver_now
     flash[:success] = "Email Sent"
+    redirect_to action=>'index'
   end
   
   def setup

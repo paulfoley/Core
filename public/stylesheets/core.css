@@ -41,6 +41,13 @@ input[type=submit] {
     padding-left:1em;
     padding-right:1em;
 }
+#popup input[type=submit] {
+    display:block;
+    width:auto;
+    margin-left:auto;
+    margin-right:auto;
+    padding:0.5em;
+}
 
 .button {
     position:relative;
@@ -99,6 +106,27 @@ input[type=submit] {
 }
 
 /*main screen*/
+
+#popup_wrapper {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,0.5);
+    z-index:5;
+}
+#popup {
+    position:relative;
+    margin-top:10%;
+    padding:0.5em;
+    width:25%;
+    margin-left:auto;
+    margin-right:auto;
+    background-color:#F0F0F0;
+    border-radius:2px;
+}
 
 #sidebar a {
     width:20px;
@@ -327,8 +355,7 @@ input[type=submit] {
 }
 .wrapper li {
     position:relative;
-    width:5em;
-    height:auto;
+    width:auto;
     display:inline-block;
     text-align:center;
     margin:0 1em;
@@ -342,9 +369,9 @@ input[type=submit] {
     margin-bottom:1em;
 }
 .wrapper li div {
-    display:block;
     margin-right:auto;
     margin-left:auto;
+    width:5em;
 }
 .wrapper img {
     width:100%;
@@ -364,8 +391,24 @@ input[type=submit] {
     width:5em;
     transition: background-size 0.3s ease;
 }
+.user_wrapper {
+    float:left;
+}
 .user_item {
     background-image:url("http://www.eataway.com/assets/img/profile-no-image.png");
+}
+#invite_user {
+    border-radius:50%;
+    text-align:center;
+    background-color:#4d3571;
+    cursor:pointer;
+    display:table;
+}
+.plus {
+    display:table-cell;
+    vertical-align: middle;
+    color:#F0F0F0;
+    font-size:2em;
 }
 #a_CRM {
 

@@ -6,6 +6,14 @@
     <%= link_to "Log Out", :controller=>'core',:action=>'logout' %>
   </div>
 </div>
+<div id="popup_wrapper">
+  <div id="popup">
+    <%= form_tag :action=>"add_user" do %>
+      <%= email_field_tag("email",nil,:placeholder=>"Enter Email",:required=>true) %>
+      <%= submit_tag("Send Invite") %>
+    <% end %>
+  </div>
+</div>
 <div id="container">
   <div id="sidebar">
     <div id="metrics_button" class="menu_button selected">
@@ -135,23 +143,33 @@
                 </div>
               </a>
             </li>
-            <li>
-              <div id="invite_user"></div>
-            </li>
         </ul>
           <h2>Users</h2>
           <ul class="wrapper">
             <li>
-              <p>Paul Foley</p>
-              <div class="item user_item"></div>
+              <div class="user_wrapper">
+                <p>Paul Foley</p>
+                <div class="item user_item"></div>
+              </div>
             </li>
             <li>
-              <p>Ben Jacobson</p>
-              <div class="item user_item"></div>
+              <div class="user_wrapper">
+                <p>Ben Jacobson</p>
+                <div class="item user_item"></div>
+              </div>
             </li>
             <li>
-              <p>Larry Page</p>
-              <div class="item user_item"></div>
+              <div class="user_wrapper">
+                <p>Larry Page</p>
+                <div class="item user_item"></div>
+              </div>
+            </li>
+            <li>
+              <div class="user_wrapper">
+                <div class="item" id="invite_user">
+                  <div class="plus">+</div>
+                </div>
+              </div>
             </li>
           </ul>
         </div>

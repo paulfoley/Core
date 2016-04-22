@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'core/apps'
   get 'core/index'
   get 'core/logout'
+  get 'core/add_user'
+  post 'core/add_user' => 'core#add_user'
 
   post '/callback/receive_data' => 'callback#receive_data'
   
