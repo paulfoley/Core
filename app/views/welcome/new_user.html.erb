@@ -1,6 +1,6 @@
 <div id="container">
     <img class="rotating" src="http://i.imgur.com/CRjP7kU.png">
-    <div class="login_container" show>
+    <div class="login_container show">
         <%= form_tag(:action=>'add_user') do %>
             <%= text_field_tag("firstname",nil,:placeholder=>"First Name",:required=>true) %>
             <%= text_field_tag("lastname",nil,:placeholder=>"Last Name",:required=>true) %>

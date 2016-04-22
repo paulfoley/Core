@@ -9,11 +9,11 @@ class CoreController < ApplicationController
   end
   
   def invite_user
-    #@org = Org.find_by(:name=>session[:org])
-    @org = params[:org]
-    InviteMailer.invite_mail(params[:email]).deliver_now
+    @org = Org.find_by(:name=>session[:org])
+    @email = params[:email]
+    InviteMailer.invite_mail(@email).deliver_now
     flash[:success] = "User Invited!"
-    redirect_to :action=>'run'
+    redirect_to controller:'core', action:'run'
   end
   
   def logout
