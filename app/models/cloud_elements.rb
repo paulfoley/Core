@@ -204,7 +204,7 @@ class CloudElements
 
     body = {
         'formula' => {
-            'id' => '355',
+            'id' => formula_id,
             'active' => 'true',
             'singleThreaded' => 'false'
         },
@@ -217,6 +217,7 @@ class CloudElements
             'salesforce.instance' => salesforce_instance_id
         }
     }.to_json
+
 
     headers = {
         'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
