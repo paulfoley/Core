@@ -5,7 +5,9 @@ class CreateOrgs < ActiveRecord::Migration
       t.timestamps null: false
       t.string :name,           null: false, default: ""
       t.string :salesforce_token
+      t.string :salesforce_instance_id
       t.string :quickbooks_token
+      t.string :quickbooks_instance_id
       t.string :stripe_token
     end
 

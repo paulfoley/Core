@@ -68,7 +68,14 @@ class CloudElements
     org = Org.where(name: org_name).select(:name, :salesforce_token, :id).take
     org.update_attributes(:salesforce_token => response_parsed['token'])
 
+    org = Org.where(name: org_name).select(:name, :salesforce_instance_id, :id).take
+    org.update_attributes(:salesforce_instance_id => response_parsed['id'])
+
     self.setup_polling(response_parsed['id'])
+
+    if Org.where(name: org_name).select(:quickbooks_token).take.quickbooks_token
+      self.create_salesforce_to_quickbooks_formula_instance(org_name)
+    end
 
   end
 
@@ -177,9 +184,57 @@ class CloudElements
     org = Org.where(name: org_name).select(:name, :quickbooks_token, :id).take
     org.update_attributes(:quickbooks_token => response_parsed['token'])
 
-    puts org.quickbooks_token
+    org = Org.where(name: org_name).select(:name, :quickbooks_instance_id, :id).take
+    org.update_attributes(:quickbooks_instance_id => response_parsed['id'])
+
     self.setup_polling(response_parsed['id'])
 
+    if Org.where(name: org_name).select(:salesforce_token).take.salesforce_token
+      self.create_salesforce_to_quickbooks_formula_instance(org_name)
+    end
+  end
+
+  def self.create_salesforce_to_quickbooks_formula_instance(org_name)
+
+    user_secret = ENV['CLOUDELEMENTS_API_KEY']
+    org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
+    quickbooks_instance_id = Org.where(name: org_name).select(:quickbooks_instance_id).take.quickbooks_instance_id
+    salesforce_instance_id = Org.where(name: org_name).select(:salesforce_instance_id).take.salesforce_instance_id
+    formula_id = "355"
+
+    body = {
+        'formula' => {
+            'id' => 355,
+            'active' => true,
+            'singleThreaded' => false
+        },
+        'name' => org_name,
+        'debugMode' => true,
+        'active' => true,
+        'configuration' => {
+            'quickbooks.instance' => quickbooks_instance_id,
+            'notification.email' => 'developers@corecloudapp.com',
+            'salesforce.instance' => salesforce_instance_id
+        }
+    }.to_json
+
+    headers = {
+        'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
+        'Content-Type' => 'application/json'
+    }
+
+    url = URI("https://api.cloud-elements.com/elements/api-v2/formulas/#{formula_id}/instances")
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Post.new(url, headers)
+    request.body = body
+
+    response = http.request(request)
+    response_parsed = JSON.parse(response.body)
+
+    puts response_parsed
 
   end
 
@@ -291,6 +346,9 @@ class CloudElements
     response_parsed = JSON.parse(response.body)
 
     puts response_parsed
+    org = Org.where(name: org_name).select(:name, :stripe_token, :id).take
+    org.update_attributes(:stripe_token => response_parsed['access_token'])
+
 
   end
 
