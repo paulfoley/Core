@@ -132,19 +132,22 @@
         </ul>
           <h2>Users</h2>
           <ul class="wrapper">
+            <% User.where(org: @org).all.each do |u|%>
             <li>
               <div class="user_wrapper">
-                <p>Paul Foley</p>
+                <p><%= u.name %></p>
                 <div class="item user_item"></div>
               </div>
             </li>
-            <li>
+            <% end %>
+            </ul>
+            <ul class="wrapper">
               <div class="user_wrapper">
                 <div class="item" id="invite_user">
                   <div class="plus">+</div>
                 </div>
               </div>
-            </li>
+            </ul>
           </ul>
         </div>
       </div>
