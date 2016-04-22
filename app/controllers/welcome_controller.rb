@@ -87,7 +87,7 @@ class WelcomeController < ApplicationController
   def invite_user
     @org = Org.find_by(:name=>session[:org])
     @email = params[:email]
-    InviteMailer.invite_mail(@email)
+    InviteMailer.invite_mail(@email).deliver_now
     flash[:success] = "User Invited!"
     redirect_to controller:'core', action:'run'
   end

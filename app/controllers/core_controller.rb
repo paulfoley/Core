@@ -11,7 +11,7 @@ class CoreController < ApplicationController
   def invite_user
     #@org = Org.find_by(:name=>session[:org])
     @org = params[:org]
-    InviteMailer.invite_mail(params[:email])
+    InviteMailer.invite_mail(params[:email]).deliver_now
     flash[:success] = "User Invited!"
     redirect_to :action=>'run'
   end
