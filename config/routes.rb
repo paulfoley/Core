@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get 'welcome/check_user'
   get 'welcome/setup'
   get 'welcome/new_user'
+  get 'welcome/add_user'
+  post 'welcome/add_user' => 'welcome#add_user'
 
   get 'elements/callback'
   
