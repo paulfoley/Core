@@ -21,10 +21,8 @@ class ElementsController < ApplicationController
     @state = @uri_params[:state]
     if @state == "sfdc"
       CloudElements.salesforce_instance(session[:org], @uri_params[:code])
-      @var = Org.where(name: session[:org]).select(:salesforce_token).take.salesforce_token
     elsif @state == "quickbooks"
       CloudElements.quickbooks_instance(session[:org], @uri_params[:oauth_token], @uri_params[:oauth_verifier], @uri_params[:realmId], @uri_params[:dataSource])
-      @var = Org.where(name: session[:org]).select(:quickbooks_token).take.quickbooks_token
     end
 
   end
