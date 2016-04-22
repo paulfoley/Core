@@ -204,13 +204,13 @@ class CloudElements
 
     body = {
         'formula' => {
-            'id' => 355,
-            'active' => true,
-            'singleThreaded' => false
+            'id' => '355',
+            'active' => 'true',
+            'singleThreaded' => 'false'
         },
         'name' => org_name,
-        'debugMode' => true,
-        'active' => true,
+        'debugMode' => 'true',
+        'active' => 'true',
         'configuration' => {
             'quickbooks.instance' => quickbooks_instance_id,
             'notification.email' => 'developers@corecloudapp.com',
