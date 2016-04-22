@@ -176,7 +176,10 @@ $(document).ready(function() {
         });
         document.getElementById("invite_user").addEventListener("click", function() {
             $('#popup_wrapper').show();
-        })
+        });
+        document.getElementById("invite_user_cancel").addEventListener("click", function() {
+            $('#popup_wrapper').hide();
+        });
     
     }
 

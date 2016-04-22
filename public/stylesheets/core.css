@@ -127,6 +127,13 @@ input[type=submit] {
     background-color:#F0F0F0;
     border-radius:2px;
 }
+#popup a {
+    display:block;
+    margin: 0 auto;
+    text-align:center;
+    color:#4d3571;
+    cursor:pointer;
+}
 
 #sidebar a {
     width:20px;
@@ -290,15 +297,21 @@ input[type=submit] {
 #reports {
     overflow-y:visible;
 }
+/*change to total width of content*/
 #r_button_container {
+    width:15em;
+    display:table-row;
     position:absolute;
-    left:0;
+    left: 50%;
+    transform: translateX(-50%);
     right:0;
     top:-150px;
-    width:auto;
     text-align:center;
+    border-spacing:0.5em;
 }
 .r_button {
+    display:table-cell;
+    vertical-align:middle;
     height:5em;
     width:5em;
 }
@@ -371,7 +384,7 @@ input[type=submit] {
     margin:0;
     margin-bottom:1em;
 }
-.wrapper li div {
+#app_wrapper li div {
     margin-right:auto;
     margin-left:auto;
     width:5em;
@@ -411,7 +424,8 @@ input[type=submit] {
     display:table-cell;
     vertical-align: middle;
     color:#F0F0F0;
-    font-size:2em;
+    font-size:3em;
+    width:80%;
 }
 #a_CRM {
 

@@ -3,6 +3,7 @@
     <%= form_tag :action=>"add_user" do %>
       <%= email_field_tag("email",nil,:placeholder=>"Enter Email",:required=>true) %>
       <%= submit_tag("Send Invite") %>
+      <a id="invite_user_cancel">Cancel</a>
     <% end %>
   </div>
 </div>
@@ -48,21 +49,15 @@
     </div>
     <div class="pane" id="reports">
       <div id="r_button_container">
-        <a href="#">
-          <div id="CRM" class="app_button r_button">
-            <%= image_tag("salesforce.png") %>
-          </div>
-        </a>
-        <a href="#">
-          <div id="accounting" class="app_button r_button">
-            <%= image_tag("quickbooks.png") %>
-          </div>
-        </a>
-        <a href="#">
-          <div id="ecommerce" class="app_button r_button">
-            <%= image_tag("stripe.png") %>
-          </div>
-        </a>
+        <div id="CRM" class="app_button r_button">
+          <%= image_tag("salesforce.png") %>
+        </div>
+        <div id="accounting" class="app_button r_button">
+          <%= image_tag("quickbooks.png") %>
+        </div>
+        <div id="ecommerce" class="app_button r_button">
+          <%= image_tag("stripe.png") %>
+        </div>
       </div>
       
       <div id="CRM_pane" class="r_app_pane">
@@ -103,7 +98,7 @@
       <div class="pane" id="admin">
         <div id="admin_container">
           <h2>Applications</h2>
-          <ul class="wrapper">
+          <ul id="app_wrapper" class="wrapper">
             <li>
                 <a href="#">
                   <%if @connected_to_salesforce%>
