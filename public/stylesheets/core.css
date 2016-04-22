@@ -421,7 +421,7 @@ input[type=submit] {
     float:left;
 }
 .user_item {
-    background-image:url("http://www.eataway.com/assets/img/profile-no-image.png");
+    background-color:#F0F0F0;
 }
 #invite_user {
     border-radius:50%;

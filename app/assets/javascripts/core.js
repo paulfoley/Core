@@ -17,8 +17,10 @@ function contextSwitch(button) {
         document.getElementById(button[0].id.replace("_button", "")).style.opacity = 1;
         document.getElementById(button[0].id.replace("_button", "")).style.zIndex = 2;
         active = button;
+        
+        window.history.pushState(null,null,'/core/run/?view='+button[0].id.replace("_button",""));
 
-        //slide app icons in from left in aesthetic order
+        //slide app icons in from top in aesthetic order
         if(active[0].id == "reports_button") {
             var i = 0;
             $('.r_button').each(function() {
@@ -28,7 +30,7 @@ function contextSwitch(button) {
             });
         }
 
-        //slide app icons out to left in aesthetic order
+        //slide app icons out to top in aesthetic order
         else {
             var i = 0;
             $('.r_button').each(function() {
@@ -165,7 +167,7 @@ $(document).ready(function() {
         if(getQueryVariable("view")) {
             $('#' + getQueryVariable('view') + '_button').addClass('selected');
         }
-        else document.getElementById('metrics_button').addClass('selected');
+        else $('#metrics_button').addClass('selected');
         
         active = $('.selected');
         document.getElementById(active[0].id.replace("_button", "")).style.opacity = 1;
