@@ -77,13 +77,12 @@
       <div id="ecommerce_pane" class="r_app_pane">
         
       </div>
-      
     </div>
     <div class="pane" id="settings">
       <div id="settings_container">
-        <div id="profile_picture">
+        <div id="profile_picture" class="user_item">
           <div class="edit_button">Edit</div>
-          <img src="http://www.eataway.com/assets/img/profile-no-image.png">
+          <%= image_tag gravatar(@user) %>
         </div>
         <div id="profile_info">
           <h2><%= session[:name] %></h2>
@@ -136,7 +135,9 @@
             <li>
               <div class="user_container">
                 <p><%= u.name %></p>
-                <div class="item user_item"></div>
+                <div class="item user_item">
+                  <%= image_tag gravatar(u) %>
+                </div>
               </div>
             </li>
             <% end %>

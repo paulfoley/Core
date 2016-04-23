@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :org_id
       t.timestamps null: false
       t.json :settings
+      t.string :position
     end
 
 

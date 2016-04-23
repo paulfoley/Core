@@ -3,7 +3,8 @@ class CreateSalesforceOpportunities < ActiveRecord::Migration
     create_table :salesforce_opportunities do |t|
 
       t.timestamps null: false
-      t.string :opportunity_id
+      t.integer :salesforce_account_id
+      
     end
   end
 end

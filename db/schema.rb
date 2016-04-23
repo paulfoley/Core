@@ -22,11 +22,14 @@ ActiveRecord::Schema.define(version: 20160421002020) do
   end
 
   create_table "orgs", force: :cascade do |t|
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "name",             default: "", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "name",                   default: "", null: false
     t.string   "salesforce_token"
+    t.string   "salesforce_instance_id"
     t.string   "quickbooks_token"
+    t.string   "quickbooks_instance_id"
+    t.string   "stripe_token"
   end
 
   add_index "orgs", ["name"], name: "index_orgs_on_name", unique: true, using: :btree
@@ -90,9 +93,9 @@ ActiveRecord::Schema.define(version: 20160421002020) do
   end
 
   create_table "salesforce_opportunities", force: :cascade do |t|
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.string   "opportunity_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "salesforce_account_id"
   end
 
   create_table "stripe_customers", force: :cascade do |t|
@@ -117,6 +120,7 @@ ActiveRecord::Schema.define(version: 20160421002020) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.json     "settings"
+    t.string   "position"
     t.string   "name",                   default: "",    null: false
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
