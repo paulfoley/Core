@@ -6,9 +6,20 @@ Rails.configuration.stripe = {
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
 STRIPE_PUBLIC_KEY = Rails.configuration.stripe[:publishable_key]
 
+StripeEvent.event_retriever = Proc.new do |params|
+  if params[:type] == "transfer.paid"
+    TransferPaid.webhook(params)
+  end
+end
+
+=begin
 StripeEvent.subscribe 'transfer.paid' do |event|
+  puts event
+  #key = params[:user_id]
+  #puts key
   TransferPaid.webhook(event)
 end
+=end
 
 =begin
 StripeEvent.event_retriever = Proc.new do |params|

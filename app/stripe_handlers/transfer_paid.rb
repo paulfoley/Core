@@ -5,21 +5,22 @@ class TransferPaid < ApplicationController
     #puts event
     balance_id = event[:data][:object][:balance_transaction].to_s
     puts balance_id
-    amount = event[:data][:object][:amount] * 0.01
-    puts amount
-    customer_name = 'Company Jon'
+    amount_paid = event[:data][:object][:amount] * 0.01
+    puts amount_paid
     balance_transaction = Stripe::BalanceTransaction.retrieve(balance_id)
-    puts balance_transaction
+    #puts balance_transaction
 
     # key to validate user
     # Any way to get the secret key???
-    key = event[:user_id]
-    puts key
+    # "stripe_user_id": "acct_182AhpK49ukgfgoo"
+    #key = "acct_182AhpK49ukgfgoo"
+    stripe_token = event[:user_id].to_s
+    customer_name = "Company Jon"
 
     # use key to retrieve the customer name from the database?
 
-
-    #CloudElements.quickbooks_payment(customer_name, amount.to_s)
+    quickbooks_payment(stripe_token, customer_name, amount_paid)
+    # CloudElements.quickbooks_payment(key, customer_name, amount.to_s)
 
 
     #charge = Stripe::Charge.retrieve(params[:data][:object][:id].to_s)
