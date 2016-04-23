@@ -11,7 +11,7 @@ class CreateSalesforceAccounts < ActiveRecord::Migration
       t.integer :number_of_employees
       t.integer :annual_revenue
       t.string :industry
-      t.string :type
+      t.string :account_type
       t.string :phone
       t.string :fax
       t.string :billing_country

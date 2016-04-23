@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20160421002020) do
     t.integer  "number_of_employees"
     t.integer  "annual_revenue"
     t.string   "industry"
-    t.string   "type"
+    t.string   "account_type"
     t.string   "phone"
     t.string   "fax"
     t.string   "billing_country"
