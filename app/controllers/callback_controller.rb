@@ -52,7 +52,7 @@ class CallbackController < ApplicationController
         instance = params[:message][:instanceId]
         data = customer
 
-        org = Org.where(salesforce_instance_id: instance).select(:name, :id).take
+        org = Org.where(quickbooks_instance_id: instance).select(:name, :id).take
 
         output = QuickbooksCustomer.where(account_id: data[:id]).select(:account_id, :name).take
 

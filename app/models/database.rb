@@ -85,8 +85,6 @@ class Database
     #Can be extended to other elements
     if element == "quickbooks"
 
-      puts "************"
-      puts data[:companyName]
       customer = QuickbooksCustomer.create(name: data[:companyName], account_id: data[:id], org: my_org)
       customer.display_name = data[:displayName]
       customer.company_name = data[:companyName]
