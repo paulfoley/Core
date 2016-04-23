@@ -7,11 +7,20 @@ class ApplicationController < ActionController::Base
   def login(user)
     @user = user
     session[:name] = @user.name
-    session[:email] = @email
+    session[:email] = @user.email
     session[:org] = @user.org.name
     session[:logged_in] = true
     session[:is_admin] = @user.is_admin
   end
   helper_method :login
+    
+  def logout
+    session[:name] = nil
+    session[:email] = nil
+    session[:org] = nil
+    session[:logged_in] = false
+    session[:is_admin] = nil
+  end
+  helper_method :logout
 
 end

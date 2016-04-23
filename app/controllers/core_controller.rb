@@ -7,7 +7,7 @@ class CoreController < ApplicationController
     @connected_to_quickbooks = !!Org.where(name: session[:org]).select(:quickbooks_token).take.quickbooks_token
     @connected_to_stripe = !!Org.where(name: session[:org]).select(:stripe_token).take.stripe_token
     #variables available in main view
-    @user = User.find_by(name: session[:name])
+    @user = User.find_by(email: session[:email])
     @org = Org.find_by(name: session[:org])
   end
   

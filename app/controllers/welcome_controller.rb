@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
   
   def index
-    session[:logged_in] = false
+    logout()
     if params[:view] == "login"
       @show_login = "show"
       @show_signup = ""
@@ -96,14 +96,12 @@ class WelcomeController < ApplicationController
   
   #page for new users
   def new_user
-    @org_name = params[:org]
+    logout()
   end
   
   #adds a user to a specified org
-  def add_user()
+  def add_user
     @org = Org.find_by(:name=>params[:org])
-    puts @org
-    puts @org.name
     @user = User.create(:name=>params[:firstname] + " " + params[:lastname], :email=>params[:email], :password=>params[:password1], :org=>@org, :is_admin=>false)
     login(@user)
     redirect_to :controller=>'core',:action=>'run'
