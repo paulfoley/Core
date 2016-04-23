@@ -212,7 +212,7 @@ class CloudElements
     self.setup_polling(response_parsed['id'])
 
     if Org.where(name: org_name).select(:salesforce_token).take.salesforce_token
-      self.quickbooks_formula_transformation(response_parsed['id'])
+      # self.quickbooks_formula_transformation(response_parsed['id'])
       self.create_salesforce_to_quickbooks_formula_instance(org_name)
     end
   end
@@ -221,6 +221,97 @@ class CloudElements
     user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
     org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
 
+    body = {
+        'level' => 'organization',
+        'vendorName' => 'customer',
+        'fields' => [
+        {
+            'path' => 'Sync_Id',
+            'vendorPath' => 'id',
+            'configuration' => [
+             {
+                'type' => 'passThrough',
+                'properties' => {
+                    'fromVendor' => 'true',
+                    'toVendor' => 'false'
+                }
+              }
+            ]
+        },
+        {
+            'path' => 'Sync_Stage',
+            'vendorPath' => '',
+            'configuration' => [
+            {
+                'type' => 'passThrough',
+                'properties' => {
+                    'fromVendor' => 'false',
+                    'toVendor' => 'false'
+                }
+            }
+            ]
+        },
+        {
+            'path' => 'Sync_OpName',
+            'configuration' => [
+            {
+                'type' => 'passThrough',
+                'properties' => {
+                    'fromVendor' => 'false',
+                    'toVendor' => 'false'
+                }
+            }
+            ]
+        },
+        {
+            'path' => 'Sync_OpDisplayName',
+            'vendorPath' => 'displayName'
+        },
+        {
+            'path' => 'Sync_OpAmount',
+            'configuration' => [
+            {
+                'type' => 'passThrough',
+                'properties' => {
+                    'fromVendor' => 'false',
+                    'toVendor' => 'false'
+                }
+            }
+            ]
+        },
+        {
+            'path' => 'Sync_OpAccount',
+            'vendorPath' => 'companyName'
+        }
+        ],
+        'configuration' => [
+        {
+            'type' => 'passThrough',
+            'properties' => {
+                'fromVendor' => 'false',
+                'toVendor' => 'false'
+            }
+        }
+        ]
+    }.to_json
+
+    headers = {
+        'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
+        'Content-Type' => 'application/json'
+    }
+
+    url = URI("https://console.cloud-elements.com/elements/api-v2/instances/#{instance_id}/transformations/BasicSyncOpportunities")
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Post.new(url, headers)
+    request.body = body
+
+    response = http.request(request)
+    response_parsed = JSON.parse(response.body)
+
+    puts response_parsed
 
   end
 
@@ -381,7 +472,7 @@ class CloudElements
 
     puts response_parsed
     org = Org.where(name: org_name).select(:name, :stripe_token, :id).take
-    org.update_attributes(:stripe_token => response_parsed['access_token'])
+    org.update_attributes(:stripe_token => response_parsed['stripe_user_id'])
 
 
   end
