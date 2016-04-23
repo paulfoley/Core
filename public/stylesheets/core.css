@@ -41,11 +41,12 @@ input[type=submit] {
     padding-left:1em;
     padding-right:1em;
 }
-#popup input[type=submit] {
+.popup input[type=submit] {
     display:block;
     width:auto;
     margin-left:auto;
     margin-right:auto;
+    margin-top:1em;
     padding:0.5em;
 }
 
@@ -117,7 +118,7 @@ input[type=submit] {
     background-color:rgba(0,0,0,0.5);
     z-index:5;
 }
-#popup {
+.popup {
     position:relative;
     margin-top:10%;
     padding:0.5em;
@@ -127,7 +128,7 @@ input[type=submit] {
     background-color:#F0F0F0;
     border-radius:2px;
 }
-#popup a {
+.popup a {
     display:block;
     margin: 0 auto;
     text-align:center;
@@ -472,17 +473,14 @@ input[type=submit] {
     margin:0 1em 1em 0;
 }
 
-#profile_picture {
+#avatar {
     position:relative;
     float:left;
     width:25%;
     height:auto;
 }
-#profile_picture img {
+#avatar img {
     width:100%;
-}
-#profile_picture .edit_button {
-    position:absolute;
 }
 #profile_info {
     position:relative;
@@ -490,7 +488,8 @@ input[type=submit] {
     width:70%;
     height:auto;
 }
-.edit_button {
+#edit_avatar {
+    position:absolute;
     display:block;
     float:left;
     clear:right;
@@ -501,11 +500,25 @@ input[type=submit] {
     border-radius:3px;
     color:#FFFFFF;
     background-color:#4d3571;
-    transition:font-size 0.3s linear;
 }
-.edit_button:hover {
-    font-size: 0.85rem;
+#edit_settings {
+    display:block;
+    float:right;
+    clear:right;
+    width:auto;
+    height:auto;
+    font-size:1.5rem;
+    padding-top:0.25em;
+    padding-bottom:0.25em;
+    padding-left:0.5em;
+    padding-right:0.5em;
+    border-radius:3px;
+    color:#FFFFFF;
+    background-color:#4d3571;
+    margin-right: 2em;
+    cursor:pointer;
 }
+
 
 
 /*Utility classes*/

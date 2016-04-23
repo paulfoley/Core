@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'core/logout'
   get 'core/add_user'
   post 'core/invite_user' => 'core#invite_user'
+  get 'core/change_settings'
+  post 'core/change_settings' => 'core#change_settings'
 
   post '/callback/receive_data' => 'callback#receive_data'
   
