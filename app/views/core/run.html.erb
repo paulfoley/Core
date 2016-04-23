@@ -1,14 +1,15 @@
 <div id="popup_wrapper">
   <div id="popup">
-    <%= form_tag :action=>"add_user" do %>
+    <%= form_tag :action=>"invite_user" do %>
       <%= email_field_tag("email",nil,:placeholder=>"Enter Email",:required=>true) %>
       <%= submit_tag("Send Invite") %>
+      <a id="invite_user_cancel">Cancel</a>
     <% end %>
   </div>
 </div>
 <div id="container">
   <div id="sidebar">
-    <div id="metrics_button" class="menu_button selected">
+    <div id="metrics_button" class="menu_button">
       Metrics
     </div>
     <div id="reports_button" class="menu_button">
@@ -48,21 +49,15 @@
     </div>
     <div class="pane" id="reports">
       <div id="r_button_container">
-        <a href="#">
-          <div id="CRM" class="app_button r_button">
-            <%= image_tag("salesforce.png") %>
-          </div>
-        </a>
-        <a href="#">
-          <div id="accounting" class="app_button r_button">
-            <%= image_tag("quickbooks.png") %>
-          </div>
-        </a>
-        <a href="#">
-          <div id="ecommerce" class="app_button r_button">
-            <%= image_tag("stripe.png") %>
-          </div>
-        </a>
+        <div id="CRM" class="app_button r_button">
+          <%= image_tag("salesforce.png") %>
+        </div>
+        <div id="accounting" class="app_button r_button">
+          <%= image_tag("quickbooks.png") %>
+        </div>
+        <div id="ecommerce" class="app_button r_button">
+          <%= image_tag("stripe.png") %>
+        </div>
       </div>
       
       <div id="CRM_pane" class="r_app_pane">
@@ -103,7 +98,7 @@
       <div class="pane" id="admin">
         <div id="admin_container">
           <h2>Applications</h2>
-          <ul class="wrapper">
+          <ul id="app_wrapper" class="wrapper">
             <li>
                 <a href="#">
                   <%if @connected_to_salesforce%>
@@ -136,32 +131,23 @@
             </li>
         </ul>
           <h2>Users</h2>
-          <ul class="wrapper">
+          <ul class="wrapper users_wrapper">
+            <% User.where(org: @org).all.each do |u|%>
             <li>
-              <div class="user_wrapper">
-                <p>Paul Foley</p>
+              <div class="user_container">
+                <p><%= u.name %></p>
                 <div class="item user_item"></div>
               </div>
             </li>
-            <li>
-              <div class="user_wrapper">
-                <p>Ben Jacobson</p>
-                <div class="item user_item"></div>
-              </div>
-            </li>
-            <li>
-              <div class="user_wrapper">
-                <p>Larry Page</p>
-                <div class="item user_item"></div>
-              </div>
-            </li>
-            <li>
-              <div class="user_wrapper">
+            <% end %>
+            </ul>
+            <ul id="add_button" class="wrapper">
+              <div class="user_container">
                 <div class="item" id="invite_user">
                   <div class="plus">+</div>
                 </div>
               </div>
-            </li>
+            </ul>
           </ul>
         </div>
       </div>

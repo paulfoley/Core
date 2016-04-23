@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'core/index'
   get 'core/logout'
   get 'core/add_user'
-  post 'core/add_user' => 'core#add_user'
+  post 'core/invite_user' => 'core#invite_user'
 
   post '/callback/receive_data' => 'callback#receive_data'
   
@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get 'welcome/check_user'
   get 'welcome/setup'
   get 'welcome/new_user'
+  get 'welcome/add_user'
+  post 'welcome/add_user' => 'welcome#add_user'
 
   get 'elements/callback'
   
@@ -32,7 +34,7 @@ Rails.application.routes.draw do
   get '/welcome/pw_email'
   post '/welcome/pw_email' => 'welcome#pw_email'
   
-  post '/welcome/add_user' => 'welcome#add_user'
+  post '/welcome/invite_user' => 'welcome#invite_user'
   
   resources :elements do
     member do

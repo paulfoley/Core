@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Hi <%= @email %></h3>
+    <p>
+      You've been invited to join CORE by <%=@org_name%>! Click <%= link_to("here","https://corecloudapp.herokuapp.com/welcome/new_user") %> to accept.
+    </p>
+  </body>
+</html>
