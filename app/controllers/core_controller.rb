@@ -11,6 +11,24 @@ class CoreController < ApplicationController
     @org = Org.find_by(name: session[:org])
   end
   
+  def change_settings
+    @user = User.find_by(email: session[:email])
+    if params[:name] != ""
+      @user.name = params[:name]
+      session[:name] = params[:name]
+    end
+    if params[:email] != ""
+      @user.email = params[:email]
+      session[:email] = params[:email]
+    end
+    if params[:position] != ""
+      @user.position = params[:position]
+      session[:position] = params[:position]
+    end
+    @user.save
+    redirect_to :action=>'run'
+  end
+  
   def invite_user
     @org = Org.find_by(:name=>session[:org])
     @org_name = @org.name

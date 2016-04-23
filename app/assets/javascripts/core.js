@@ -60,7 +60,17 @@ function reportSwitch(button) {
     });
     $(document.getElementById(button.id+"_pane")).addClass("show");
     
-        
+}
+
+function openPopup(popup) {
+    $('#popup_wrapper').show();
+    $('.popup').each(function() {
+        $(this).hide();
+    });
+    $('#' + popup + '_popup').show();
+}
+function closePopup() {
+    $('#popup_wrapper').hide();
 }
 
 var inactivity_time = function () {
@@ -98,15 +108,72 @@ function getQueryVariable(variable)
 }
 
 $(document).ready(function() {
-    //fade flash notices
-    if(!!document.getElementsByClassName("notice")[0]) {
-        setTimeout(function(){
-            document.getElementsByClassName("notice")[0].style.opacity = 0;
-        }, 5000);
+    
+    //if main page
+    if(!!document.getElementById("main")) {
+        
+        //log out after x inactivity time
+        inactivity_time();
+        
+        //view switches controlled via buttons
+        if(getQueryVariable("view")) {
+            $('#' + getQueryVariable('view') + '_button').addClass('selected');
+        }
+        else $('#metrics_button').addClass('selected');
+        
+        active = $('.selected');
+        //slide in reports buttons if initial screen is reports
+        if(active[0] == $('#reports_button')[0]) {
+            var i = 0;
+            $('.r_button').each(function() {
+                $(this).css("top","150px");
+                $(this).css("transition-delay", "0s," + i.toString() + "s");
+                i+=0.1;
+            });
+        }
+        document.getElementById(active[0].id.replace("_button", "")).style.opacity = 1;
+        document.getElementById(active[0].id.replace("_button", "")).style.zIndex = 2;
+    
+        //menu button transitions
+        $(".menu_button").each(function() {
+            this.addEventListener("click", function() {
+                contextSwitch($(this));
+            });
+        });
+        //reports button transitions
+        $(".r_button").each(function() {
+            this.addEventListener("click", function() {
+                reportSwitch(this);
+            });
+        });
+        //settings editing
+        document.getElementById("edit_settings").addEventListener("click",function() {
+            
+        });
+        //admin page
+        if(document.getElementById("admin")) {
+            $('.app_button').each(function() {
+                this.addEventListener('click', function() {
+                    window.location = "/elements/show/?app_name=" + this.id;
+                });
+            });
+            document.getElementById("invite_user").addEventListener("click", function() {
+                openPopup('invite');
+            });
+            document.getElementById("edit_settings").addEventListener("click", function() {
+                openPopup('edit');
+            });
+            $('.cancel').each(function() {
+                this.addEventListener("click", function() {
+                    closePopup();
+                });
+            });
+        }
+    
     }
     
     //if login page
-    if(!!document.getElementById("login")) {
+    else if(!!document.getElementById("login")) {
         var view = getQueryVariable("view");
         
         //hack to get login and signup transitions working properly
@@ -156,48 +223,12 @@ $(document).ready(function() {
             });
         });
     }
-
-    //if main page
-    else if(!!document.getElementById("container")) {
-        
-        //log out after x inactivity time
-        inactivity_time();
-        
-        //view switches controlled via buttons
-        if(getQueryVariable("view")) {
-            $('#' + getQueryVariable('view') + '_button').addClass('selected');
-        }
-        else $('#metrics_button').addClass('selected');
-        
-        active = $('.selected');
-        document.getElementById(active[0].id.replace("_button", "")).style.opacity = 1;
-        document.getElementById(active[0].id.replace("_button", "")).style.zIndex = 2;
     
-        //menu button transitions
-        $(".menu_button").each(function() {
-            this.addEventListener("click", function() {
-                contextSwitch($(this));
-            });
-        });
-        //reports button transitions
-        $(".r_button").each(function() {
-            this.addEventListener("click", function() {
-                reportSwitch(this);
-            });
-        });
-        //admin page
-        $('.app_button').each(function() {
-            this.addEventListener('click', function() {
-                window.location = "/elements/show/?app_name=" + this.id;
-            });
-        });
-        document.getElementById("invite_user").addEventListener("click", function() {
-            $('#popup_wrapper').show();
-        });
-        document.getElementById("invite_user_cancel").addEventListener("click", function() {
-            $('#popup_wrapper').hide();
-        });
-    
+    //fade flash notices
+    if(!!document.getElementsByClassName("notice")[0]) {
+        setTimeout(function(){
+            document.getElementsByClassName("notice")[0].style.opacity = 0;
+        }, 5000);
     }
 
 });
