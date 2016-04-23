@@ -477,9 +477,6 @@ input[type=submit] {
     float:left;
     width:25%;
     height:auto;
-    background-position:center center;
-    background-size:90% auto;
-    background-repeat:no-repeat;
 }
 #profile_picture img {
     width:100%;
