@@ -200,17 +200,69 @@ class Database
   # Create a new invoice from hashed parameters
   # Currently only creates QuickbooksInvoice
   def self.create_invoice(element, data, customer)
-    # TODO
+    #Can be extended to other elements
+    if element == "quickbooks"
+      invoice = QuickbooksInvoice.create(invoice_id: data[:id], quickbooks_customer: customer)
+      invoice.sync_token = data[:syncToken]
+      invoice.doc_number = data[:docNumber]
+      invoice.due_date = data[:dueDate]
+      invoice.print_status = data[:printStatus]
+      invoice.email_status = data[:emailStatus]
+      invoice.domain = data[:domain]
+      invoice.txn_date = data[:txnDate]
+      invoice.balance = data[:balance]
+      invoice.total_amt = data[:totalAmt]
+      invoice.allow_online_ach_payment = data[:allowOnlineACHPayment]
+      invoice.allow_online_payment = data[:allowOnlinePayment]
+      invoice.allow_ipn_payment = data[:allowIPNPayment]
+      invoice.apply_tax_after_discount = data[:applyTaxAfterDiscount]
+      invoice.allow_online_credit_card_payment = data[:allowOnlineCreditCardPayment]
+      invoice.sparse = data[:sparse]
+      invoice.save
+    else
+      # create another type of account here
+    end
   end
 
   # Update an existing invoice from hashed parameters
   def self.update_invoice(element, data)
-    # TODO
+    #Can be extended to other elements
+    if element == "quickbooks"
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(sync_token: data[:syncToken])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(doc_number: data[:docNumber])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(due_date: data[:dueDate])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(print_status: data[:printStatus])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(email_status: data[:emailStatus])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(domain: data[:domain])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(txn_date: data[:txnDate])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(balance: data[:balance])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(total_amt: data[:totalAmt])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(allow_online_ach_payment: data[:allowOnlineACHPayment])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(allow_online_payment: data[:allowOnlinePayment])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(allow_ipn_payment: data[:allowIPNPayment])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(apply_tax_after_discount: data[:applyTaxAfterDiscount])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(allow_online_credit_card_payment: data[:allowOnlineCreditCardPayment])
+      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(sparse: data[:sparse])
+    end
   end
 
-  # Delete an existing invoice
+  # Delete an existing invoice from hashed parameters
   def self.delete_invoice(element, data)
-    # TODO
+    #Can be extended to other elements
+    if element == "quickbooks"
+      self.delete_invoice_id(element, data[:id])
+    else
+      # delete another type of invoice here
+    end
   end
 
+  #Delete an existing invoice from invoice_id
+  def self.delete_invoice_id(element, invoice_id)
+    #Can be extended to other elements
+    if element == "quickbooks"
+      QuickbooksInvoice.where(invoice_id: invoice_id).delete_all
+    else
+      # delete another type of account here
+    end
+  end
 end
