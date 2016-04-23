@@ -5,7 +5,7 @@ class CloudElements
     api_secret = ENV['SALESFORCE_API_SECRET']
     callback_url = ENV['INSTANCE_CALLBACK_URL']
 
-    path = "https://api.cloud-elements.com/elements/api-v2/elements/sfdc/oauth/url"
+    path = "https://staging.cloud-elements.com/elements/api-v2/elements/sfdc/oauth/url"
     url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}&state=sfdc"
 
 #    puts url
@@ -54,7 +54,7 @@ class CloudElements
     }.to_json
 
 
-    uri = URI('https://api.cloud-elements.com/elements/api-v2/instances')
+    uri = URI('https://staging.cloud-elements.com/elements/api-v2/instances')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -89,7 +89,7 @@ class CloudElements
         'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret + ', Element ' + token
     }
 
-    url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/crm/objects")
+    url = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/objects")
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -107,7 +107,7 @@ class CloudElements
     api_secret = ENV['QUICKBOOKS_API_SECRET']
     callback_url = ENV['INSTANCE_CALLBACK_URL']
 
-    path = "https://api.cloud-elements.com/elements/api-v2/elements/quickbooks/oauth/token"
+    path = "https://staging.cloud-elements.com/elements/api-v2/elements/quickbooks/oauth/token"
     url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}"
 
     puts url
@@ -134,7 +134,7 @@ class CloudElements
     api_secret = ENV['QUICKBOOKS_API_SECRET']
     callback_url = ENV['INSTANCE_CALLBACK_URL']
 
-    path = "https://api.cloud-elements.com/elements/api-v2/elements/quickbooks/oauth/url"
+    path = "https://staging.cloud-elements.com/elements/api-v2/elements/quickbooks/oauth/url"
     url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}&requestToken=#{token}&state=quickbooks"
 
     puts url
@@ -192,7 +192,7 @@ class CloudElements
         }
     }.to_json
 
-    uri = URI('https://api.cloud-elements.com/elements/api-v2/instances')
+    uri = URI('https://staging.cloud-elements.com/elements/api-v2/instances')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -321,7 +321,7 @@ class CloudElements
     org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
     quickbooks_instance_id = Org.where(name: org_name).select(:quickbooks_instance_id).take.quickbooks_instance_id
     salesforce_instance_id = Org.where(name: org_name).select(:salesforce_instance_id).take.salesforce_instance_id
-    formula_id = "324"
+    formula_id = "1040"
 
     body = {
         'formula' => {
@@ -345,7 +345,7 @@ class CloudElements
         'Content-Type' => 'application/json'
     }
 
-    url = URI("https://api.cloud-elements.com/elements/api-v2/formulas/#{formula_id}/instances")
+    url = URI("https://staging.cloud-elements.com/elements/api-v2/formulas/#{formula_id}/instances")
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -370,7 +370,7 @@ class CloudElements
         'Authorization' => 'User '+ user_secret + ', Organization ' + org_secret
     }
 
-    url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration")
+    url = URI("https://staging.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration")
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -401,7 +401,7 @@ class CloudElements
       event_objects_id = response_parsed.find {|h| h['key'] == 'event.objects'}['id']
       puts event_objects_id
 
-      event_objects_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_objects_id}")
+      event_objects_url = URI("https://staging.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_objects_id}")
 
       event_vendor_type_body = {
           'name' => 'Objects to Monitor for Changes',
@@ -420,7 +420,7 @@ class CloudElements
     end
 
 
-    poller_refresh_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_poller_refresh_interval_id}")
+    poller_refresh_url = URI("https://staging.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_poller_refresh_interval_id}")
 
     poller_refresh_body = {
         'name' => 'Event poller refresh interval',
@@ -439,7 +439,7 @@ class CloudElements
 
 
 
-    notification_callback_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_notification_callback_url_id}")
+    notification_callback_url = URI("https://staging.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_notification_callback_url_id}")
 
     notification_callback_body = {
         'name' => 'Event Notification Callback URL',
@@ -457,7 +457,7 @@ class CloudElements
     puts response_parsed
 
 
-    event_vendor_type_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_vendor_type_id}")
+    event_vendor_type_url = URI("https://staging.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_vendor_type_id}")
 
     event_vendor_type_body = {
         'name' => 'Vendor Event Type',
@@ -475,7 +475,7 @@ class CloudElements
     puts response_parsed
 
 
-    enable_notification_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_notification_enabled_id}")
+    enable_notification_url = URI("https://staging.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_notification_enabled_id}")
 
     enable_notification_body = {
         'name' => 'Enable/Disable Event Notification',
@@ -533,7 +533,7 @@ class CloudElements
 
      encoded_customer = URI::encode(customer_name)
 
-     path = "https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers"
+     path = "https://staging.cloud-elements.com/elements/api-v2/hubs/finance/customers"
      url = "#{path}?where=displayName%3E%3D%27#{encoded_customer}%27"
 
      url = URI.parse url
@@ -575,7 +575,7 @@ class CloudElements
     }
 
 
-    url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/finance/customers")
+    url = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/customers")
 
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
@@ -606,7 +606,7 @@ class CloudElements
         'totalAmt' => amount_paid
     }.to_json
 
-    payment_url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/finance/payments")
+    payment_url = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/payments")
 
     http = Net::HTTP.new(payment_url.host, payment_url.port)
     http.use_ssl = true
@@ -644,7 +644,7 @@ class CloudElements
           'Content-Type' => 'application/json'
       }
 
-      url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/finance/payments")
+      url = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/payments")
 
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
