@@ -55,7 +55,7 @@ class Database
       SalesforceAccount.where(:account_id => data[:Id]).update_all(number_of_employees: data[:NumberOfEmployees])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(annual_revenue: data[:AnnualRevenue])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(industry: data[:Industry])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(type: data[:Type])
+      SalesforceAccount.where(:account_id => data[:Id]).update_all(account_type: data[:Type])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(phone: data[:Phone])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(fax: data[:Fax])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(billing_country: data[:BillingCountry])
