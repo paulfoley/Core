@@ -47,7 +47,8 @@ class Database
   def self.create_account(element, data, org)
     #Can be extended to other elements
     if element == "sfdc"
-      account = SalesforceAccount.create(name: data[:Name], account_id: data[:Id], org: org)
+      account = SalesforceAccount.create(name: data[:Name], org: org)
+      account.account_id = data[:Id]
       account.description = data[:Description]
       account.website = data[:Website]
       account.number_of_employees = data[:NumberOfEmployees]
@@ -115,7 +116,8 @@ class Database
     # Can be extended to other elements
     if element == "quickbooks"
 
-      customer = QuickbooksCustomer.create(name: data[:companyName], customer_id: data[:id], org: org)
+      customer = QuickbooksCustomer.create(name: data[:companyName], org: org)
+      customer.customer_id = data[:id]
       customer.display_name = data[:displayName]
       customer.fully_qualified_name = data[:fullyQualifiedName]
       customer.print_on_check_name = data[:printOnCheckName]
