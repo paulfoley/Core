@@ -72,7 +72,7 @@ class CloudElements
     org.update_attributes(:salesforce_instance_id => response_parsed['id'])
 
     self.temp_debug_for_salesforce_polling(response_parsed['token'])
-    self.setup_polling(response_parsed['id'])
+    self.setup_polling(response_parsed['id'], "salesforce")
 
     if Org.where(name: org_name).select(:quickbooks_token).take.quickbooks_token
       self.create_salesforce_to_quickbooks_formula_instance(org_name)
@@ -209,7 +209,7 @@ class CloudElements
     org = Org.where(name: org_name).select(:name, :quickbooks_instance_id, :id).take
     org.update_attributes(:quickbooks_instance_id => response_parsed['id'])
 
-    self.setup_polling(response_parsed['id'])
+    self.setup_polling(response_parsed['id'], "quickbooks")
 
     if Org.where(name: org_name).select(:salesforce_token).take.salesforce_token
       # self.quickbooks_formula_transformation(response_parsed['id'])
@@ -217,103 +217,103 @@ class CloudElements
     end
   end
 
-  def self.quickbooks_formula_transformation(instance_id)
-    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
-    org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
-
-    body = {
-        'level' => 'organization',
-        'vendorName' => 'customer',
-        'fields' => [
-        {
-            'path' => 'Sync_Id',
-            'vendorPath' => 'id',
-            'configuration' => [
-             {
-                'type' => 'passThrough',
-                'properties' => {
-                    'fromVendor' => 'true',
-                    'toVendor' => 'false'
-                }
-              }
-            ]
-        },
-        {
-            'path' => 'Sync_Stage',
-            'vendorPath' => '',
-            'configuration' => [
-            {
-                'type' => 'passThrough',
-                'properties' => {
-                    'fromVendor' => 'false',
-                    'toVendor' => 'false'
-                }
-            }
-            ]
-        },
-        {
-            'path' => 'Sync_OpName',
-            'configuration' => [
-            {
-                'type' => 'passThrough',
-                'properties' => {
-                    'fromVendor' => 'false',
-                    'toVendor' => 'false'
-                }
-            }
-            ]
-        },
-        {
-            'path' => 'Sync_OpDisplayName',
-            'vendorPath' => 'displayName'
-        },
-        {
-            'path' => 'Sync_OpAmount',
-            'configuration' => [
-            {
-                'type' => 'passThrough',
-                'properties' => {
-                    'fromVendor' => 'false',
-                    'toVendor' => 'false'
-                }
-            }
-            ]
-        },
-        {
-            'path' => 'Sync_OpAccount',
-            'vendorPath' => 'companyName'
-        }
-        ],
-        'configuration' => [
-        {
-            'type' => 'passThrough',
-            'properties' => {
-                'fromVendor' => 'false',
-                'toVendor' => 'false'
-            }
-        }
-        ]
-    }.to_json
-
-    headers = {
-        'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
-        'Content-Type' => 'application/json'
-    }
-
-    url = URI("https://console.cloud-elements.com/elements/api-v2/instances/#{instance_id}/transformations/BasicSyncOpportunities")
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-    request = Net::HTTP::Post.new(url, headers)
-    request.body = body
-
-    response = http.request(request)
-    response_parsed = JSON.parse(response.body)
-
-    puts response_parsed
-
-  end
+  # def self.quickbooks_formula_transformation(instance_id)
+  #   user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+  #   org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
+  #
+  #   body = {
+  #       'level' => 'organization',
+  #       'vendorName' => 'customer',
+  #       'fields' => [
+  #       {
+  #           'path' => 'Sync_Id',
+  #           'vendorPath' => 'id',
+  #           'configuration' => [
+  #            {
+  #               'type' => 'passThrough',
+  #               'properties' => {
+  #                   'fromVendor' => 'true',
+  #                   'toVendor' => 'false'
+  #               }
+  #             }
+  #           ]
+  #       },
+  #       {
+  #           'path' => 'Sync_Stage',
+  #           'vendorPath' => '',
+  #           'configuration' => [
+  #           {
+  #               'type' => 'passThrough',
+  #               'properties' => {
+  #                   'fromVendor' => 'false',
+  #                   'toVendor' => 'false'
+  #               }
+  #           }
+  #           ]
+  #       },
+  #       {
+  #           'path' => 'Sync_OpName',
+  #           'configuration' => [
+  #           {
+  #               'type' => 'passThrough',
+  #               'properties' => {
+  #                   'fromVendor' => 'false',
+  #                   'toVendor' => 'false'
+  #               }
+  #           }
+  #           ]
+  #       },
+  #       {
+  #           'path' => 'Sync_OpDisplayName',
+  #           'vendorPath' => 'displayName'
+  #       },
+  #       {
+  #           'path' => 'Sync_OpAmount',
+  #           'configuration' => [
+  #           {
+  #               'type' => 'passThrough',
+  #               'properties' => {
+  #                   'fromVendor' => 'false',
+  #                   'toVendor' => 'false'
+  #               }
+  #           }
+  #           ]
+  #       },
+  #       {
+  #           'path' => 'Sync_OpAccount',
+  #           'vendorPath' => 'companyName'
+  #       }
+  #       ],
+  #       'configuration' => [
+  #       {
+  #           'type' => 'passThrough',
+  #           'properties' => {
+  #               'fromVendor' => 'false',
+  #               'toVendor' => 'false'
+  #           }
+  #       }
+  #       ]
+  #   }.to_json
+  #
+  #   headers = {
+  #       'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
+  #       'Content-Type' => 'application/json'
+  #   }
+  #
+  #   url = URI("https://console.cloud-elements.com/elements/api-v2/instances/#{instance_id}/transformations/BasicSyncOpportunities")
+  #   http = Net::HTTP.new(url.host, url.port)
+  #   http.use_ssl = true
+  #   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+  #
+  #   request = Net::HTTP::Post.new(url, headers)
+  #   request.body = body
+  #
+  #   response = http.request(request)
+  #   response_parsed = JSON.parse(response.body)
+  #
+  #   puts response_parsed
+  #
+  # end
 
   def self.create_salesforce_to_quickbooks_formula_instance(org_name)
 
@@ -362,7 +362,7 @@ class CloudElements
 
 
 
-  def self.setup_polling(instance_id)
+  def self.setup_polling(instance_id, app)
     user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
     org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
 
@@ -386,8 +386,39 @@ class CloudElements
     event_notification_callback_url_id = response_parsed.find {|h| h['key'] == 'event.notification.callback.url'}['id']
     puts event_notification_callback_url_id
 
+    event_vendor_type_id = response_parsed.find {|h| h['key'] == 'event.vendor.type'}['id']
+    puts event_vendor_type_id
+
     event_notification_enabled_id = response_parsed.find {|h| h['key'] == 'event.notification.enabled'}['id']
     puts event_notification_enabled_id
+
+    configuration_headers = {
+        'Authorization' => 'User '+ user_secret + ', Organization ' + org_secret,
+        'Content-Type' => 'application/json'
+    }
+
+    if app == "salesforce"
+      event_objects_id = response_parsed.find {|h| h['key'] == 'event.objects'}['id']
+      puts event_objects_id
+
+      event_objects_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_objects_id}")
+
+      event_vendor_type_body = {
+          'name' => 'Objects to Monitor for Changes',
+          'key' => 'event.objects',
+          'propertyValue' => 'Account, Lead, Opportunity, Contact, Case, CaseComment'
+      }.to_json
+
+      http = Net::HTTP.new(event_objects_url.host, event_objects_url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      request = Net::HTTP::Patch.new(event_objects_url, configuration_headers)
+      request.body = event_vendor_type_body
+      response = http.request(request)
+      response_parsed = JSON.parse(response.body)
+      puts response_parsed
+    end
+
 
     poller_refresh_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_poller_refresh_interval_id}")
 
@@ -397,22 +428,16 @@ class CloudElements
         'propertyValue' => '2'
     }.to_json
 
-    configuration_headers = {
-        'Authorization' => 'User '+ user_secret + ', Organization ' + org_secret,
-        'Content-Type' => 'application/json'
-    }
-
     http = Net::HTTP.new(poller_refresh_url.host, poller_refresh_url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Patch.new(poller_refresh_url, configuration_headers)
     request.body = poller_refresh_body
     response = http.request(request)
-
-
     response_parsed = JSON.parse(response.body)
-
     puts response_parsed
+
+
 
     notification_callback_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_notification_callback_url_id}")
 
@@ -428,11 +453,27 @@ class CloudElements
     request = Net::HTTP::Patch.new(notification_callback_url, configuration_headers)
     request.body = notification_callback_body
     response = http.request(request)
-
-
     response_parsed = JSON.parse(response.body)
-
     puts response_parsed
+
+
+    event_vendor_type_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_vendor_type_id}")
+
+    event_vendor_type_body = {
+        'name' => 'Vendor Event Type',
+        'key' => 'event.vendor.type',
+        'propertyValue' => 'polling'
+    }.to_json
+
+    http = Net::HTTP.new(event_vendor_type_url.host, event_vendor_type_url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Patch.new(event_vendor_type_url, configuration_headers)
+    request.body = event_vendor_type_body
+    response = http.request(request)
+    response_parsed = JSON.parse(response.body)
+    puts response_parsed
+
 
     enable_notification_url = URI("https://api.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_notification_enabled_id}")
 
