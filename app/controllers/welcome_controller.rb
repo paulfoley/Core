@@ -102,7 +102,7 @@ class WelcomeController < ApplicationController
   #adds a user to a specified org
   def add_user
     @org = Org.find_by(:name=>params[:org])
-    @user = User.create(:name=>params[:firstname] + " " + params[:lastname], :email=>params[:email], :password=>params[:password1], :org=>@org, :is_admin=>false)
+    @user = User.create(:name=>params[:firstname] + ' ' + params[:lastname], :email=>params[:email], :password=>params[:password], :org=>@org, :is_admin=>false)
     login(@user)
     redirect_to :controller=>'core',:action=>'run'
   end
