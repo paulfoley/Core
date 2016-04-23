@@ -9,16 +9,18 @@ class ApplicationController < ActionController::Base
     session[:name] = @user.name
     session[:email] = @user.email
     session[:org] = @user.org.name
-    session[:logged_in] = true
+    session[:position] = @user.position
     session[:is_admin] = @user.is_admin
+    session[:logged_in] = true
   end
   helper_method :login
     
   def logout
+    session[:logged_in] = false
     session[:name] = nil
     session[:email] = nil
     session[:org] = nil
-    session[:logged_in] = false
+    session[:position] = nil
     session[:is_admin] = nil
   end
   helper_method :logout
