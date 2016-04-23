@@ -27,7 +27,7 @@ class Database
       account.number_of_employees = data[:NumberOfEmployees]
       account.annual_revenue = data[:AnnualRevenue]
       account.industry = data[:Industry]
-      account.type = data[:Type]
+      account.account_type = data[:Type]
       account.phone = data[:Phone]
       account.fax = data[:Fax]
       account.billing_country = data[:BillingCountry]
