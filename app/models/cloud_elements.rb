@@ -623,7 +623,7 @@ class CloudElements
     
     def self.quickbooks_add_payment_to_customer(token, customer_id, customer_name, amount_paid)
       
-      user_secret = 'ijHDATuDStgbpAlvXbNTn9gnLIblO5OtiHhbpER3S60='
+      user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
 
       body = {
           'customerRef' => {
