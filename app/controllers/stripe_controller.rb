@@ -16,9 +16,11 @@ class StripeController < ApplicationController
     #puts profit
     #balance_transaction = Stripe::BalanceTransaction.retrieve(balance_id)
     #puts balance_transaction
-    #CloudElements.quickbooks_payment(customer_name, amount.to_s)
-    key = params[:user_id]
+    key = event[:user_id].to_s
     puts key
+
+    CloudElements.quickbooks_payment(key, customer_name, amount.to_s)
+
 
 =begin
     charge = Stripe::Charge.retrieve(params[:data][:object][:id].to_s)

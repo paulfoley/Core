@@ -18,12 +18,12 @@ class Database
 
     # Delete each account associate with this Org
     org.salesforce_account.each do |account|
-      # TODO delete accounts by account_id
+      self.delete_account_id("sfdc", account.account_id)
     end
 
     # Delete each account associate with this Org
     org.quickbooks_customer.each do |customer|
-      # TODO delete accounts by customer_id
+      self.delete_customer_id("quickbooks", customer.customer_id)
     end
 
     org.delete
@@ -99,12 +99,23 @@ class Database
     end
   end
 
-  # Delete an existing account
+  # Delete an existing account from hashed paramters
+  # TODO Logic to delete child elements
   def self.delete_account(element, data)
-  #TODO Add logic to delete child instances to avoid orphans
   #Can be extended to other elements
     if element == "sfdc"
-      SalesforceAccount.where(account_id: data[:Id]).delete_all
+      self.delete_account_id(element, data[:Id])
+    else
+      # delete another type of account here
+    end
+  end
+
+  # Delete an existing account from account_id
+  # TODO Logic to delete child elements
+  def self.delete_account_id(element, account_id)
+    #Can be extended to other elements
+    if element == "sfdc"
+      SalesforceAccount.where(account_id: account_id).delete_all
     else
       # delete another type of account here
     end
@@ -148,14 +159,25 @@ class Database
     end
   end
 
-  # Delete an existing account
+  # Delete an existing account from hashed parameters
+  # TODO Logic to delete child elements
   def self.delete_customer(element, data)
-    #TODO Add logic to delete child instances to avoid orphans
     #Can be extended to other elements
     if element == "quickbooks"
-      QuickbooksCustomer.where(customer_id: data[:id]).delete_all
+      self.delete_customer_id(element, data[:id])
     else
       # delete another type of customer here
+    end
+  end
+
+  # Delete an existing customer from customer_id
+  # TODO Logic to delete child elements
+  def self.delete_customer_id(element, customer_id)
+    #Can be extended to other elements
+    if element == "quickbooks"
+      QuickbooksCustomer.where(customer_id: customer_id).delete_all
+    else
+      # delete another type of account here
     end
   end
 

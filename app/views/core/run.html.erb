@@ -82,11 +82,11 @@
       <div id="settings_container">
         <div id="profile_picture" class="user_item">
           <div class="edit_button">Edit</div>
-          <%= image_tag gravatar_large(@user) %>
+          <%= image_tag gravatar_large(session[:email]) %>
         </div>
         <div id="profile_info">
           <h2><%= session[:name] %></h2>
-          <h4>CEO</h4>
+          <h4><%= session[:position] %></h4>
           <div class="edit_button">Edit</div>
           <h4><%= session[:org] %></h4>
           <div class="edit_button">Edit</div>
@@ -136,7 +136,7 @@
               <div class="user_container">
                 <p><%= u.name %></p>
                 <div class="item user_item">
-                  <%= image_tag gravatar_small(u) %>
+                  <%= image_tag gravatar_small(u.email) %>
                 </div>
               </div>
             </li>

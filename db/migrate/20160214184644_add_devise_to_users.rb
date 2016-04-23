@@ -46,15 +46,15 @@ class AddDeviseToUsers < ActiveRecord::Migration
 
     org = Org.where(name: 'Acme Inc.').select(:name, :id).take
     User.create :name => "Adam", :password => "password12345", :email => "adam@core.com", :org => org, :is_admin =>
-     true
+     true, :position => "Assassin"
     User.create :name => "Madison", :password => "password12345", :email => "madison@core.com", :org => org, :is_admin =>
-        true
+        true, :position => "General"
     User.create :name => "Jon", :password => "password12345", :email => "jon@core.com", :org => org, :is_admin =>
-        true
+        true, :position => "Sniper"
     User.create :name => "Marc", :password => "password12345", :email => "marc@core.com", :org => org, :is_admin =>
-        true
+        true, :position => "Cook"
     User.create :name => "Brian", :password => "password12345", :email => "brian@core.com", :org => org, :is_admin =>
-        true
+        true, :position => "Demolitions Specialist"
 
   end
 
