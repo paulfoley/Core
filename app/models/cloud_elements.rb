@@ -71,11 +71,33 @@ class CloudElements
     org = Org.where(name: org_name).select(:name, :salesforce_instance_id, :id).take
     org.update_attributes(:salesforce_instance_id => response_parsed['id'])
 
-#    self.setup_polling(response_parsed['id'])
+    self.temp_debug_for_salesforce_polling(response_parsed['token'])
+    self.setup_polling(response_parsed['id'])
 
     if Org.where(name: org_name).select(:quickbooks_token).take.quickbooks_token
       self.create_salesforce_to_quickbooks_formula_instance(org_name)
     end
+
+  end
+
+  #Temporary method until CloudElements fixes the Salesforce event.notification.enabled bug
+  def self.temp_debug_for_salesforce_polling(token)
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
+
+    headers = {
+        'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret + ', Element ' + token
+    }
+
+    url = URI("https://api.cloud-elements.com/elements/api-v2/hubs/crm/objects")
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url, headers)
+    response = http.request(request)
+
+    response_parsed = JSON.parse(response.body)
+    puts response_parsed
 
   end
 
@@ -190,8 +212,16 @@ class CloudElements
     self.setup_polling(response_parsed['id'])
 
     if Org.where(name: org_name).select(:salesforce_token).take.salesforce_token
+      self.quickbooks_formula_transformation(response_parsed['id'])
       self.create_salesforce_to_quickbooks_formula_instance(org_name)
     end
+  end
+
+  def self.quickbooks_formula_transformation(instance_id)
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
+
+
   end
 
   def self.create_salesforce_to_quickbooks_formula_instance(org_name)
@@ -359,12 +389,11 @@ class CloudElements
 
 
    #check if customer exists in quickbooks. Used for Stripe integration.
-   def self.quickbooks_payment(customer_name, amount_paid)
+   def self.quickbooks_payment(stripe_token, customer_name, amount_paid)
 
      user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
-     token = "Ls4F34CO7Rz8GLkCn29OiSVJCe2yQbqblQ3NxlRn1P0="
 
-#    token = Org.where(:name => name).select(salesforce_token).take
+     token = Org.where(stripe_token: stripe_token).select(:quickbooks_token).take.quickbooks_token
 
      headers = {
          'Authorization' => 'Element '+ token + ', User ' + user_secret
