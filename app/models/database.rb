@@ -1,27 +1,54 @@
 class Database
 
+  # Create a new Org
   def self.create_org(name)
     if User.where(name: name).select(:name).take == nil
       Org.create(:name => name)
     end
   end
 
+  # Delete an existing Org and its child entities
+  def self.delete_org(name)
+    org = Org.where(name: name).select(:name, :id).take
+
+    # Delete each User associate with this Org
+    org.users.each do |user|
+      self.delete_user(user.email)
+    end
+
+    # Delete each account associate with this Org
+    org.salesforce_account.each do |account|
+      # TODO delete accounts by account_id
+    end
+
+    # Delete each account associate with this Org
+    org.quickbooks_customer.each do |customer|
+      # TODO delete accounts by customer_id
+    end
+
+    org.delete
+  end
+
+  # Create a new User
   def self.create_user(name, email, password, is_admin, org)
     if User.where(email: email).select(:email).take == nil
       User.create(:name => name, :email => email, :password => password, :is_admin => is_admin, :org => org)
     end
   end
 
-  def self.delete_org(name)
-    org = Org.where(name: name).select(:name, :id).take
-    org.users.delete_all
-    org.delete
+  # Delete an existing User
+  def self.delete_user(email)
+    user = User.where(email: email).select(:name, :id, :email).take
+    user.delete
   end
 
-  def self.create_account(element, data, my_org)
+  # Create a new account from hashed parameters
+  # Currently only creates SalesforceAccount
+  def self.create_account(element, data, org)
     #Can be extended to other elements
     if element == "sfdc"
-      account = SalesforceAccount.create(name: data[:Name], account_id: data[:Id], org: my_org)
+      account = SalesforceAccount.create(name: data[:Name], org: org)
+      account.account_id = data[:Id]
       account.description = data[:Description]
       account.website = data[:Website]
       account.number_of_employees = data[:NumberOfEmployees]
@@ -46,6 +73,7 @@ class Database
     end
   end
 
+  # Update an existing account from hashed parameters
   def self.update_account(element, data)
     #Can be extended to other elements
     if element == "sfdc"
@@ -55,7 +83,7 @@ class Database
       SalesforceAccount.where(:account_id => data[:Id]).update_all(number_of_employees: data[:NumberOfEmployees])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(annual_revenue: data[:AnnualRevenue])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(industry: data[:Industry])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(type: data[:Type])
+      SalesforceAccount.where(:account_id => data[:Id]).update_all(account_type: data[:Type])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(phone: data[:Phone])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(fax: data[:Fax])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(billing_country: data[:BillingCountry])
@@ -71,25 +99,26 @@ class Database
     end
   end
 
+  # Delete an existing account
   def self.delete_account(element, data)
   #TODO Add logic to delete child instances to avoid orphans
   #Can be extended to other elements
     if element == "sfdc"
       SalesforceAccount.where(account_id: data[:Id]).delete_all
     else
-      # create another type of account here
+      # delete another type of account here
     end
   end
 
-  def self.create_customer(element, data, my_org)
-    #Can be extended to other elements
+  # Create a new customer from hashed parameters
+  # Currently only creates QuickbooksCustomer
+  def self.create_customer(element, data, org)
+    # Can be extended to other elements
     if element == "quickbooks"
 
-      puts "************"
-      puts data[:companyName]
-      customer = QuickbooksCustomer.create(name: data[:companyName], account_id: data[:id], org: my_org)
+      customer = QuickbooksCustomer.create(name: data[:companyName], org: org)
+      customer.customer_id = data[:id]
       customer.display_name = data[:displayName]
-      customer.company_name = data[:companyName]
       customer.fully_qualified_name = data[:fullyQualifiedName]
       customer.print_on_check_name = data[:printOnCheckName]
       customer.domain = data[:domain]
@@ -99,15 +128,67 @@ class Database
       customer.balance_with_jobs = data[:balanceWithJobs]
       customer.save
     else
-      # create another type of account here
+      # create another type of customer here
     end
   end
 
+  # Update an existing customer from hashed parameters
   def self.update_customer(element, data)
-
+    #Can be extended to other elements
+    if element == "quickbooks"
+      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(name: data[:companyName])
+      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(display_name: data[:displayName])
+      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(fully_qualified_name: data[:fullyQualifiedName])
+      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(print_on_check_name: data[:printOnCheckName])
+      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(domain: data[:domain])
+      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(taxable: data[:taxable])
+      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(active: data[:active])
+      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(balance: data[:balance])
+      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(balance_with_jobs: data[:balanceWithJobs])
+    end
   end
 
+  # Delete an existing account
   def self.delete_customer(element, data)
-
+    #TODO Add logic to delete child instances to avoid orphans
+    #Can be extended to other elements
+    if element == "quickbooks"
+      QuickbooksCustomer.where(customer_id: data[:id]).delete_all
+    else
+      # delete another type of customer here
+    end
   end
+
+  # Create a new opportunity from hashed parameters
+  # Currently only creates SalesforceOpportunity
+  def self.create_opportunity(element, data, account)
+    # TODO
+  end
+
+  # Update an existing opportunity from hashed parameters
+  def self.update_opportunity(element, data)
+    # TODO
+  end
+
+  # Delete an existing opportunity
+  def self.delete_opportunity(element, data)
+    # TODO
+  end
+
+  # Create a new invoice from hashed parameters
+  # Currently only creates QuickbooksInvoice
+  def self.create_invoice(element, data, customer)
+    # TODO
+  end
+
+  # Update an existing invoice from hashed parameters
+  def self.update_invoice(element, data)
+    # TODO
+  end
+
+  # Delete an existing invoice
+  def self.delete_invoice(element, data)
+    # TODO
+  end
+
 end

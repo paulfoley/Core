@@ -19,7 +19,6 @@ class CallbackController < ApplicationController
         element = event[:elementKey]
         instance = params[:message][:instanceId]
         data = account
-        puts instance
 
         org = Org.where(salesforce_instance_id: instance).select(:name, :id).take
 
@@ -52,9 +51,9 @@ class CallbackController < ApplicationController
         instance = params[:message][:instanceId]
         data = customer
 
-        org = Org.where(salesforce_instance_id: instance).select(:name, :id).take
+        org = Org.where(quickbooks_instance_id: instance).select(:name, :id).take
 
-        output = QuickbooksCustomer.where(account_id: data[:id]).select(:account_id, :name).take
+        output = QuickbooksCustomer.where(customer_id: data[:id]).select(:customer_id, :name).take
 
         if action == "CREATED"
           if output == nil

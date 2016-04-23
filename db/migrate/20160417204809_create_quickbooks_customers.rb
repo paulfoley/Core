@@ -3,7 +3,7 @@ class CreateQuickbooksCustomers < ActiveRecord::Migration
     create_table :quickbooks_customers do |t|
 
       t.timestamps null: false
-      t.string :account_id
+      t.string :customer_id
       t.string :name
       t.string :org_id
       t.string :display_name

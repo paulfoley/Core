@@ -4,8 +4,9 @@
         <%= form_tag(:action=>'add_user') do %>
             <%= text_field_tag("firstname",nil,:placeholder=>"First Name",:required=>true) %>
             <%= text_field_tag("lastname",nil,:placeholder=>"Last Name",:required=>true) %>
-            <%= email_field_tag("email",nil,:placeholder=>"Email",:required=>true) %>
             <%= password_field_tag("password",nil,:placeholder=>"Password",:required=>true) %>
+            <%= hidden_field_tag("org",params[:org]) %>
+            <%= hidden_field_tag("email",params[:email]) %>
             <%= submit_tag("Sign Up!") %>
         <% end %>
     </div>

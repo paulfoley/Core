@@ -89,19 +89,21 @@ class WelcomeController < ApplicationController
     @org = Org.find_by(:name=>session[:org])
     @org_name = @org.name
     @email = params[:email]
-    InviteMailer.invite_mail(@email).deliver_now
+    InviteMailer.invite_mail(@email,@org_name).deliver_now
     flash[:success] = "User Invited!"
     redirect_to controller:'core', action:'run'
   end
   
   #page for new users
   def new_user
-    #get org from URL
+    @org_name = params[:org]
   end
   
   #adds a user to a specified org
-  def add_user(org)
-    @org = org
+  def add_user()
+    @org = Org.find_by(:name=>params[:org])
+    puts @org
+    puts @org.name
     @user = User.create(:name=>params[:firstname] + " " + params[:lastname], :email=>params[:email], :password=>params[:password1], :org=>@org, :is_admin=>false)
     login(@user)
     redirect_to :controller=>'core',:action=>'run'
