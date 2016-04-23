@@ -14,7 +14,7 @@ class CreateOrgs < ActiveRecord::Migration
     add_index :orgs, :name,                unique: true
 
     #Test Org
-    Org.create :name => "Acme Inc."
+    Org.create :name => "Acme Inc.", :salesforce_instance_id => "12345", :quickbooks_instance_id => "54321"
 
   end
 end

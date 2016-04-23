@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20160421002020) do
   create_table "quickbooks_customers", force: :cascade do |t|
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.string   "account_id"
+    t.string   "customer_id"
     t.string   "name"
     t.string   "org_id"
     t.string   "display_name"
