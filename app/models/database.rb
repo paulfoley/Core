@@ -186,7 +186,7 @@ class Database
   def self.create_opportunity(element, data, account)
     #Can be extended to other elements
     if element == "sfdc"
-      opportunity = SalesforceOpportunity.create(opportunity_id: data[:Id], salesforce_account: account)
+      opportunity = SalesforceOpportunity.create(opportunity_id: data[:Id], salesforce_account: account, org_id: account.org_id)
       opportunity.description = data[:Description]
       opportunity.forecast_category = data[:ForecastCategory]
       opportunity.last_referenced_date = data[:LastReferencedDate]
@@ -269,7 +269,7 @@ class Database
   def self.create_invoice(element, data, customer)
     #Can be extended to other elements
     if element == "quickbooks"
-      invoice = QuickbooksInvoice.create(invoice_id: data[:id], quickbooks_customer: customer)
+      invoice = QuickbooksInvoice.create(invoice_id: data[:id], quickbooks_customer: customer, org_id: customer.org_id)
       invoice.sync_token = data[:syncToken]
       invoice.doc_number = data[:docNumber]
       invoice.due_date = data[:dueDate]
@@ -323,7 +323,7 @@ class Database
     end
   end
 
-  #Delete an existing invoice from invoice_id
+  # Delete an existing invoice from invoice_id
   def self.delete_invoice_id(element, invoice_id)
     #Can be extended to other elements
     if element == "quickbooks"
@@ -331,5 +331,65 @@ class Database
     else
       # delete another type of account here
     end
+  end
+
+  #TODO
+  def self.create_paymernt(element, data, customer)
+
+  end
+
+  #TODO
+  def self.update_payment(element, data)
+
+  end
+
+  #TODO
+  def self.delete_payment(element, data)
+
+  end
+
+  #TODO
+  def self.delete_payment_id(element, payment_id)
+
+  end
+
+  #TODO
+  def self.create_contact(element, data, account)
+
+  end
+
+  #TODO
+  def self.update_contact(element, data)
+
+  end
+
+  #TODO
+  def self.delete_contact(element, data)
+
+  end
+
+  #TODO
+  def self.delete_contact_id(element, payment_id)
+
+  end
+
+  #TODO
+  def self.create_lead(element, data, account)
+
+  end
+
+  #TODO
+  def self.update_lead(element, data)
+
+  end
+
+  #TODO
+  def self.delete_lead(element, data)
+
+  end
+
+  #TODO
+  def self.delete_lead_id(element, payment_id)
+
   end
 end
