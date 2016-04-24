@@ -30,7 +30,10 @@ class ElementsController < ApplicationController
   def stripecallback
     @uri_params = params
     redirect_to "https://corecloudapp.herokuapp.com/core/run?view=admin"
+    puts "SHOULD HAVE REDIRECTED"
     CloudElements.stripe_oauth(session[:org], @uri_params[:code])
+    puts "SHOULD HAVE CALLED METHOD"
   end
+
 
 end

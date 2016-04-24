@@ -396,6 +396,7 @@ class CloudElements
 
 
   def self.stripe_oauth(org_name, code)
+    puts "GOT INTO METHOD"
     client_secret = ENV['STRIPE_LIVE_SECRET_KEY']
 
     url = URI('https://connect.stripe.com/oauth/token')
