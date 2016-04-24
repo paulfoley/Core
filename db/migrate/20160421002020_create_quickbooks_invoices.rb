@@ -3,6 +3,7 @@ class CreateQuickbooksInvoices < ActiveRecord::Migration
     create_table :quickbooks_invoices do |t|
 
       t.timestamps null: false
+      t.integer :org_id
       t.integer :quickbooks_customer_id
       t.string :sync_token
       t.string :doc_number
