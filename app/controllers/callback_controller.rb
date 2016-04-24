@@ -121,6 +121,35 @@ class CallbackController < ApplicationController
 
   # Process Opportunity Events
   def do_opportunity
+    opportunities = params[:message][:raw][:Opportunity]
+    opportunities.zip(@events).each do |opportunity, event|
 
+      action = event[:eventType]
+      element = event[:elementKey]
+
+      account_id = opportunity[:AccountId]
+
+      data = opportunity
+
+      account = SalesforceAccount.where(account_id: account_id).select(:account_id, :id).take
+
+      output = SalesforceOpportunity.where(opportunity_id: data[:Id]).select(:opportunity_id).take
+
+      if action == "CREATED"
+        if output == nil
+          Database.create_opportunity(element, data, account)
+        end
+
+      elsif action == "DELETED"
+        Database.delete_opportunity(element, data)
+
+      elsif action == "UPDATED"
+        if output != nil
+          Database.update_opportunity(element, data)
+        elsif output == nil
+          Database.create_opportunity(element, data, account)
+        end
+      end
+    end
   end
 end
