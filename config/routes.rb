@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :elements do
     member do
       get :callback
+      get :stripe_callback
     end
   end
 
