@@ -27,7 +27,7 @@ class ElementsController < ApplicationController
 
   end
 
-  def stripecallback
+  def stripe_callback
     @uri_params = params
     redirect_to "https://corecloudapp.herokuapp.com/core/run?view=admin"
     puts "SHOULD HAVE REDIRECTED"
