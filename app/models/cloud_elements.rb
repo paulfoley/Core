@@ -413,7 +413,6 @@ class CloudElements
     org = Org.where(name: org_name).select(:name, :stripe_token, :id).take
     org.update_attributes(:stripe_token => response_parsed['stripe_user_id'])
 
-
   end
 
 
