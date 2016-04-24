@@ -184,17 +184,84 @@ class Database
   # Create a new opportunity from hashed parameters
   # Currently only creates SalesforceOpportunity
   def self.create_opportunity(element, data, account)
-    # TODO
+    #Can be extended to other elements
+    if element == "sfdc"
+      opportunity = SalesforceOpportunity.create(opportunity_id: data[:Id], salesforce_account: account)
+      opportunity.description = data[:Description]
+      opportunity.forecast_category = data[:ForecastCategory]
+      opportunity.last_referenced_date = data[:LastReferencedDate]
+      opportunity.close_date = data[:CloseDate]
+      opportunity.name = data[:Name]
+      opportunity.stage_name = data[:StageName]
+      opportunity.last_viewed_date = data[:LastViewedDate]
+      opportunity.fiscal = data[:Fiscal]
+      opportunity.opportunity_type = data[:Type]
+      opportunity.lead_source = data[:LeadSource]
+      opportunity.forecast_category_name = data[:ForecastCategoryName]
+      opportunity.last_modified_by_id = data[:LastModifiedById]
+      opportunity.next_step = data[:NextStep]
+      opportunity.probability = data[:Probability]
+      opportunity.fiscal_quarter = data[:FiscalQuarter]
+      opportunity.fiscal_year = data[:FiscalYear]
+      opportunity.amount = data[:Amount]
+      opportunity.is_won = data[:IsWon]
+      opportunity.is_deleted = data[:IsDeleted]
+      opportunity.has_opportunity_line_item = data[:HasOpportunityLineItem]
+      opportunity.is_closed = data[:IsClosed]
+      opportunity.account_id = data[:AccountID]
+      opportunity.save
+    else
+      # create another type of account here
+    end
   end
 
   # Update an existing opportunity from hashed parameters
   def self.update_opportunity(element, data)
-    # TODO
+    #Can be extended to other elements
+    if element == "sfdc"
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(description: data[:Description])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(forecast_category: data[:ForecastCategory])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(last_referenced_date: data[:LastReferencedDate])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(close_date: data[:CloseDate])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(name: data[:Name])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(stage_name: data[:StageName])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(last_viewed_date: data[:LastViewedDate])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(fiscal: data[:Fiscal])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(opportunity_type: data[:Type])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(lead_source: data[:LeadSource])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(forecast_category_name: data[:ForecastCategoryName])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(last_modified_by_id: data[:LastModifiedById])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(next_step: data[:NextStep])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(probability: data[:Probability])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(fiscal_quarter: data[:FiscalQuarter])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(fiscal_year: data[:FiscalYear])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(amount: data[:Amount])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(is_won: data[:IsWon])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(is_deleted: data[:IsDeleted])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(has_opportunity_line_item: data[:HasOpportunityLineItem])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(is_closed: data[:IsClosed])
+      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(account_id: data[:AccountID])
+    end
   end
 
-  # Delete an existing opportunity
+  # Delete an existing opportunity from hashed parameters
   def self.delete_opportunity(element, data)
-    # TODO
+    #Can be extended to other elements
+    if element == "sfdc"
+      self.delete_opportunity_id(element, data[:Id])
+    else
+      # delete another type of invoice here
+    end
+  end
+
+  # Delete an existing opportunity from opportunity_id
+  def self.delete_opportunity_id(element, opportunity_id)
+    #Can be extended to other elements
+    if element == "sfdc"
+      SalesforceOpportunity.where(opportunity_id: opportunity_id).delete_all
+    else
+      # delete another type of account here
+    end
   end
 
   # Create a new invoice from hashed parameters

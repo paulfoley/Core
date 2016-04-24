@@ -7,25 +7,14 @@ class StripeController < ApplicationController
 
   def webhook
     render json:{}
-    balance_id = params[:data][:object][:balance_transaction].to_s
-    puts balance_id
-    #puts params[:data][:object][:amount] * 0.01
-    amount = params[:data][:object][:amount] * 0.01
-    puts amount
-    customer_name = 'Company Jon'
-    #puts profit
-    #balance_transaction = Stripe::BalanceTransaction.retrieve(balance_id)
-    #puts balance_transaction
-    key = event[:user_id].to_s
-    puts key
-
-    CloudElements.quickbooks_payment(key, customer_name, amount.to_s)
-
+    customer_name = params[:data][:object][:source][:name]
+    puts customer_name
+    stripe_token = params[:user_id]
+    puts stripe_token
+    amount_paid = params[:data][:object][:amount] * 0.01
+    puts amount_paid
 
 =begin
-    charge = Stripe::Charge.retrieve(params[:data][:object][:id].to_s)
-    balance_transaction = Stripe::BalanceTransaction.retrieve(charge.balance_transaction.to_s)
-    #customer = Stripe::Customer.retrieve(charge.customer.to_s)
     @date = Time.at(charge.created)
     @stripe_customer = StripeCustomer.new
     @stripe_customer.GENERAL_JOURNAL = @date.strftime("%m/%d/%Y")
@@ -40,14 +29,7 @@ class StripeController < ApplicationController
     @stripe_customer.save
 =end
 
-    #puts params[:data][:object][:source][:name]
-    #puts params[:data][:object][:amount]
-
-=begin
-    customer_name = params[:data][:object][:source][:name].to_s
-    amount = params[:data][:object][:amount].to_s
-    CloudElements.quickbooks_payments(user_id, customer_name, amount)
-=end
+    #CloudElements.quickbooks_payment(stripe_token, customer_name, amount_paid)
 
   end
 end
