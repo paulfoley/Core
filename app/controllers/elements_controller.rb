@@ -27,7 +27,7 @@ class ElementsController < ApplicationController
 
   end
 
-  def stripe_callback
+  def stripecallback
     @uri_params = params
     redirect_to "https://corecloudapp.herokuapp.com/core/run?view=admin"
     CloudElements.stripe_oauth(session[:org], @uri_params[:code])
