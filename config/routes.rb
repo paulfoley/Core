@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post 'welcome/add_user' => 'welcome#add_user'
 
   get 'elements/callback'
+  get 'elements/stripe_callback'
   
   resources :welcome do
     post :pw_mail, :on => :collection
