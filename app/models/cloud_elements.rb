@@ -129,20 +129,17 @@ class CloudElements
   end
 
 
-  def self.quickbooks_oauthurl(token)
+  def self.quickbooks_oauthurl(request_token)
     api_key = ENV['QUICKBOOKS_API_KEY']
     api_secret = ENV['QUICKBOOKS_API_SECRET']
     callback_url = ENV['INSTANCE_CALLBACK_URL']
 
     path = "https://staging.cloud-elements.com/elements/api-v2/elements/quickbooks/oauth/url"
-    url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}&requestToken=#{token}&state=quickbooks"
+    url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}&requestToken=#{request_token}&state=quickbooks"
 
-    puts url
     url = URI.parse url
-    puts url
-    puts url.path + '?' + url.query
     http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true #(url.scheme == 'https')
+    http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url.path + '?' + url.query)
     response = http.request(request)
@@ -158,8 +155,6 @@ class CloudElements
 
 
   def self.quickbooks_instance(org_name, oauth_token, oauth_verifier, realmId, dataSource)
-
-    # org = Org.where(name: org_name).select(:name, :quickbooks_token).take
 
     user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
     org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
@@ -217,103 +212,6 @@ class CloudElements
     end
   end
 
-  # def self.quickbooks_formula_transformation(instance_id)
-  #   user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
-  #   org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
-  #
-  #   body = {
-  #       'level' => 'organization',
-  #       'vendorName' => 'customer',
-  #       'fields' => [
-  #       {
-  #           'path' => 'Sync_Id',
-  #           'vendorPath' => 'id',
-  #           'configuration' => [
-  #            {
-  #               'type' => 'passThrough',
-  #               'properties' => {
-  #                   'fromVendor' => 'true',
-  #                   'toVendor' => 'false'
-  #               }
-  #             }
-  #           ]
-  #       },
-  #       {
-  #           'path' => 'Sync_Stage',
-  #           'vendorPath' => '',
-  #           'configuration' => [
-  #           {
-  #               'type' => 'passThrough',
-  #               'properties' => {
-  #                   'fromVendor' => 'false',
-  #                   'toVendor' => 'false'
-  #               }
-  #           }
-  #           ]
-  #       },
-  #       {
-  #           'path' => 'Sync_OpName',
-  #           'configuration' => [
-  #           {
-  #               'type' => 'passThrough',
-  #               'properties' => {
-  #                   'fromVendor' => 'false',
-  #                   'toVendor' => 'false'
-  #               }
-  #           }
-  #           ]
-  #       },
-  #       {
-  #           'path' => 'Sync_OpDisplayName',
-  #           'vendorPath' => 'displayName'
-  #       },
-  #       {
-  #           'path' => 'Sync_OpAmount',
-  #           'configuration' => [
-  #           {
-  #               'type' => 'passThrough',
-  #               'properties' => {
-  #                   'fromVendor' => 'false',
-  #                   'toVendor' => 'false'
-  #               }
-  #           }
-  #           ]
-  #       },
-  #       {
-  #           'path' => 'Sync_OpAccount',
-  #           'vendorPath' => 'companyName'
-  #       }
-  #       ],
-  #       'configuration' => [
-  #       {
-  #           'type' => 'passThrough',
-  #           'properties' => {
-  #               'fromVendor' => 'false',
-  #               'toVendor' => 'false'
-  #           }
-  #       }
-  #       ]
-  #   }.to_json
-  #
-  #   headers = {
-  #       'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
-  #       'Content-Type' => 'application/json'
-  #   }
-  #
-  #   url = URI("https://console.cloud-elements.com/elements/api-v2/instances/#{instance_id}/transformations/BasicSyncOpportunities")
-  #   http = Net::HTTP.new(url.host, url.port)
-  #   http.use_ssl = true
-  #   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-  #
-  #   request = Net::HTTP::Post.new(url, headers)
-  #   request.body = body
-  #
-  #   response = http.request(request)
-  #   response_parsed = JSON.parse(response.body)
-  #
-  #   puts response_parsed
-  #
-  # end
 
   def self.create_salesforce_to_quickbooks_formula_instance(org_name)
 
@@ -497,7 +395,7 @@ class CloudElements
   end
 
 
-  def self.stripe_oauth(code)
+  def self.stripe_oauth(org_name, code)
     client_secret = ENV['STRIPE_LIVE_SECRET_KEY']
 
     url = URI('https://connect.stripe.com/oauth/token')
