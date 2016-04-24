@@ -3,6 +3,10 @@ Rails.configuration.stripe = {
     :secret_key      => ENV['STRIPE_LIVE_SECRET_KEY']
 }
 
+# set Stripe.api_key to unique secret key for each account
+# query from database
+# secret key = SELECT access_token FROM database WHERE user_id = stripe_user_id
+#token = Org.where(stripe_token: stripe_token).select(:quickbooks_token).take.quickbooks_token
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
 STRIPE_PUBLIC_KEY = Rails.configuration.stripe[:publishable_key]
 
