@@ -224,6 +224,7 @@ input[type=submit] {
 }
 .selected {
     background-color: #d5c8e5 !important;
+    color:#4d3571 !important;
     padding-left: 10px !important;
 }
 

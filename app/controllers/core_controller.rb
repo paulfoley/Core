@@ -26,7 +26,7 @@ class CoreController < ApplicationController
       session[:position] = params[:position]
     end
     @user.save
-    redirect_to :action=>'run'
+    redirect_to :back
   end
   
   def invite_user
@@ -35,7 +35,7 @@ class CoreController < ApplicationController
     @email = params[:email]
     InviteMailer.invite_mail(@email,@org_name).deliver_now
     flash[:success] = "User Invited!"
-    redirect_to controller:'core', action:'run'
+    redirect_to :back
   end
   
   def logout
