@@ -2,41 +2,39 @@ class CreateSalesforceLeads < ActiveRecord::Migration
   def change
     create_table :salesforce_leads do |t|
 
-      t.integer :salesforce_account_id
-      t.integer :org_id
-      t.integer :NumberOfEmployees
       t.string :lead_id
-      t.string :Company
-      t.string :Email
-      t.string :Description
-      t.string :Rating
-      t.string :PostalCode
-      t.string :Website
-      t.string :LastReferencedDate
-      t.string :Salutation
-      t.string :Name
-      t.string :Industry
-      t.string :CreatedById
-      t.string :OwnerId
-      t.string :Phone
-      t.string :Street
-      t.string :PhotoUrl
-      t.string :Status
-      t.string :FirstName
-      t.string :LastViewedDate
-      t.string :Title
-      t.string :City
-      t.string :SystemModstamp
-      t.string :LeadSource
-      t.string :State
-      t.string :CreatedDate
-      t.string :Country
-      t.string :LastName
-      t.string :LastModifiedById
-      t.boolean :IsDeleted
-      t.boolean :IsConverted
-      t.boolean :IsUnreadByOwner
-      t.decimal :AnnualRevenue
+      t.integer :org_id
+      t.integer :number_of_employees
+      t.string :company
+      t.string :email
+      t.string :description
+      t.string :rating
+      t.string :postal_code
+      t.string :website
+      t.string :last_referenced_date
+      t.string :salutation
+      t.string :name
+      t.string :industry
+      t.string :created_by_id
+      t.string :owner_id
+      t.string :phone
+      t.string :street
+      t.string :photo_url
+      t.string :status
+      t.string :first_name
+      t.string :last_viewed_date
+      t.string :title
+      t.string :city
+      t.string :lead_source
+      t.string :state
+      t.string :created_date
+      t.string :country
+      t.string :last_name
+      t.string :last_modified_by_id
+      t.boolean :is_deleted
+      t.boolean :is_converted
+      t.boolean :is_unread_by_owner
+      t.decimal :annual_revenue
       t.timestamps null: false
     end
   end

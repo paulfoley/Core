@@ -234,18 +234,16 @@ class CallbackController < ApplicationController
 
       action = event[:eventType]
       element = event[:elementKey]
-
-      account_id = lead[:AccountId]
+      instance = params[:message][:instanceId]
 
       data = lead
-
-      account = SalesforceAccount.where(account_id: account_id).select(:account_id, :id, :org_id).take
+      org = Org.where(salesforce_instance_id: instance).select(:name, :id).take
 
       output = SalesforceLead.where(lead_id: data[:Id]).select(:lead_id).take
 
       if action == "CREATED"
         if output == nil
-          Database.create_lead(element, data, account)
+          Database.create_lead(element, data, org)
         end
 
       elsif action == "DELETED"
@@ -255,7 +253,7 @@ class CallbackController < ApplicationController
         if output != nil
           Database.update_lead(element, data)
         elsif output == nil
-          Database.create_lead(element, data, account)
+          Database.create_lead(element, data, org)
         end
       end
     end
