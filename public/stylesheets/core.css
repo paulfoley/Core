@@ -255,20 +255,23 @@ input[type=submit] {
 .app_button:hover {
     background-size:100%;
 }
+.app_button p {
+    font-size:0.5em;
+}
 /*first value for onhover effect, second for slide in/out*/
-#CRM {
+#r_CRM {
     transition-delay:0s,0s;
 }
-#marketing {
+#r_marketing {
     transition-delay:0s,0.1s;
 }
-#accounting {
+#r_accounting {
     transition-delay:0s,0.2s;
 }
-#support {
+#r_support {
     transition-delay:0s,0.3s;
 }
-#ecommerce {
+#r_ecommerce {
     transition-delay:0s,0.4s;
 }
 #main {
