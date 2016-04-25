@@ -1,8 +1,17 @@
 $(document).ready(function() {
 
-    if(gon.connected_to_salesforce) $('#a_CRM').removeClass('not_connected');
-    if(gon.connected_to_quickbooks) $('#a_accounting').removeClass('not_connected');
-    if(gon.connected_to_stripe) $('#a_ecommerce').removeClass('not_connected');
+    if(gon.connected_to_salesforce) {
+        $('#a_CRM').removeClass('not_connected');
+        $('#r_CRM').removeClass('not_connected');
+    }
+    if(gon.connected_to_quickbooks) {
+        $('#a_marketing').removeClass('not_connected');
+        $('#r_marketing').removeClass('not_connected');
+    }
+    if(gon.connected_to_stripe) {
+        $('#a_ecommerce').removeClass('not_connected');
+        $('#r_ecommerce').removeClass('not_connected');
+    }
 
     //HIGHCHARTS
 
