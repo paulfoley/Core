@@ -626,9 +626,10 @@ class Database
       data.each do |invoice|
         puts "***** Output invoice *****"
         puts invoice
-        # puts invoice[:customerRef]
+        puts "***** customerRef *****"
+        puts invoice[:customerRef]
         # puts invoice[:customerRef][:name]
-        puts "***** Skipping invoice *****"
+        puts "***** Skipping create invoice *****"
         # customer = QuickbooksCustomer.where(name: invoice[:customerRef][:name]).select(:customer_id, :id, :org_id).take
         #next if customer == nil
         #self.create_invoice(element, invoice, customer)
@@ -642,13 +643,16 @@ class Database
   # Currently only creates QuickbooksPayments
   def self.bulk_create_payments(element, instance_id, data)
     if element == "quickbooks"
-      "***** In bulk_create_payments *****"
+      puts "***** In bulk_create_payments *****"
       data.each do |payment|
         puts "***** Output payment *****"
         puts payment
-        customer = QuickbooksCustomer.where(name: payment[:customerRef][:name]).select(:customer_id, :id, :org_id).take
-        next if customer == nil
-        self.create_payment(element, payment, customer)
+        puts "***** customerRef *****"
+        puts payment[:customerRef]
+        puts "***** Skipping create payment *****"
+        # customer = QuickbooksCustomer.where(name: payment[:customerRef][:name]).select(:customer_id, :id, :org_id).take
+        # next if customer == nil
+        # self.create_payment(element, payment, customer)
       end
     else
       # Create another type of entity here
