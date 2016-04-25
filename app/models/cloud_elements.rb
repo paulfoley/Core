@@ -118,7 +118,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_accounts = JSON.parse(response.body)
-    Database.bulk_create_accounts("sfdc", instance_id, response_parsed_accounts)
+    Database.bulk_create_accounts("sfdc", instance_id, response)
 
     url_contacts = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/contacts")
     http = Net::HTTP.new(url_contacts.host, url_contacts.port)
@@ -128,7 +128,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_contacts = JSON.parse(response.body)
-    Database.bulk_create_contacts("sfdc", instance_id, response_parsed_contacts)
+    Database.bulk_create_contacts("sfdc", instance_id, response)
 
     url_leads = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/leads")
     http = Net::HTTP.new(url_leads.host, url_leads.port)
@@ -138,7 +138,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_leads = JSON.parse(response.body)
-    Database.bulk_create_leads("sfdc", instance_id, response_parsed_leads)
+    Database.bulk_create_leads("sfdc", instance_id, response)
 
     url_opportunities = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/opportunities")
     http = Net::HTTP.new(url_opportunities.host, url_opportunities.port)
@@ -148,7 +148,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_opportunities = JSON.parse(response.body)
-    Database.bulk_create_opportunities("sfdc", instance_id, response_parsed_opportunities)
+    Database.bulk_create_opportunities("sfdc", instance_id, response)
 
   end
 
@@ -278,7 +278,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_customers = JSON.parse(response.body)
-    Database.bulk_create_customers("quickbooks", instance_id, response_parsed_customers)
+    Database.bulk_create_customers("quickbooks", instance_id, response)
 
     url_invoices = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/invoices")
     http = Net::HTTP.new(url_invoices.host, url_invoices.port)
@@ -288,7 +288,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_invoices = JSON.parse(response.body)
-    Database.bulk_create_invoices("quickbooks", instance_id, response_parsed_invoices)
+    Database.bulk_create_invoices("quickbooks", instance_id, response)
 
     url_payments = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/payments")
     http = Net::HTTP.new(url_payments.host, url_payments.port)
@@ -299,7 +299,7 @@ class CloudElements
     puts response.body
     response_parsed_payments = JSON.parse(response.body)
 
-    Database.bulk_create_payments("quickbooks", instance_id, response_parsed_payments)
+    Database.bulk_create_payments("quickbooks", instance_id, response)
 
   end
 
