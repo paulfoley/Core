@@ -14,7 +14,6 @@ class ElementsController < ApplicationController
     end
   end
 
-
   def callback
     @uri_params = params
     redirect_to "https://corecloudapp.herokuapp.com/core/run?view=admin"
@@ -25,7 +24,6 @@ class ElementsController < ApplicationController
     elsif @state == "quickbooks"
       CloudElements.quickbooks_instance(session[:org], @uri_params[:oauth_token], @uri_params[:oauth_verifier], @uri_params[:realmId], @uri_params[:dataSource])
 
-      puts "***** Calling quickbooks_pull_everything *****"
       CloudElements.quickbooks_pull_everything(session[:org])
     end
 
@@ -36,6 +34,5 @@ class ElementsController < ApplicationController
     redirect_to "https://corecloudapp.herokuapp.com/core/run?view=admin"
     CloudElements.stripe_oauth(session[:org], @uri_params[:code])
   end
-
 
 end

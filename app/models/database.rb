@@ -605,10 +605,7 @@ class Database
   # Currently only creates QuickbooksCustomers
   def self.bulk_create_customers(element, instance_id, data)
     if element == "quickbooks"
-      puts "***** In bulk_create_customers *****"
       data.each do |customer|
-        puts "***** Output customer *****"
-        puts customer
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
         next if org == nil
         self.create_customer(element, customer, org)
@@ -622,14 +619,8 @@ class Database
   # Currently only creates QuickbooksInvoices
   def self.bulk_create_invoices(element, instance_id, data)
     if element == "quickbooks"
-      puts "***** In bulk_create_invoices *****"
       data.each do |invoice|
-        puts "***** Output invoice *****"
-        puts invoice
-        puts "***** customerRef *****"
-        puts invoice['customerRef']['name']
-        # puts invoice[:customerRef][:name]
-        puts "***** Skipping create invoice *****"
+        org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
         customer = QuickbooksCustomer.where(name: invoice['customerRef']['name']).select(:customer_id, :id, :org_id).take
         next if customer == nil
         self.create_invoice(element, invoice, customer)
@@ -643,13 +634,8 @@ class Database
   # Currently only creates QuickbooksPayments
   def self.bulk_create_payments(element, instance_id, data)
     if element == "quickbooks"
-      puts "***** In bulk_create_payments *****"
       data.each do |payment|
-        puts "***** Output payment *****"
-        puts payment
-        puts "***** customerRef *****"
-        puts payment['customerRef']['name']
-        puts "***** Skipping create payment *****"
+        org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
         customer = QuickbooksCustomer.where(name: payment['customerRef']['name']).select(:customer_id, :id, :org_id).take
         next if customer == nil
         self.create_payment(element, payment, customer)

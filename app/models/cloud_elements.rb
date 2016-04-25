@@ -152,7 +152,6 @@ class CloudElements
 
   end
 
-
   def self.quickbooks_oauthtoken
     api_key = ENV['QUICKBOOKS_API_KEY']
     api_secret = ENV['QUICKBOOKS_API_SECRET']
@@ -203,7 +202,6 @@ class CloudElements
     return oauth_url
 
   end
-
 
   def self.quickbooks_instance(org_name, oauth_token, oauth_verifier, realmId, dataSource)
 
@@ -281,7 +279,6 @@ class CloudElements
     puts response.body
     response_parsed_customers = JSON.parse(response.body)
 
-    puts "***** Calling bulk_create_customers *****"
     Database.bulk_create_customers("quickbooks", instance_id, response_parsed_customers)
 
     url_invoices = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/invoices")
@@ -293,11 +290,6 @@ class CloudElements
     puts response.body
     response_parsed_invoices = JSON.parse(response.body)
 
-    puts "***** Calling bulk_create_invoices *****"
-    puts "***** response *****"
-    puts response
-    puts "***** response_parsed_invoices *****"
-    puts response_parsed_invoices
     Database.bulk_create_invoices("quickbooks", instance_id, response_parsed_invoices)
 
     url_payments = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/payments")
@@ -309,11 +301,9 @@ class CloudElements
     puts response.body
     response_parsed_payments = JSON.parse(response.body)
 
-    puts "***** Calling bulk_create_payments *****"
     Database.bulk_create_payments("quickbooks", instance_id, response_parsed_payments)
 
   end
-
 
   def self.create_salesforce_to_quickbooks_formula_instance(org_name)
 
@@ -339,7 +329,6 @@ class CloudElements
         }
     }.to_json
 
-
     headers = {
         'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
         'Content-Type' => 'application/json'
@@ -359,8 +348,6 @@ class CloudElements
     puts response_parsed
 
   end
-
-
 
   def self.setup_polling(instance_id, app)
     user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
@@ -418,7 +405,6 @@ class CloudElements
       response_parsed = JSON.parse(response.body)
       puts response_parsed
     end
-
 
     poller_refresh_url = URI("https://staging.cloud-elements.com/elements/api-v2/instances/#{instance_id}/configuration/#{event_poller_refresh_interval_id}")
 
