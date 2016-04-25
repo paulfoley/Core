@@ -24,7 +24,7 @@ class ElementsController < ApplicationController
       CloudElements.salesforce_pull_everything(session[:org])
     elsif @state == "quickbooks"
       CloudElements.quickbooks_instance(session[:org], @uri_params[:oauth_token], @uri_params[:oauth_verifier], @uri_params[:realmId], @uri_params[:dataSource])
-      # CloudElements.quickbooks_pull_everything(session[:org])
+      CloudElements.quickbooks_pull_everything(session[:org])
     end
 
   end
