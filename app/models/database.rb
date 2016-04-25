@@ -626,6 +626,8 @@ class Database
       data.each do |invoice|
         puts "***** Output invoice *****"
         puts invoice
+        puts "***** Invoice in JSON *****"
+        puts JSON.parse(invoice)
         puts "***** customerRef *****"
         puts invoice[:customerRef]
         # puts invoice[:customerRef][:name]
