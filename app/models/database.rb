@@ -627,7 +627,7 @@ class Database
         puts "***** Output invoice *****"
         puts invoice
         puts "***** customerRef *****"
-        puts invoice['customerRef']
+        puts invoice['customerRef']['name']
         # puts invoice[:customerRef][:name]
         puts "***** Skipping create invoice *****"
         # customer = QuickbooksCustomer.where(name: invoice[:customerRef][:name]).select(:customer_id, :id, :org_id).take
