@@ -52,6 +52,8 @@ class Database
   def self.create_account(element, data, org)
     #Can be extended to other elements
     if element == "sfdc"
+      puts "****** Testing ******"
+      puts data[:Name]
       account = SalesforceAccount.create(name: data[:Name], org: org)
       account.account_id = data[:Id]
       account.description = data[:Description]
@@ -551,7 +553,7 @@ class Database
     if element == "sfdc"
       data.each do |account|
         org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
-        next if org == nil
+        # next if org == nil
         self.create_account(element, account, org)
       end
     else
@@ -565,7 +567,7 @@ class Database
     if element == "sfdc"
       data.each do |lead|
         org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
-        next if org == nil
+        # next if org == nil
         self.create_lead(element, lead, org)
       end
     else
@@ -579,7 +581,7 @@ class Database
     if element == "sfdc"
       data.each do |contact|
         account = SalesforceAccount.where(account_id: contact[:AccountId]).select(:account_id, :id, :org_id).take
-        next if account == nil
+        # next if account == nil
         self.create_contact(element, contact, account)
       end
     else
@@ -593,7 +595,7 @@ class Database
     if element == "sfdc"
       data.each do |opportunity|
         account = SalesforceAccount.where(account_id: opportunity[:AccountId]).select(:account_id, :id, :org_id).take
-        next if account == nil
+        # next if account == nil
         self.create_opportunity(element, opportunity, account)
       end
     else
@@ -607,7 +609,7 @@ class Database
     if element == "quickbooks"
       data.each do |customer|
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
-        next if org == nil
+        # next if org == nil
         self.create_customer(element, customer, org)
       end
     else
@@ -621,8 +623,8 @@ class Database
     if element == "quickbooks"
       data.each do |invoice|
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
-        customer = QuickbooksCustomer.where(name: invoice['customerRef']['name']).select(:customer_id, :id, :org_id).take
-        next if customer == nil
+        customer = QuickbooksCustomer.where(name: invoice['customerRef']['name']).where(org: org).select(:customer_id, :id, :org_id).take
+        # next if customer == nil
         self.create_invoice(element, invoice, customer)
       end
     else
@@ -636,8 +638,8 @@ class Database
     if element == "quickbooks"
       data.each do |payment|
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
-        customer = QuickbooksCustomer.where(name: payment['customerRef']['name']).select(:customer_id, :id, :org_id).take
-        next if customer == nil
+        customer = QuickbooksCustomer.where(name: payment['customerRef']['name']).where(org: org)select(:customer_id, :id, :org_id).take
+        # next if customer == nil
         self.create_payment(element, payment, customer)
       end
     else

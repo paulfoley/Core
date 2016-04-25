@@ -14,7 +14,7 @@ class CallbackController < ApplicationController
       # Database.bulk_create_opportunities("sfdc", "12345", params[:_json])
       # Database.bulk_create_customers("quickbooks", "54321", params[:_json])
       # Database.bulk_create_invoices("quickbooks", "54321", params[:_json])
-      Database.bulk_create_payments("quickbooks", "54321", params[:_json])
+      # Database.bulk_create_payments("quickbooks", "54321", params[:_json])
     else
 
       @events = params[:message][:events]
