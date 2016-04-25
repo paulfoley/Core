@@ -116,12 +116,8 @@ class CloudElements
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url_accounts, headers)
     response = http.request(request)
-    puts response.body
     response_parsed_accounts = JSON.parse(response.body)
-    puts "***** TESTING *****"
-    puts response
-    puts response.body
-    Database.bulk_create_accounts("sfdc", instance_id, response)
+    Database.bulk_create_accounts("sfdc", instance_id, response.body)
 
     url_contacts = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/contacts")
     http = Net::HTTP.new(url_contacts.host, url_contacts.port)
@@ -131,7 +127,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_contacts = JSON.parse(response.body)
-    Database.bulk_create_contacts("sfdc", instance_id, response)
+    Database.bulk_create_contacts("sfdc", instance_id, response.body)
 
     url_leads = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/leads")
     http = Net::HTTP.new(url_leads.host, url_leads.port)
@@ -141,7 +137,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_leads = JSON.parse(response.body)
-    Database.bulk_create_leads("sfdc", instance_id, response)
+    Database.bulk_create_leads("sfdc", instance_id, response.body)
 
     url_opportunities = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/opportunities")
     http = Net::HTTP.new(url_opportunities.host, url_opportunities.port)
@@ -151,7 +147,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_opportunities = JSON.parse(response.body)
-    Database.bulk_create_opportunities("sfdc", instance_id, response)
+    Database.bulk_create_opportunities("sfdc", instance_id, response.body)
 
   end
 
@@ -196,8 +192,6 @@ class CloudElements
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url.path + '?' + url.query)
     response = http.request(request)
-
-    puts response.body
 
     response_parsed = JSON.parse(response.body)
     oauth_url = response_parsed['oauthUrl']
@@ -281,7 +275,11 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_customers = JSON.parse(response.body)
-    Database.bulk_create_customers("quickbooks", instance_id, response)
+
+    puts "***** Testing *****"
+    puts response.body
+
+    Database.bulk_create_customers("quickbooks", instance_id, response.body)
 
     url_invoices = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/invoices")
     http = Net::HTTP.new(url_invoices.host, url_invoices.port)
@@ -291,7 +289,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_invoices = JSON.parse(response.body)
-    Database.bulk_create_invoices("quickbooks", instance_id, response)
+    Database.bulk_create_invoices("quickbooks", instance_id, response.body)
 
     url_payments = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/payments")
     http = Net::HTTP.new(url_payments.host, url_payments.port)
@@ -302,7 +300,7 @@ class CloudElements
     puts response.body
     response_parsed_payments = JSON.parse(response.body)
 
-    Database.bulk_create_payments("quickbooks", instance_id, response)
+    Database.bulk_create_payments("quickbooks", instance_id, response.body)
 
   end
 
