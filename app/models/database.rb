@@ -53,27 +53,27 @@ class Database
     #Can be extended to other elements
     if element == "sfdc"
       puts "****** Testing ******"
-      puts data[:Name]
-      account = SalesforceAccount.create(name: data[:Name], org: org)
-      account.account_id = data[:Id]
-      account.description = data[:Description]
-      account.website = data[:Website]
-      account.number_of_employees = data[:NumberOfEmployees]
-      account.annual_revenue = data[:AnnualRevenue]
-      account.industry = data[:Industry]
-      account.account_type = data[:Type]
-      account.phone = data[:Phone]
-      account.fax = data[:Fax]
-      account.billing_country = data[:BillingCountry]
-      account.billing_state = data[:BillingState]
-      account.billing_city = data[:BillingCity]
-      account.billing_postal_code = data[:BillingPostalCode]
-      account.billing_street = data[:BillingStreet]
-      account.shipping_country = data[:ShippingCountry]
-      account.shipping_state = data[:ShippingState]
-      account.shipping_city = data[:ShippingCity]
-      account.shipping_postal_code = data[:ShippingPostalCode]
-      account.shipping_street = data[:ShippingStreet]
+      puts data['Name']
+      account = SalesforceAccount.create(name: data['Name'], org: org)
+      account.account_id = data['Id']
+      account.description = data['Description']
+      account.website = data['Website']
+      account.number_of_employees = data['NumberOfEmployees']
+      account.annual_revenue = data['AnnualRevenue']
+      account.industry = data['Industry']
+      account.account_type = data['Type']
+      account.phone = data['Phone']
+      account.fax = data['Fax']
+      account.billing_country = data['BillingCountry']
+      account.billing_state = data['BillingState']
+      account.billing_city = data['BillingCity']
+      account.billing_postal_code = data['BillingPostalCode']
+      account.billing_street = data['BillingStreet']
+      account.shipping_country = data['ShippingCountry']
+      account.shipping_state = data['ShippingState']
+      account.shipping_city = data['ShippingCity']
+      account.shipping_postal_code = data['ShippingPostalCode']
+      account.shipping_street = data['ShippingStreet']
       account.save
     else
       # create another type of account here
@@ -84,25 +84,25 @@ class Database
   def self.update_account(element, data)
     #Can be extended to other elements
     if element == "sfdc"
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(name: data[:Name])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(description: data[:Description])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(website: data[:Website])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(number_of_employees: data[:NumberOfEmployees])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(annual_revenue: data[:AnnualRevenue])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(industry: data[:Industry])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(account_type: data[:Type])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(phone: data[:Phone])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(fax: data[:Fax])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(billing_country: data[:BillingCountry])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(billing_state: data[:BillingState])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(billing_city: data[:BillingCity])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(billing_postal_code: data[:BillingPostalCode])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(billing_street: data[:BillingStreet])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(shipping_country: data[:ShippingCountry])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(shipping_state: data[:ShippingState])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(shipping_city: data[:ShippingCity])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(shipping_postal_code: data[:ShippingPostalCode])
-      SalesforceAccount.where(:account_id => data[:Id]).update_all(shipping_street: data[:BillingStreet])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(name: data['Name'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(description: data['Description'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(website: data['Website'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(number_of_employees: data['NumberOfEmployees'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(annual_revenue: data['AnnualRevenue'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(industry: data['Industry'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(account_type: data['Type'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(phone: data['Phone'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(fax: data['Fax'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(billing_country: data['BillingCountry'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(billing_state: data['BillingState'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(billing_city: data['BillingCity'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(billing_postal_code: data['BillingPostalCode'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(billing_street: data['BillingStreet'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(shipping_country: data['ShippingCountry'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(shipping_state: data['ShippingState'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(shipping_city: data['ShippingCity'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(shipping_postal_code: data['ShippingPostalCode'])
+      SalesforceAccount.where(:account_id => data['Id']).update_all(shipping_street: data['BillingStreet'])
     end
   end
 
@@ -110,7 +110,7 @@ class Database
   def self.delete_account(element, data)
   #Can be extended to other elements
     if element == "sfdc"
-      self.delete_account_id(element, data[:Id])
+      self.delete_account_id(element, data['Id'])
     else
       # delete another type of account here
     end
@@ -145,16 +145,16 @@ class Database
     # Can be extended to other elements
     if element == "quickbooks"
 
-      customer = QuickbooksCustomer.create(name: data[:companyName], org: org)
-      customer.customer_id = data[:id]
-      customer.display_name = data[:displayName]
-      customer.fully_qualified_name = data[:fullyQualifiedName]
-      customer.print_on_check_name = data[:printOnCheckName]
-      customer.domain = data[:domain]
-      customer.taxable = data[:taxable]
-      customer.active = data[:active]
-      customer.balance = data[:balance]
-      customer.balance_with_jobs = data[:balanceWithJobs]
+      customer = QuickbooksCustomer.create(name: data['companyName'], org: org)
+      customer.customer_id = data['id']
+      customer.display_name = data['displayName']
+      customer.fully_qualified_name = data['fullyQualifiedName']
+      customer.print_on_check_name = data['printOnCheckName']
+      customer.domain = data['domain']
+      customer.taxable = data['taxable']
+      customer.active = data['active']
+      customer.balance = data['balance']
+      customer.balance_with_jobs = data['balanceWithJobs']
       customer.save
     else
       # create another type of customer here
@@ -165,15 +165,15 @@ class Database
   def self.update_customer(element, data)
     #Can be extended to other elements
     if element == "quickbooks"
-      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(name: data[:companyName])
-      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(display_name: data[:displayName])
-      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(fully_qualified_name: data[:fullyQualifiedName])
-      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(print_on_check_name: data[:printOnCheckName])
-      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(domain: data[:domain])
-      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(taxable: data[:taxable])
-      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(active: data[:active])
-      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(balance: data[:balance])
-      QuickbooksCustomer.where(:customer_id => data[:id]).update_all(balance_with_jobs: data[:balanceWithJobs])
+      QuickbooksCustomer.where(:customer_id => data['id']).update_all(name: data['companyName'])
+      QuickbooksCustomer.where(:customer_id => data['id']).update_all(display_name: data['displayName'])
+      QuickbooksCustomer.where(:customer_id => data['id']).update_all(fully_qualified_name: data['fullyQualifiedName'])
+      QuickbooksCustomer.where(:customer_id => data['id']).update_all(print_on_check_name: data['printOnCheckName'])
+      QuickbooksCustomer.where(:customer_id => data['id']).update_all(domain: data['domain'])
+      QuickbooksCustomer.where(:customer_id => data['id']).update_all(taxable: data['taxable'])
+      QuickbooksCustomer.where(:customer_id => data['id']).update_all(active: data['active'])
+      QuickbooksCustomer.where(:customer_id => data['id']).update_all(balance: data['balance'])
+      QuickbooksCustomer.where(:customer_id => data['id']).update_all(balance_with_jobs: data['balanceWithJobs'])
     end
   end
 
@@ -181,7 +181,7 @@ class Database
   def self.delete_customer(element, data)
     #Can be extended to other elements
     if element == "quickbooks"
-      self.delete_customer_id(element, data[:id])
+      self.delete_customer_id(element, data['id'])
     else
       # delete another type of customer here
     end
@@ -215,29 +215,29 @@ class Database
   def self.create_opportunity(element, data, account)
     #Can be extended to other elements
     if element == "sfdc"
-      opportunity = SalesforceOpportunity.create(opportunity_id: data[:Id], salesforce_account: account, org: account.org)
-      opportunity.description = data[:Description]
-      opportunity.forecast_category = data[:ForecastCategory]
-      opportunity.last_referenced_date = data[:LastReferencedDate]
-      opportunity.close_date = data[:CloseDate]
-      opportunity.name = data[:Name]
-      opportunity.stage_name = data[:StageName]
-      opportunity.last_viewed_date = data[:LastViewedDate]
-      opportunity.fiscal = data[:Fiscal]
-      opportunity.opportunity_type = data[:Type]
-      opportunity.lead_source = data[:LeadSource]
-      opportunity.forecast_category_name = data[:ForecastCategoryName]
-      opportunity.last_modified_by_id = data[:LastModifiedById]
-      opportunity.next_step = data[:NextStep]
-      opportunity.probability = data[:Probability]
-      opportunity.fiscal_quarter = data[:FiscalQuarter]
-      opportunity.fiscal_year = data[:FiscalYear]
-      opportunity.amount = data[:Amount]
-      opportunity.is_won = data[:IsWon]
-      opportunity.is_deleted = data[:IsDeleted]
-      opportunity.has_opportunity_line_item = data[:HasOpportunityLineItem]
-      opportunity.is_closed = data[:IsClosed]
-      opportunity.account_id = data[:AccountID]
+      opportunity = SalesforceOpportunity.create(opportunity_id: data['Id'], salesforce_account: account, org: account.org)
+      opportunity.description = data['Description']
+      opportunity.forecast_category = data['ForecastCategory']
+      opportunity.last_referenced_date = data['LastReferencedDate']
+      opportunity.close_date = data['CloseDate']
+      opportunity.name = data['Name']
+      opportunity.stage_name = data['StageName']
+      opportunity.last_viewed_date = data['LastViewedDate']
+      opportunity.fiscal = data['Fiscal']
+      opportunity.opportunity_type = data['Type']
+      opportunity.lead_source = data['LeadSource']
+      opportunity.forecast_category_name = data['ForecastCategoryName']
+      opportunity.last_modified_by_id = data['LastModifiedById']
+      opportunity.next_step = data['NextStep']
+      opportunity.probability = data['Probability']
+      opportunity.fiscal_quarter = data['FiscalQuarter']
+      opportunity.fiscal_year = data['FiscalYear']
+      opportunity.amount = data['Amount']
+      opportunity.is_won = data['IsWon']
+      opportunity.is_deleted = data['IsDeleted']
+      opportunity.has_opportunity_line_item = data['HasOpportunityLineItem']
+      opportunity.is_closed = data['IsClosed']
+      opportunity.account_id = data['AccountID']
       opportunity.save
     else
       # create another type of account here
@@ -248,28 +248,28 @@ class Database
   def self.update_opportunity(element, data)
     #Can be extended to other elements
     if element == "sfdc"
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(description: data[:Description])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(forecast_category: data[:ForecastCategory])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(last_referenced_date: data[:LastReferencedDate])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(close_date: data[:CloseDate])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(name: data[:Name])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(stage_name: data[:StageName])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(last_viewed_date: data[:LastViewedDate])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(fiscal: data[:Fiscal])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(opportunity_type: data[:Type])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(lead_source: data[:LeadSource])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(forecast_category_name: data[:ForecastCategoryName])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(last_modified_by_id: data[:LastModifiedById])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(next_step: data[:NextStep])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(probability: data[:Probability])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(fiscal_quarter: data[:FiscalQuarter])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(fiscal_year: data[:FiscalYear])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(amount: data[:Amount])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(is_won: data[:IsWon])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(is_deleted: data[:IsDeleted])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(has_opportunity_line_item: data[:HasOpportunityLineItem])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(is_closed: data[:IsClosed])
-      SalesforceOpportunity.where(:opportunity_id => data[:Id]).update_all(account_id: data[:AccountID])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(description: data['Description'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(forecast_category: data['ForecastCategory'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(last_referenced_date: data['LastReferencedDate'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(close_date: data['CloseDate'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(name: data['Name'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(stage_name: data['StageName'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(last_viewed_date: data['LastViewedDate'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(fiscal: data['Fiscal'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(opportunity_type: data['Type'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(lead_source: data['LeadSource'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(forecast_category_name: data['ForecastCategoryName'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(last_modified_by_id: data['LastModifiedById'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(next_step: data['NextStep'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(probability: data['Probability'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(fiscal_quarter: data['FiscalQuarter'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(fiscal_year: data['FiscalYear'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(amount: data['Amount'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(is_won: data['IsWon'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(is_deleted: data['IsDeleted'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(has_opportunity_line_item: data['HasOpportunityLineItem'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(is_closed: data['IsClosed'])
+      SalesforceOpportunity.where(:opportunity_id => data['Id']).update_all(account_id: data['AccountID'])
     end
   end
 
@@ -277,7 +277,7 @@ class Database
   def self.delete_opportunity(element, data)
     #Can be extended to other elements
     if element == "sfdc"
-      self.delete_opportunity_id(element, data[:Id])
+      self.delete_opportunity_id(element, data['Id'])
     else
       # delete another type of invoice here
     end
@@ -298,22 +298,22 @@ class Database
   def self.create_invoice(element, data, customer)
     #Can be extended to other elements
     if element == "quickbooks"
-      invoice = QuickbooksInvoice.create(invoice_id: data[:id], quickbooks_customer: customer, org: customer.org)
-      invoice.sync_token = data[:syncToken]
-      invoice.doc_number = data[:docNumber]
-      invoice.due_date = data[:dueDate]
-      invoice.print_status = data[:printStatus]
-      invoice.email_status = data[:emailStatus]
-      invoice.domain = data[:domain]
-      invoice.txn_date = data[:txnDate]
-      invoice.balance = data[:balance]
-      invoice.total_amt = data[:totalAmt]
-      invoice.allow_online_ach_payment = data[:allowOnlineACHPayment]
-      invoice.allow_online_payment = data[:allowOnlinePayment]
-      invoice.allow_ipn_payment = data[:allowIPNPayment]
-      invoice.apply_tax_after_discount = data[:applyTaxAfterDiscount]
-      invoice.allow_online_credit_card_payment = data[:allowOnlineCreditCardPayment]
-      invoice.sparse = data[:sparse]
+      invoice = QuickbooksInvoice.create(invoice_id: data['id'], quickbooks_customer: customer, org: customer.org)
+      invoice.sync_token = data['syncToken']
+      invoice.doc_number = data['docNumber']
+      invoice.due_date = data['dueDate']
+      invoice.print_status = data['printStatus']
+      invoice.email_status = data['emailStatus']
+      invoice.domain = data['domain']
+      invoice.txn_date = data['txnDate']
+      invoice.balance = data['balance']
+      invoice.total_amt = data['totalAmt']
+      invoice.allow_online_ach_payment = data['allowOnlineACHPayment']
+      invoice.allow_online_payment = data['allowOnlinePayment']
+      invoice.allow_ipn_payment = data['allowIPNPayment']
+      invoice.apply_tax_after_discount = data['applyTaxAfterDiscount']
+      invoice.allow_online_credit_card_payment = data['allowOnlineCreditCardPayment']
+      invoice.sparse = data['sparse']
       invoice.save
     else
       # create another type of account here
@@ -324,21 +324,21 @@ class Database
   def self.update_invoice(element, data)
     #Can be extended to other elements
     if element == "quickbooks"
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(sync_token: data[:syncToken])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(doc_number: data[:docNumber])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(due_date: data[:dueDate])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(print_status: data[:printStatus])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(email_status: data[:emailStatus])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(domain: data[:domain])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(txn_date: data[:txnDate])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(balance: data[:balance])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(total_amt: data[:totalAmt])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(allow_online_ach_payment: data[:allowOnlineACHPayment])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(allow_online_payment: data[:allowOnlinePayment])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(allow_ipn_payment: data[:allowIPNPayment])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(apply_tax_after_discount: data[:applyTaxAfterDiscount])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(allow_online_credit_card_payment: data[:allowOnlineCreditCardPayment])
-      QuickbooksInvoice.where(:invoice_id => data[:id]).update_all(sparse: data[:sparse])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(sync_token: data['syncToken'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(doc_number: data['docNumber'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(due_date: data['dueDate'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(print_status: data['printStatus'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(email_status: data['emailStatus'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(domain: data['domain'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(txn_date: data['txnDate'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(balance: data['balance'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(total_amt: data['totalAmt'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(allow_online_ach_payment: data['allowOnlineACHPayment'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(allow_online_payment: data['allowOnlinePayment'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(allow_ipn_payment: data['allowIPNPayment'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(apply_tax_after_discount: data['applyTaxAfterDiscount'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(allow_online_credit_card_payment: data['allowOnlineCreditCardPayment'])
+      QuickbooksInvoice.where(:invoice_id => data['id']).update_all(sparse: data['sparse'])
     end
   end
 
@@ -346,7 +346,7 @@ class Database
   def self.delete_invoice(element, data)
     #Can be extended to other elements
     if element == "quickbooks"
-      self.delete_invoice_id(element, data[:id])
+      self.delete_invoice_id(element, data['id'])
     else
       # delete another type of invoice here
     end
@@ -367,15 +367,15 @@ class Database
   def self.create_payment(element, data, customer)
     #Can be extended to other elements
     if element == "quickbooks"
-      payment = QuickbooksPayment.create(payment_id: data[:id], quickbooks_customer: customer, org: customer.org)
-      payment.sync_token = data[:syncToken]
-      payment.domain = data[:domain]
-      payment.payment_ref_num = data[:paymentRefNum]
-      payment.txn_date = data[:txnDate]
-      payment.process_payments = data[:processPayments]
-      payment.sparse = data[:sparse]
-      payment.unapplied_amt = data[:unappliedAmt]
-      payment.total_amt = data[:totalAmt]
+      payment = QuickbooksPayment.create(payment_id: data['id'], quickbooks_customer: customer, org: customer.org)
+      payment.sync_token = data['syncToken']
+      payment.domain = data['domain']
+      payment.payment_ref_num = data['paymentRefNum']
+      payment.txn_date = data['txnDate']
+      payment.process_payments = data['processPayments']
+      payment.sparse = data['sparse']
+      payment.unapplied_amt = data['unappliedAmt']
+      payment.total_amt = data['totalAmt']
       payment.save
     else
       # create another type of account here
@@ -391,7 +391,7 @@ class Database
   def self.delete_payment(element, data)
     #Can be extended to other elements
     if element == "quickbooks"
-      self.delete_payment_id(element, data[:id])
+      self.delete_payment_id(element, data['id'])
     else
       # delete another type of payment here
     end
@@ -412,39 +412,39 @@ class Database
   def self.create_contact(element, data, account)
     #Can be extended to other elements
     if element == "sfdc"
-      contact = SalesforceContact.create(contact_id: data[:Id], salesforce_account: account, org: account.org)
-      contact.assistant_phone =data[:AssistantPhone]
-      contact.other_phone =data[:OtherPhone]
-      contact.account_id =data[:AccountId]
-      contact.email =data[:Email]
-      contact.description =data[:Description]
-      contact.assistant_name =data[:AssistantName]
-      contact.last_referenced_date =data[:LastReferenceDate]
-      contact.salutation =data[:Salutation]
-      contact.other_state =data[:OtherState]
-      contact.mobile_phone =data[:MobilePhone]
-      contact.name =data[:Name]
-      contact.department =data[:Department]
-      contact.created_by_id =data[:CreatedById]
-      contact.owner_id =data[:OwnerId]
-      contact.other_city =data[:OtherCity]
-      contact.phone =data[:Phone]
-      contact.other_country =data[:OtherCountry]
-      contact.photo_url =data[:PhotoUrl]
-      contact.first_name =data[:FirstName]
-      contact.other_postal_code =data[:OtherPostalCode]
-      contact.last_viewed_date =data[:LastViewedDate]
-      contact.title =data[:Title]
-      contact.birthdate =data[:Birthdate]
-      contact.other_street =data[:OtherStreet]
-      contact.lead_source =data[:LeadSource]
-      contact.home_phone =data[:HomePhone]
-      contact.reports_to_id =data[:ReportsToId]
-      contact.created_date =data[:CreatedDate]
-      contact.last_name =data[:LastName]
-      contact.fax =data[:Fax]
-      contact.is_deleted =data[:IsDeleted]
-      contact.is_email_bounced =data[:IsEmailBounced]
+      contact = SalesforceContact.create(contact_id: data['Id'], salesforce_account: account, org: account.org)
+      contact.assistant_phone =data['AssistantPhone']
+      contact.other_phone =data['OtherPhone']
+      contact.account_id =data['AccountId']
+      contact.email =data['Email']
+      contact.description =data['Description']
+      contact.assistant_name =data['AssistantName']
+      contact.last_referenced_date =data['LastReferenceDate']
+      contact.salutation =data['Salutation']
+      contact.other_state =data['OtherState']
+      contact.mobile_phone =data['MobilePhone']
+      contact.name =data['Name']
+      contact.department =data['Department']
+      contact.created_by_id =data['CreatedById']
+      contact.owner_id =data['OwnerId']
+      contact.other_city =data['OtherCity']
+      contact.phone =data['Phone']
+      contact.other_country =data['OtherCountry']
+      contact.photo_url =data['PhotoUrl']
+      contact.first_name =data['FirstName']
+      contact.other_postal_code =data['OtherPostalCode']
+      contact.last_viewed_date =data['LastViewedDate']
+      contact.title =data['Title']
+      contact.birthdate =data['Birthdate']
+      contact.other_street =data['OtherStreet']
+      contact.lead_source =data['LeadSource']
+      contact.home_phone =data['HomePhone']
+      contact.reports_to_id =data['ReportsToId']
+      contact.created_date =data['CreatedDate']
+      contact.last_name =data['LastName']
+      contact.fax =data['Fax']
+      contact.is_deleted =data['IsDeleted']
+      contact.is_email_bounced =data['IsEmailBounced']
       contact.save
     else
       # create another type of account here
@@ -460,7 +460,7 @@ class Database
   def self.delete_contact(element, data)
     #Can be extended to other elements
     if element == "sfdc"
-      self.delete_contact_id(element, data[:Id])
+      self.delete_contact_id(element, data['Id'])
     else
       # delete another type of contact here
     end
@@ -481,38 +481,38 @@ class Database
   def self.create_lead(element, data, org)
     #Can be extended to other elements
     if element == "sfdc"
-      lead = SalesforceLead.create(lead_id: data[:Id], org: org)
-      lead.number_of_employees = data[:NumberOfEmployees]
-      lead.company = data[:Company]
-      lead.email = data[:Email]
-      lead.description = data[:Description]
-      lead.rating = data[:Rating]
-      lead.postal_code = data[:PostalCode]
-      lead.website = data[:Website]
-      lead.last_referenced_date = data[:LastReferencedDate]
-      lead.salutation = data[:Salutation]
-      lead.name = data[:Name]
-      lead.industry = data[:Industry]
-      lead.created_by_id = data[:CreatedById]
-      lead.owner_id = data[:OwnerId]
-      lead.phone = data[:Phone]
-      lead.street = data[:Street]
-      lead.photo_url = data[:PhotoUrl]
-      lead.status = data[:Status]
-      lead.first_name = data[:FirstName]
-      lead.last_viewed_date = data[:LastViewedDate]
-      lead.title = data[:Title]
-      lead.city = data[:City]
-      lead.lead_source = data[:LeadSource]
-      lead.state = data[:State]
-      lead.created_date = data[:CreatedDate]
-      lead.country = data[:Country]
-      lead.last_name = data[:LastName]
-      lead.last_modified_by_id = data[:LastModifiedById]
-      lead.is_deleted = data[:IsDeleted]
-      lead.is_converted = data[:IsConverted]
-      lead.is_unread_by_owner = data[:IsUnreadByOwner]
-      lead.annual_revenue = data[:AnnualRevenue]
+      lead = SalesforceLead.create(lead_id: data['Id'], org: org)
+      lead.number_of_employees = data['NumberOfEmployees']
+      lead.company = data['Company']
+      lead.email = data['Email']
+      lead.description = data['Description']
+      lead.rating = data['Rating']
+      lead.postal_code = data['PostalCode']
+      lead.website = data['Website']
+      lead.last_referenced_date = data['LastReferencedDate']
+      lead.salutation = data['Salutation']
+      lead.name = data['Name']
+      lead.industry = data['Industry']
+      lead.created_by_id = data['CreatedById']
+      lead.owner_id = data['OwnerId']
+      lead.phone = data['Phone']
+      lead.street = data['Street']
+      lead.photo_url = data['PhotoUrl']
+      lead.status = data['Status']
+      lead.first_name = data['FirstName']
+      lead.last_viewed_date = data['LastViewedDate']
+      lead.title = data['Title']
+      lead.city = data['City']
+      lead.lead_source = data['LeadSource']
+      lead.state = data['State']
+      lead.created_date = data['CreatedDate']
+      lead.country = data['Country']
+      lead.last_name = data['LastName']
+      lead.last_modified_by_id = data['LastModifiedById']
+      lead.is_deleted = data['IsDeleted']
+      lead.is_converted = data['IsConverted']
+      lead.is_unread_by_owner = data['IsUnreadByOwner']
+      lead.annual_revenue = data['AnnualRevenue']
       lead.save
     else
       # create another type of account here
@@ -528,7 +528,7 @@ class Database
   def self.delete_lead(element, data)
     #Can be extended to other elements
     if element == "sfdc"
-      self.delete_lead_id(element, data[:Id])
+      self.delete_lead_id(element, data['Id'])
     else
       # delete another type of lead here
     end
@@ -581,7 +581,7 @@ class Database
     if element == "sfdc"
       data.each do |contact|
         org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
-        account = SalesforceAccount.where(account_id: contact[:AccountId]).where(org: org).select(:account_id, :id, :org_id).take
+        account = SalesforceAccount.where(account_id: contact['AccountId']).where(org: org).select(:account_id, :id, :org_id).take
         # next if account == nil
         self.create_contact(element, contact, account)
       end
@@ -596,7 +596,7 @@ class Database
     if element == "sfdc"
       data.each do |opportunity|
         org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
-        account = SalesforceAccount.where(account_id: opportunity[:AccountId]).where(org: org).select(:account_id, :id, :org_id).take
+        account = SalesforceAccount.where(account_id: opportunity['AccountId']).where(org: org).select(:account_id, :id, :org_id).take
         # next if account == nil
         self.create_opportunity(element, opportunity, account)
       end
