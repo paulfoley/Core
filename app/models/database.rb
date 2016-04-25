@@ -627,12 +627,12 @@ class Database
         puts "***** Output invoice *****"
         puts invoice
         puts "***** customerRef *****"
-        puts invoice['customerRef'][:name]
+        puts invoice['customerRef']['name']
         # puts invoice[:customerRef][:name]
         puts "***** Skipping create invoice *****"
-        # customer = QuickbooksCustomer.where(name: invoice[:customerRef][:name]).select(:customer_id, :id, :org_id).take
-        #next if customer == nil
-        #self.create_invoice(element, invoice, customer)
+        customer = QuickbooksCustomer.where(name: invoice['customerRef']['name']).select(:customer_id, :id, :org_id).take
+        next if customer == nil
+        self.create_invoice(element, invoice, customer)
       end
     else
       # Create another type of entity here
@@ -648,11 +648,11 @@ class Database
         puts "***** Output payment *****"
         puts payment
         puts "***** customerRef *****"
-        puts payment['customerRef']
+        puts payment['customerRef']['name']
         puts "***** Skipping create payment *****"
-        # customer = QuickbooksCustomer.where(name: payment[:customerRef][:name]).select(:customer_id, :id, :org_id).take
-        # next if customer == nil
-        # self.create_payment(element, payment, customer)
+        customer = QuickbooksCustomer.where(name: payment['customerRef']['name']).select(:customer_id, :id, :org_id).take
+        next if customer == nil
+        self.create_payment(element, payment, customer)
       end
     else
       # Create another type of entity here
