@@ -628,7 +628,8 @@ class Database
         puts invoice
         # puts invoice[:customerRef]
         # puts invoice[:customerRef][:name]
-        customer = QuickbooksCustomer.where(name: invoice[:customerRef][:name]).select(:customer_id, :id, :org_id).take
+        puts "***** Skipping invoice *****"
+        # customer = QuickbooksCustomer.where(name: invoice[:customerRef][:name]).select(:customer_id, :id, :org_id).take
         next if customer == nil
         self.create_invoice(element, invoice, customer)
       end
