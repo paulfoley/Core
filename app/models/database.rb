@@ -627,7 +627,6 @@ class Database
         puts "***** Output invoice *****"
         puts invoice
         puts "***** customerRef *****"
-        puts invoice.customerRef
         puts invoice['customerRef']
         # puts invoice[:customerRef][:name]
         puts "***** Skipping create invoice *****"
