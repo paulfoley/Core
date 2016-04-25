@@ -620,7 +620,10 @@ class Database
   def self.bulk_create_invoices(element, instance_id, data)
     if element == "quickbooks"
       data.each do |invoice|
-        next if invoice == nil
+        puts "****TESTING*****"
+        puts invoice
+        puts invoice[:customerRef]
+        puts invoice[:customerRef][:name]
         customer = QuickbooksCustomer.where(name: invoice[:customerRef][:name]).select(:customer_id, :id, :org_id).take
         next if customer == nil
         self.create_invoice(element, invoice, customer)
