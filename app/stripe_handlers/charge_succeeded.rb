@@ -4,15 +4,19 @@ class ChargeSucceeded < ApplicationController
     #token = Org.where(stripe_token: stripe_token).select(:quickbooks_token).take.quickbooks_token
     # secret key = SELECT access_token FROM database WHERE user_id = stripe_user_id
     stripe_token = event[:user_id]
-    puts stripe_token
+    #puts stripe_token
 
     customer_name = event[:data][:object][:source][:name]
-    puts customer_name
+    #puts customer_name
 
     amount_paid = event[:data][:object][:amount] * 0.01
-    puts amount_paid
+    #puts amount_paid
 
-    CloudElements.quickbooks_payment(stripe_token, customer_name, amount_paid)
+    if Org.where(stripe_token: stripe_token).select(:quickbooks_token).take.quickbooks_token
+      CloudElements.quickbooks_payment(stripe_token, customer_name, amount_paid)
+    else
+      puts "No Quickbooks account available for syncing."
+    end
 
   end
 end
