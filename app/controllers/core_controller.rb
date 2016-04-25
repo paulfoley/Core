@@ -6,9 +6,14 @@ class CoreController < ApplicationController
     #variables available in main view
     @user = User.find_by(email: session[:email])
     @org = Org.find_by(name: session[:org])
+    #for app logo b/w
     @connected_to_salesforce = !!@org.salesforce_token
     @connected_to_quickbooks = !!@org.quickbooks_token
     @connected_to_stripe = !!@org.stripe_token
+    #variables for highcharts
+    @customer_count = SalesforceAccount.count(:conditions=>'org = @org')
+    @opportunity_count = SalesforceOpportunity.count(:conditions=>'org = @org')
+    @open_invoices_count = QuickbooksInvoice.count(:conditions=>'org = @org AND is_active = TRUE')
     
     gon.push({
       :user=>@user,

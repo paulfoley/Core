@@ -38,20 +38,23 @@
       <div id="metrics_container">
         <div id="monthly_sales" class="graph_container fullwidth">
         </div>
-        <div id="market_share" class="graph_container thirdwidth left">
-          
+        <div id="customer_count" class="graph_container thirdwidth left">
+          <div class="number_metric">
+            <h1><%= @customer_count %></h1>
+            <p>Salesforce Customers</p>
+          </div>
         </div>
-        <div id="market" class="graph_container thirdwidth middle">
-          
+        <div id="opportunity_count" class="graph_container thirdwidth middle">
+          <div class="number_metric">
+            <h1><%= @opportunity_count %></h1>
+            <p>Salesforce Opportunities</p>
+          </div>
         </div>
         <div id="share" class="graph_container thirdwidth right">
-          
-        </div>
-        <div class="graph_container halfwidth left">
-          
-        </div>
-        <div class="graph_container halfwidth right">
-          
+          <div class="number_metric">
+            <h1><%= @open_invoices_count %></h1>
+            <p>Open Quickbooks Invoices</p>
+          </div>
         </div>
       </div>
     </div>
