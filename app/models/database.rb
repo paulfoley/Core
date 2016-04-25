@@ -17,12 +17,17 @@ class Database
     end
 
     # Delete each account associate with this Org
-    org.salesforce_account.each do |account|
+    org.salesforce_accounts.each do |account|
       self.delete_account_id("sfdc", account.account_id)
     end
 
+    # Delete each lead associate with this Org
+    org.salesforce_leads.each do |lead|
+      self.delete_lead_id("sfdc", lead.lead_id)
+    end
+
     # Delete each account associate with this Org
-    org.quickbooks_customer.each do |customer|
+    org.quickbooks_customers.each do |customer|
       self.delete_customer_id("quickbooks", customer.customer_id)
     end
 
@@ -100,7 +105,6 @@ class Database
   end
 
   # Delete an existing account from hashed paramters
-  # TODO Logic to delete child elements
   def self.delete_account(element, data)
   #Can be extended to other elements
     if element == "sfdc"
@@ -111,11 +115,23 @@ class Database
   end
 
   # Delete an existing account from account_id
-  # TODO Logic to delete child elements
   def self.delete_account_id(element, account_id)
     #Can be extended to other elements
     if element == "sfdc"
-      SalesforceAccount.where(account_id: account_id).delete_all
+      account = SalesforceAccount.where(account_id: account_id).select(:name, :id).take
+
+      # Delete contacts associated with this Account
+      account.salesforce_contacts.each do |contact|
+        self.delete_contact_id("sfdc", contact.contact_id)
+      end
+
+      # Delete opportunities associated with this Account
+      account.salesforce_opportunities.each do |opportunity|
+        self.delete_opportunity_id("sfdc", opportunity.opportunity_id)
+      end
+
+      account.delete
+
     else
       # delete another type of account here
     end
@@ -160,7 +176,6 @@ class Database
   end
 
   # Delete an existing account from hashed parameters
-  # TODO Logic to delete child elements
   def self.delete_customer(element, data)
     #Can be extended to other elements
     if element == "quickbooks"
@@ -171,11 +186,23 @@ class Database
   end
 
   # Delete an existing customer from customer_id
-  # TODO Logic to delete child elements
   def self.delete_customer_id(element, customer_id)
     #Can be extended to other elements
     if element == "quickbooks"
-      QuickbooksCustomer.where(customer_id: customer_id).delete_all
+      customer = QuickbooksCustomer.where(customer_id: customer_id).select(:name, :id).take
+
+      # Delete payments associated with this Customer
+      customer.quickbooks_payments.each do |payment|
+        self.delete_payment_id("quickbooks", payment.payment_id)
+      end
+
+      # Delete payments associated with this Customer
+      customer.quickbooks_invoices.each do |invoice|
+        self.delete_invoice_id("quickbooks", invoice.invoice_id)
+      end
+
+      customer.delete
+
     else
       # delete another type of account here
     end
@@ -186,7 +213,7 @@ class Database
   def self.create_opportunity(element, data, account)
     #Can be extended to other elements
     if element == "sfdc"
-      opportunity = SalesforceOpportunity.create(opportunity_id: data[:Id], salesforce_account: account)
+      opportunity = SalesforceOpportunity.create(opportunity_id: data[:Id], salesforce_account: account, org: account.org)
       opportunity.description = data[:Description]
       opportunity.forecast_category = data[:ForecastCategory]
       opportunity.last_referenced_date = data[:LastReferencedDate]
@@ -269,7 +296,7 @@ class Database
   def self.create_invoice(element, data, customer)
     #Can be extended to other elements
     if element == "quickbooks"
-      invoice = QuickbooksInvoice.create(invoice_id: data[:id], quickbooks_customer: customer)
+      invoice = QuickbooksInvoice.create(invoice_id: data[:id], quickbooks_customer: customer, org: customer.org)
       invoice.sync_token = data[:syncToken]
       invoice.doc_number = data[:docNumber]
       invoice.due_date = data[:dueDate]
@@ -323,13 +350,300 @@ class Database
     end
   end
 
-  #Delete an existing invoice from invoice_id
+  # Delete an existing invoice from invoice_id
   def self.delete_invoice_id(element, invoice_id)
     #Can be extended to other elements
     if element == "quickbooks"
       QuickbooksInvoice.where(invoice_id: invoice_id).delete_all
     else
-      # delete another type of account here
+      # delete another type of invoice here
+    end
+  end
+
+  # Create a new payment from hashed parameters
+  # Currently only creates QuickbooksPayment
+  def self.create_payment(element, data, customer)
+    #Can be extended to other elements
+    if element == "quickbooks"
+      payment = QuickbooksPayment.create(payment_id: data[:id], quickbooks_customer: customer, org: customer.org)
+      payment.sync_token = data[:syncToken]
+      payment.domain = data[:domain]
+      payment.payment_ref_num = data[:paymentRefNum]
+      payment.txn_date = data[:txnDate]
+      payment.process_payments = data[:processPayments]
+      payment.sparse = data[:sparse]
+      payment.unapplied_amt = data[:unappliedAmt]
+      payment.total_amt = data[:totalAmt]
+      payment.save
+    else
+      # create another type of account here
+    end
+  end
+
+  # TODO
+  def self.update_payment(element, data)
+
+  end
+
+  # Delete an existing payment from hashed parameters
+  def self.delete_payment(element, data)
+    #Can be extended to other elements
+    if element == "quickbooks"
+      self.delete_payment_id(element, data[:id])
+    else
+      # delete another type of payment here
+    end
+  end
+
+  # Delete an existing payment from payment_id
+  def self.delete_payment_id(element, payment_id)
+#Can be extended to other elements
+    if element == "quickbooks"
+      QuickbooksPayment.where(payment_id: payment_id).delete_all
+    else
+      # delete another type of pyament here
+    end
+  end
+
+  # Create a new contact from hashed parameters
+  # Currently only creates SalesforceContact
+  def self.create_contact(element, data, account)
+    #Can be extended to other elements
+    if element == "sfdc"
+      contact = SalesforceContact.create(contact_id: data[:Id], salesforce_account: account, org: account.org)
+      contact.assistant_phone =data[:AssistantPhone]
+      contact.other_phone =data[:OtherPhone]
+      contact.account_id =data[:AccountId]
+      contact.email =data[:Email]
+      contact.description =data[:Description]
+      contact.assistant_name =data[:AssistantName]
+      contact.last_referenced_date =data[:LastReferenceDate]
+      contact.salutation =data[:Salutation]
+      contact.other_state =data[:OtherState]
+      contact.mobile_phone =data[:MobilePhone]
+      contact.name =data[:Name]
+      contact.department =data[:Department]
+      contact.created_by_id =data[:CreatedById]
+      contact.owner_id =data[:OwnerId]
+      contact.other_city =data[:OtherCity]
+      contact.phone =data[:Phone]
+      contact.other_country =data[:OtherCountry]
+      contact.photo_url =data[:PhotoUrl]
+      contact.first_name =data[:FirstName]
+      contact.other_postal_code =data[:OtherPostalCode]
+      contact.last_viewed_date =data[:LastViewedDate]
+      contact.title =data[:Title]
+      contact.birthdate =data[:Birthdate]
+      contact.other_street =data[:OtherStreet]
+      contact.lead_source =data[:LeadSource]
+      contact.home_phone =data[:HomePhone]
+      contact.reports_to_id =data[:ReportsToId]
+      contact.created_date =data[:CreatedDate]
+      contact.last_name =data[:LastName]
+      contact.fax =data[:Fax]
+      contact.is_deleted =data[:IsDeleted]
+      contact.is_email_bounced =data[:IsEmailBounced]
+      contact.save
+    else
+      # create another type of account here
+    end
+  end
+
+  # TODO
+  def self.update_contact(element, data)
+
+  end
+
+  # Delete an existing contact from hashed parameters
+  def self.delete_contact(element, data)
+    #Can be extended to other elements
+    if element == "sfdc"
+      self.delete_contact_id(element, data[:Id])
+    else
+      # delete another type of contact here
+    end
+  end
+
+  # Delete an existing contact from contact_id
+  def self.delete_contact_id(element, contact_id)
+    #Can be extended to other elements
+    if element == "sfdc"
+      SalesforceContact.where(contact_id: contact_id).delete_all
+    else
+      # delete another type of contact here
+    end
+  end
+
+  # Create a new lead from hashed parameters
+  # Currently only creates SalesforceLead
+  def self.create_lead(element, data, org)
+    #Can be extended to other elements
+    if element == "sfdc"
+      lead = SalesforceLead.create(lead_id: data[:Id], org: org)
+      lead.number_of_employees = data[:NumberOfEmployees]
+      lead.company = data[:Company]
+      lead.email = data[:Email]
+      lead.description = data[:Description]
+      lead.rating = data[:Rating]
+      lead.postal_code = data[:PostalCode]
+      lead.website = data[:Website]
+      lead.last_referenced_date = data[:LastReferencedDate]
+      lead.salutation = data[:Salutation]
+      lead.name = data[:Name]
+      lead.industry = data[:Industry]
+      lead.created_by_id = data[:CreatedById]
+      lead.owner_id = data[:OwnerId]
+      lead.phone = data[:Phone]
+      lead.street = data[:Street]
+      lead.photo_url = data[:PhotoUrl]
+      lead.status = data[:Status]
+      lead.first_name = data[:FirstName]
+      lead.last_viewed_date = data[:LastViewedDate]
+      lead.title = data[:Title]
+      lead.city = data[:City]
+      lead.lead_source = data[:LeadSource]
+      lead.state = data[:State]
+      lead.created_date = data[:CreatedDate]
+      lead.country = data[:Country]
+      lead.last_name = data[:LastName]
+      lead.last_modified_by_id = data[:LastModifiedById]
+      lead.is_deleted = data[:IsDeleted]
+      lead.is_converted = data[:IsConverted]
+      lead.is_unread_by_owner = data[:IsUnreadByOwner]
+      lead.annual_revenue = data[:AnnualRevenue]
+      lead.save
+    else
+      # create another type of account here
+    end
+  end
+
+  # TODO
+  def self.update_lead(element, data)
+
+  end
+
+  # Delete an existing lead from hashed parameters
+  def self.delete_lead(element, data)
+    #Can be extended to other elements
+    if element == "sfdc"
+      self.delete_lead_id(element, data[:Id])
+    else
+      # delete another type of lead here
+    end
+  end
+
+  # Delete an existing lead from lead_id
+  def self.delete_lead_id(element, lead_id)
+    #Can be extended to other elements
+    if element == "sfdc"
+      SalesforceLead.where(lead_id: lead_id).delete_all
+    else
+      # delete another type of lead here
+    end
+  end
+
+
+  ## Methods for bulk import of data on first account conenction ##
+
+  # Create multiple ccounts from hashed parameters when account is first connected
+  # Currently only creates SalesforceAccounts
+  def self.bulk_create_accounts(element, instance_id, data)
+    if element == "sfdc"
+      data.each do |account|
+        org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
+        next if org == nil
+        self.create_account(element, account, org)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple leads from hashed parameters when account is first connected
+  # Currently only creates SalesforceLeads
+  def self.bulk_create_leads(element, instance_id, data)
+    if element == "sfdc"
+      data.each do |lead|
+        org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
+        next if org == nil
+        self.create_lead(element, lead, org)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple contacts from hashed parameters when account is first connected
+  # Currently only creates SalesforceContacts
+  def self.bulk_create_contacts(element, instance_id, data)
+    if element == "sfdc"
+      data.each do |contact|
+        account = SalesforceAccount.where(account_id: contact[:AccountId]).select(:account_id, :id, :org_id).take
+        next if account == nil
+        self.create_contact(element, contact, account)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple opportunities from hashed parameters when account is first connected
+  # Currently only creates SalesforceOpportunities
+  def self.bulk_create_opportunities(element, instance_id, data)
+    if element == "sfdc"
+      data.each do |opportunity|
+        account = SalesforceAccount.where(account_id: opportunity[:AccountId]).select(:account_id, :id, :org_id).take
+        next if account == nil
+        self.create_opportunity(element, opportunity, account)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple customers from hashed parameters when account is first connected
+  # Currently only creates QuickbooksCustomers
+  def self.bulk_create_customers(element, instance_id, data)
+    if element == "quickbooks"
+      data.each do |customer|
+        org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
+        next if org == nil
+        self.create_customer(element, customer, org)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple invoices from hashed parameters when account is first connected
+  # Currently only creates QuickbooksInvoices
+  def self.bulk_create_invoices(element, instance_id, data)
+    if element == "quickbooks"
+      data.each do |invoice|
+        puts "****TESTING*****"
+        puts invoice
+        puts invoice[:customerRef]
+        puts invoice[:customerRef][:name]
+        customer = QuickbooksCustomer.where(name: invoice[:customerRef][:name]).select(:customer_id, :id, :org_id).take
+        next if customer == nil
+        self.create_invoice(element, invoice, customer)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple payments from hashed parameters when account is first connected
+  # Currently only creates QuickbooksPayments
+  def self.bulk_create_payments(element, instance_id, data)
+    if element == "quickbooks"
+      data.each do |payment|
+        customer = QuickbooksCustomer.where(name: payment[:customerRef][:name]).select(:customer_id, :id, :org_id).take
+        next if customer == nil
+        self.create_payment(element, payment, customer)
+      end
+    else
+      # Create another type of entity here
     end
   end
 end

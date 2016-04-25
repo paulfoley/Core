@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421002020) do
+ActiveRecord::Schema.define(version: 20160424194011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160421002020) do
   create_table "quickbooks_invoices", force: :cascade do |t|
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "org_id"
     t.integer  "quickbooks_customer_id"
     t.string   "sync_token"
     t.string   "doc_number"
@@ -71,6 +72,22 @@ ActiveRecord::Schema.define(version: 20160421002020) do
     t.boolean  "apply_tax_after_discount"
     t.boolean  "allow_online_credit_card_payment"
     t.boolean  "sparse"
+  end
+
+  create_table "quickbooks_payments", force: :cascade do |t|
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "org_id"
+    t.integer  "quickbooks_customer_id"
+    t.string   "payment_id"
+    t.string   "sync_token"
+    t.string   "domain"
+    t.string   "payment_ref_num"
+    t.string   "txn_date"
+    t.boolean  "process_payments"
+    t.boolean  "sparse"
+    t.decimal  "unapplied_amt"
+    t.decimal  "total_amt"
   end
 
   create_table "salesforce_accounts", force: :cascade do |t|
@@ -100,18 +117,88 @@ ActiveRecord::Schema.define(version: 20160421002020) do
   end
 
   create_table "salesforce_contacts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "org_id"
+    t.integer  "salesforce_account_id"
+    t.string   "contact_id"
+    t.string   "assistant_phone"
+    t.string   "other_phone"
+    t.string   "account_id"
+    t.string   "email"
+    t.string   "description"
+    t.string   "assistant_name"
+    t.string   "last_referenced_date"
+    t.string   "salutation"
+    t.string   "other_state"
+    t.string   "mobile_phone"
+    t.string   "name"
+    t.string   "department"
+    t.string   "created_by_id"
+    t.string   "owner_id"
+    t.string   "other_city"
+    t.string   "phone"
+    t.string   "other_country"
+    t.string   "photo_url"
+    t.string   "first_name"
+    t.string   "other_postal_code"
+    t.string   "last_viewed_date"
+    t.string   "title"
+    t.string   "birthdate"
+    t.string   "other_street"
+    t.string   "lead_source"
+    t.string   "home_phone"
+    t.string   "reports_to_id"
+    t.string   "created_date"
+    t.string   "last_name"
+    t.string   "fax"
+    t.boolean  "is_deleted"
+    t.boolean  "is_email_bounced"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "salesforce_leads", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "lead_id"
+    t.integer  "org_id"
+    t.integer  "number_of_employees"
+    t.string   "company"
+    t.string   "email"
+    t.string   "description"
+    t.string   "rating"
+    t.string   "postal_code"
+    t.string   "website"
+    t.string   "last_referenced_date"
+    t.string   "salutation"
+    t.string   "name"
+    t.string   "industry"
+    t.string   "created_by_id"
+    t.string   "owner_id"
+    t.string   "phone"
+    t.string   "street"
+    t.string   "photo_url"
+    t.string   "status"
+    t.string   "first_name"
+    t.string   "last_viewed_date"
+    t.string   "title"
+    t.string   "city"
+    t.string   "lead_source"
+    t.string   "state"
+    t.string   "created_date"
+    t.string   "country"
+    t.string   "last_name"
+    t.string   "last_modified_by_id"
+    t.boolean  "is_deleted"
+    t.boolean  "is_converted"
+    t.boolean  "is_unread_by_owner"
+    t.decimal  "annual_revenue"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "salesforce_opportunities", force: :cascade do |t|
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "org_id"
+    t.integer  "salesforce_account_id"
     t.string   "account_id"
     t.string   "opportunity_id"
     t.string   "description"
@@ -129,7 +216,6 @@ ActiveRecord::Schema.define(version: 20160421002020) do
     t.string   "next_step"
     t.integer  "probability"
     t.integer  "fiscal_quarter"
-    t.integer  "salesforce_account_id"
     t.integer  "fiscal_year"
     t.decimal  "amount"
     t.boolean  "is_won"

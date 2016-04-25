@@ -101,6 +101,57 @@ class CloudElements
 
   end
 
+  def self.salesforce_pull_everything(org_name)
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    token = Org.where(name: org_name).select(:salesforce_token).take.salesforce_token
+    instance_id = Org.where(name: org_name).select(:salesforce_instance_id).take.salesforce_instance_id
+
+    headers = {
+        'Authorization' => 'Element ' + token + ', User ' + user_secret
+    }
+
+    url_accounts = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/accounts")
+    http = Net::HTTP.new(url_accounts.host, url_accounts.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url_accounts, headers)
+    response = http.request(request)
+    puts response.body
+    response_parsed_accounts = JSON.parse(response.body)
+    Database.bulk_create_accounts("sfdc", instance_id, response_parsed_accounts)
+
+    url_contacts = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/contacts")
+    http = Net::HTTP.new(url_contacts.host, url_contacts.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url_contacts, headers)
+    response = http.request(request)
+    puts response.body
+    response_parsed_contacts = JSON.parse(response.body)
+    Database.bulk_create_contacts("sfdc", instance_id, response_parsed_contacts)
+
+    url_leads = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/leads")
+    http = Net::HTTP.new(url_leads.host, url_leads.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url_leads, headers)
+    response = http.request(request)
+    puts response.body
+    response_parsed_leads = JSON.parse(response.body)
+    Database.bulk_create_leads("sfdc", instance_id, response_parsed_leads)
+
+    url_opportunities = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/opportunities")
+    http = Net::HTTP.new(url_opportunities.host, url_opportunities.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url_opportunities, headers)
+    response = http.request(request)
+    puts response.body
+    response_parsed_opportunities = JSON.parse(response.body)
+    Database.bulk_create_opportunities("sfdc", instance_id, response_parsed_opportunities)
+
+  end
+
 
   def self.quickbooks_oauthtoken
     api_key = ENV['QUICKBOOKS_API_KEY']
@@ -129,20 +180,17 @@ class CloudElements
   end
 
 
-  def self.quickbooks_oauthurl(token)
+  def self.quickbooks_oauthurl(request_token)
     api_key = ENV['QUICKBOOKS_API_KEY']
     api_secret = ENV['QUICKBOOKS_API_SECRET']
     callback_url = ENV['INSTANCE_CALLBACK_URL']
 
     path = "https://staging.cloud-elements.com/elements/api-v2/elements/quickbooks/oauth/url"
-    url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}&requestToken=#{token}&state=quickbooks"
+    url = "#{path}?apiKey=#{api_key}&apiSecret=#{api_secret}&callbackUrl=#{callback_url}&requestToken=#{request_token}&state=quickbooks"
 
-    puts url
     url = URI.parse url
-    puts url
-    puts url.path + '?' + url.query
     http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true #(url.scheme == 'https')
+    http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url.path + '?' + url.query)
     response = http.request(request)
@@ -158,8 +206,6 @@ class CloudElements
 
 
   def self.quickbooks_instance(org_name, oauth_token, oauth_verifier, realmId, dataSource)
-
-    # org = Org.where(name: org_name).select(:name, :quickbooks_token).take
 
     user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
     org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
@@ -217,103 +263,51 @@ class CloudElements
     end
   end
 
-  # def self.quickbooks_formula_transformation(instance_id)
-  #   user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
-  #   org_secret = ENV['CLOUDELEMENTS_ORG_SECRET']
-  #
-  #   body = {
-  #       'level' => 'organization',
-  #       'vendorName' => 'customer',
-  #       'fields' => [
-  #       {
-  #           'path' => 'Sync_Id',
-  #           'vendorPath' => 'id',
-  #           'configuration' => [
-  #            {
-  #               'type' => 'passThrough',
-  #               'properties' => {
-  #                   'fromVendor' => 'true',
-  #                   'toVendor' => 'false'
-  #               }
-  #             }
-  #           ]
-  #       },
-  #       {
-  #           'path' => 'Sync_Stage',
-  #           'vendorPath' => '',
-  #           'configuration' => [
-  #           {
-  #               'type' => 'passThrough',
-  #               'properties' => {
-  #                   'fromVendor' => 'false',
-  #                   'toVendor' => 'false'
-  #               }
-  #           }
-  #           ]
-  #       },
-  #       {
-  #           'path' => 'Sync_OpName',
-  #           'configuration' => [
-  #           {
-  #               'type' => 'passThrough',
-  #               'properties' => {
-  #                   'fromVendor' => 'false',
-  #                   'toVendor' => 'false'
-  #               }
-  #           }
-  #           ]
-  #       },
-  #       {
-  #           'path' => 'Sync_OpDisplayName',
-  #           'vendorPath' => 'displayName'
-  #       },
-  #       {
-  #           'path' => 'Sync_OpAmount',
-  #           'configuration' => [
-  #           {
-  #               'type' => 'passThrough',
-  #               'properties' => {
-  #                   'fromVendor' => 'false',
-  #                   'toVendor' => 'false'
-  #               }
-  #           }
-  #           ]
-  #       },
-  #       {
-  #           'path' => 'Sync_OpAccount',
-  #           'vendorPath' => 'companyName'
-  #       }
-  #       ],
-  #       'configuration' => [
-  #       {
-  #           'type' => 'passThrough',
-  #           'properties' => {
-  #               'fromVendor' => 'false',
-  #               'toVendor' => 'false'
-  #           }
-  #       }
-  #       ]
-  #   }.to_json
-  #
-  #   headers = {
-  #       'Authorization' => 'User ' + user_secret + ', Organization ' + org_secret,
-  #       'Content-Type' => 'application/json'
-  #   }
-  #
-  #   url = URI("https://console.cloud-elements.com/elements/api-v2/instances/#{instance_id}/transformations/BasicSyncOpportunities")
-  #   http = Net::HTTP.new(url.host, url.port)
-  #   http.use_ssl = true
-  #   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-  #
-  #   request = Net::HTTP::Post.new(url, headers)
-  #   request.body = body
-  #
-  #   response = http.request(request)
-  #   response_parsed = JSON.parse(response.body)
-  #
-  #   puts response_parsed
-  #
-  # end
+  def self.quickbooks_pull_everything(org_name)
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    token = Org.where(name: org_name).select(:quickbooks_token).take.quickbooks_token
+    instance_id = Org.where(name: org_name).select(:quickbooks_instance_id).take.quickbooks_instance_id
+
+    headers = {
+        'Authorization' => 'Element ' + token + ', User ' + user_secret
+    }
+
+    url_customers = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/customers")
+    http = Net::HTTP.new(url_customers.host, url_customers.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url_customers, headers)
+    response = http.request(request)
+    puts response.body
+    response_parsed_customers = JSON.parse(response.body)
+    Database.bulk_create_customers("quickbooks", instance_id, response_parsed_customers)
+
+    url_invoices = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/invoices")
+    http = Net::HTTP.new(url_invoices.host, url_invoices.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url_invoices, headers)
+    response = http.request(request)
+    puts response.body
+    response_parsed_invoices = JSON.parse(response.body)
+    puts "***** TESTING *****"
+    puts response_parsed_invoices
+    puts "*****"
+
+    Database.bulk_create_invoices("quickbooks", instance_id, response_parsed_invoices)
+
+    url_payments = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/payments")
+    http = Net::HTTP.new(url_payments.host, url_payments.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(url_payments, headers)
+    response = http.request(request)
+    puts response.body
+    response_parsed_payments = JSON.parse(response.body)
+    Database.bulk_create_payments("quickbooks", instance_id, response_parsed_payments)
+
+  end
+
 
   def self.create_salesforce_to_quickbooks_formula_instance(org_name)
 
@@ -497,7 +491,7 @@ class CloudElements
   end
 
 
-  def self.stripe_oauth(code)
+  def self.stripe_oauth(org_name, code)
     client_secret = ENV['STRIPE_LIVE_SECRET_KEY']
 
     url = URI('https://connect.stripe.com/oauth/token')
@@ -514,7 +508,6 @@ class CloudElements
     puts response_parsed
     org = Org.where(name: org_name).select(:name, :stripe_token, :id).take
     org.update_attributes(:stripe_token => response_parsed['stripe_user_id'])
-
 
   end
 
@@ -566,7 +559,7 @@ class CloudElements
 
     body = {
         'displayName' => customer_name,
-        'companyName' => customer_name
+        'companyName' => customer_name,
     }.to_json
 
     headers = {

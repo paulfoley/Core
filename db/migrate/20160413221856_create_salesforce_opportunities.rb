@@ -3,6 +3,8 @@ class CreateSalesforceOpportunities < ActiveRecord::Migration
     create_table :salesforce_opportunities do |t|
 
       t.timestamps null: false
+      t.integer :org_id
+      t.integer :salesforce_account_id
       t.string :account_id
       t.string :opportunity_id
       t.string :description
@@ -20,7 +22,6 @@ class CreateSalesforceOpportunities < ActiveRecord::Migration
       t.string :next_step
       t.integer :probability
       t.integer :fiscal_quarter
-      t.integer :salesforce_account_id
       t.integer :fiscal_year
       t.decimal :amount
       t.boolean :is_won
