@@ -1,5 +1,10 @@
 class Database
 
+  def self.test
+    @org1 = Org.where(:name => "Acme Inc").select(:name).take
+    puts SalesforceAccount.count(:org => @org1)
+  end
+
   # Create a new Org
   def self.create_org(name)
     if User.where(name: name).select(:name).take == nil
@@ -53,7 +58,7 @@ class Database
     #Can be extended to other elements
     if element == "sfdc"
       puts "****** Testing ******"
-      puts data[:Name]
+      puts data
       account = SalesforceAccount.create(name: data[:Name], org: org)
       account.account_id = data[:Id]
       account.description = data[:Description]

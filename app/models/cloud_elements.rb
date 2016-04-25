@@ -116,9 +116,8 @@ class CloudElements
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url_accounts, headers)
     response = http.request(request)
-    puts response.body
     response_parsed_accounts = JSON.parse(response.body)
-    Database.bulk_create_accounts("sfdc", instance_id, response_parsed_accounts)
+    Database.bulk_create_accounts("sfdc", instance_id, response.body)
 
     url_contacts = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/contacts")
     http = Net::HTTP.new(url_contacts.host, url_contacts.port)
@@ -128,7 +127,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_contacts = JSON.parse(response.body)
-    Database.bulk_create_contacts("sfdc", instance_id, response_parsed_contacts)
+    Database.bulk_create_contacts("sfdc", instance_id, response.body)
 
     url_leads = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/leads")
     http = Net::HTTP.new(url_leads.host, url_leads.port)
@@ -138,7 +137,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_leads = JSON.parse(response.body)
-    Database.bulk_create_leads("sfdc", instance_id, response_parsed_leads)
+    Database.bulk_create_leads("sfdc", instance_id, response.body)
 
     url_opportunities = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/opportunities")
     http = Net::HTTP.new(url_opportunities.host, url_opportunities.port)
@@ -148,7 +147,7 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_opportunities = JSON.parse(response.body)
-    Database.bulk_create_opportunities("sfdc", instance_id, response_parsed_opportunities)
+    Database.bulk_create_opportunities("sfdc", instance_id, response.body)
 
   end
 
@@ -193,8 +192,6 @@ class CloudElements
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url.path + '?' + url.query)
     response = http.request(request)
-
-    puts response.body
 
     response_parsed = JSON.parse(response.body)
     oauth_url = response_parsed['oauthUrl']
@@ -278,6 +275,10 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_customers = JSON.parse(response.body)
+
+    puts "***** Testing *****"
+    puts response_parsed_customers
+
     Database.bulk_create_customers("quickbooks", instance_id, response_parsed_customers)
 
     url_invoices = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/invoices")
