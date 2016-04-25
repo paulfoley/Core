@@ -6,25 +6,37 @@ class CallbackController < ApplicationController
   def receive_data
     render json:{}
 
-    @events = params[:message][:events]
-    @object = params[:message][:raw][:objectType]
+    if params[:message] == nil
+      # puts params[:_json]
+      # Database.bulk_create_accounts("sfdc", "12345", params[:_json])
+      # Database.bulk_create_leads("sfdc", "12345", params[:_json])
+      # Database.bulk_create_contacts("sfdc", "12345", params[:_json])
+      # Database.bulk_create_opportunities("sfdc", "12345", params[:_json])
+      # Database.bulk_create_customers("quickbooks", "54321", params[:_json])
+      # Database.bulk_create_invoices("quickbooks", "54321", params[:_json])
+      # Database.bulk_create_payments("quickbooks", "54321", params[:_json])
+    else
 
-    # Perform the action based on the type of object being modified
-    case @object
-      when "Account"
-        do_account
-      when "customers"
-        do_customer
-      when "invoices"
-        do_invoice
-      when "Opportunity"
-        do_opportunity
-      when "payments"
-        do_payment
-      when "Lead"
-        do_lead
-      when "Contact"
-        do_contact
+      @events = params[:message][:events]
+      @object = params[:message][:raw][:objectType]
+
+      # Perform the action based on the type of object being modified
+      case @object
+        when "Account"
+          do_account
+        when "customers"
+          do_customer
+        when "invoices"
+          do_invoice
+        when "Opportunity"
+          do_opportunity
+        when "payments"
+          do_payment
+        when "Lead"
+          do_lead
+        when "Contact"
+          do_contact
+      end
     end
   end
 

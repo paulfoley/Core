@@ -541,4 +541,105 @@ class Database
       # delete another type of lead here
     end
   end
+
+
+  ## Methods for bulk import of data on first account conenction ##
+
+  # Create multiple ccounts from hashed parameters when account is first connected
+  # Currently only creates SalesforceAccounts
+  def self.bulk_create_accounts(element, instance_id, data)
+    if element == "sfdc"
+      data.each do |account|
+        org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
+        next if org == nil
+        self.create_account(element, account, org)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple leads from hashed parameters when account is first connected
+  # Currently only creates SalesforceLeads
+  def self.bulk_create_leads(element, instance_id, data)
+    if element == "sfdc"
+      data.each do |lead|
+        org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
+        next if org == nil
+        self.create_lead(element, lead, org)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple contacts from hashed parameters when account is first connected
+  # Currently only creates SalesforceContacts
+  def self.bulk_create_contacts(element, instance_id, data)
+    if element == "sfdc"
+      data.each do |contact|
+        account = SalesforceAccount.where(account_id: contact[:AccountId]).select(:account_id, :id, :org_id).take
+        next if account == nil
+        self.create_contact(element, contact, account)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple opportunities from hashed parameters when account is first connected
+  # Currently only creates SalesforceOpportunities
+  def self.bulk_create_opportunities(element, instance_id, data)
+    if element == "sfdc"
+      data.each do |opportunity|
+        account = SalesforceAccount.where(account_id: opportunity[:AccountId]).select(:account_id, :id, :org_id).take
+        next if account == nil
+        self.create_opportunity(element, opportunity, account)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple customers from hashed parameters when account is first connected
+  # Currently only creates QuickbooksCustomers
+  def self.bulk_create_customers(element, instance_id, data)
+    if element == "quickbooks"
+      data.each do |customer|
+        org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
+        next if org == nil
+        self.create_customer(element, customer, org)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple invoices from hashed parameters when account is first connected
+  # Currently only creates QuickbooksInvoices
+  def self.bulk_create_invoices(element, instance_id, data)
+    if element == "quickbooks"
+      data.each do |invoice|
+        customer = QuickbooksCustomer.where(name: invoice[:customerRef][:name]).select(:customer_id, :id, :org_id).take
+        next if customer == nil
+        self.create_invoice(element, invoice, customer)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
+
+  # Create multiple payments from hashed parameters when account is first connected
+  # Currently only creates QuickbooksPayments
+  def self.bulk_create_payments(element, instance_id, data)
+    if element == "quickbooks"
+      data.each do |payment|
+        customer = QuickbooksCustomer.where(name: payment[:customerRef][:name]).select(:customer_id, :id, :org_id).take
+        next if customer == nil
+        self.create_payment(element, payment, customer)
+      end
+    else
+      # Create another type of entity here
+    end
+  end
 end
