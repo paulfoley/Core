@@ -118,6 +118,9 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_accounts = JSON.parse(response.body)
+    puts "***** TESTING *****"
+    puts response
+    puts response.body
     Database.bulk_create_accounts("sfdc", instance_id, response)
 
     url_contacts = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/contacts")
