@@ -18,6 +18,7 @@ function contextSwitch(button) {
         document.getElementById(button[0].id.replace("_button", "")).style.zIndex = 2;
         active = button;
         
+        //update URL on view switch
         window.history.pushState(null,null,'/core/run/?view='+button[0].id.replace("_button",""));
 
         //slide app icons in from top in aesthetic order

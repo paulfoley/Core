@@ -9,6 +9,11 @@ class CoreController < ApplicationController
     #variables available in main view
     @user = User.find_by(email: session[:email])
     @org = Org.find_by(name: session[:org])
+    
+    gon.push({
+      :user=>@user,
+      :org=>@org
+    })
   end
   
   def change_settings

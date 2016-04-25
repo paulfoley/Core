@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.7'
+ruby '2.3.0'
 gem 'foreman'
 
 # some conflict somewhere- not sure why this is needed
@@ -44,3 +44,5 @@ group :production do
 end
 
 gem 'dotenv-rails', :groups => [:development, :test]
+
+gem 'gon'

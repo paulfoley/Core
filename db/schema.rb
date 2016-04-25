@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423205242) do
+ActiveRecord::Schema.define(version: 20160421002020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,11 +153,6 @@ ActiveRecord::Schema.define(version: 20160423205242) do
     t.decimal  "Stripe_Account",                 precision: 15, scale: 2, default: 0.0, null: false
     t.string   "Net_for_charge_ID",                                       default: "",  null: false
     t.integer  "org_id"
-  end
-
-  create_table "stripe_transfers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
