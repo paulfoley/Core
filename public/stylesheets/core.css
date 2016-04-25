@@ -227,6 +227,14 @@ input[type=submit] {
     color:#4d3571 !important;
     padding-left: 10px !important;
 }
+.not_connected {
+    filter:grayscale(100%);
+    -webkit-filter:grayscale(100%);
+}
+.not_connected_text {
+    margin-top:0.5em;
+    color:#A0A0A0;
+}
 
 .app_button {
     position: relative;
@@ -388,12 +396,12 @@ input[type=submit] {
     margin:0 1em;
     margin-top:0.5em;
     z-index:1;
+    vertical-align:middle;
 }
 .wrapper li p {
     height:1em;
     display:block;
     width:100%;
-    margin:0;
     margin-bottom:1em;
 }
 #app_wrapper li div {

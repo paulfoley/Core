@@ -108,33 +108,33 @@
           <ul id="app_wrapper" class="wrapper">
             <li>
                 <a href="#">
-                  <%if @connected_to_salesforce%>
-                      <p>Salesforce connected</p>
-                  <%end%>
-                <div id="a_CRM" class="app_button">
-                    <%= image_tag("salesforce.png") %>
+                <div id="a_CRM" class="app_button not_connected">
+                  <%= image_tag("salesforce.png") %>
                 </div>
               </a>
+              <%if !@connected_to_salesforce%>
+                <p class="not_connected_text">Not connected</p>
+              <%end%>
             </li>
             <li>
                 <a href="#">
-                  <%if @connected_to_quickbooks%>
-                      <p>Quickbooks connected</p>
-                  <%end%>
-                <div id="a_accounting" class="app_button">
-                    <%= image_tag("quickbooks.png") %>
+                <div id="a_accounting" class="app_button not_connected">
+                  <%= image_tag("quickbooks.png") %>
                 </div>
               </a>
+              <%if !@connected_to_quickbooks%>
+                <p class="not_connected_text">Not connected</p>
+              <%end%>
             </li>
             <li>
                 <a href="#">
-                  <%if @connected_to_stripe%>
-                      <p>Stripe connected</p>
-                  <%end%>
-                <div id="a_ecommerce" class="app_button">
-                    <%= image_tag("stripe.png") %>
+                <div id="a_ecommerce" class="app_button not_connected">
+                  <%= image_tag("stripe.png") %>
                 </div>
               </a>
+              <%if !@connected_to_stripe%>
+                <p class="not_connected_text">Not connected</p>
+              <%end%>
             </li>
         </ul>
           <h2>Users</h2>

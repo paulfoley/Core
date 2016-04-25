@@ -3,16 +3,19 @@ class CoreController < ApplicationController
   #private
   
   def run
-    @connected_to_salesforce = !!Org.where(name: session[:org]).select(:salesforce_token).take.salesforce_token
-    @connected_to_quickbooks = !!Org.where(name: session[:org]).select(:quickbooks_token).take.quickbooks_token
-    @connected_to_stripe = !!Org.where(name: session[:org]).select(:stripe_token).take.stripe_token
     #variables available in main view
     @user = User.find_by(email: session[:email])
     @org = Org.find_by(name: session[:org])
+    @connected_to_salesforce = !!@org.salesforce_token
+    @connected_to_quickbooks = !!@org.quickbooks_token
+    @connected_to_stripe = !!@org.stripe_token
     
     gon.push({
       :user=>@user,
-      :org=>@org
+      :org=>@org,
+      :connected_to_salesforce=>@connected_to_salesforce,
+      :connected_to_quickbooks=>@connected_to_quickbooks,
+      :connected_to_stripe=>@connected_to_stripe
     })
   end
   
