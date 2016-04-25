@@ -53,7 +53,7 @@ class Database
     #Can be extended to other elements
     if element == "sfdc"
       puts "****** Testing ******"
-      puts data[:Name]
+      puts data
       account = SalesforceAccount.create(name: data[:Name], org: org)
       account.account_id = data[:Id]
       account.description = data[:Description]
