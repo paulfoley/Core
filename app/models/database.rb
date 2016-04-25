@@ -580,7 +580,8 @@ class Database
   def self.bulk_create_contacts(element, instance_id, data)
     if element == "sfdc"
       data.each do |contact|
-        account = SalesforceAccount.where(account_id: contact[:AccountId]).select(:account_id, :id, :org_id).take
+        org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
+        account = SalesforceAccount.where(account_id: contact[:AccountId]).where(org: org).select(:account_id, :id, :org_id).take
         # next if account == nil
         self.create_contact(element, contact, account)
       end
@@ -594,7 +595,8 @@ class Database
   def self.bulk_create_opportunities(element, instance_id, data)
     if element == "sfdc"
       data.each do |opportunity|
-        account = SalesforceAccount.where(account_id: opportunity[:AccountId]).select(:account_id, :id, :org_id).take
+        org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
+        account = SalesforceAccount.where(account_id: opportunity[:AccountId]).where(org: org).select(:account_id, :id, :org_id).take
         # next if account == nil
         self.create_opportunity(element, opportunity, account)
       end
@@ -638,7 +640,7 @@ class Database
     if element == "quickbooks"
       data.each do |payment|
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
-        customer = QuickbooksCustomer.where(name: payment['customerRef']['name']).where(org: org)select(:customer_id, :id, :org_id).take
+        customer = QuickbooksCustomer.where(name: payment['customerRef']['name']).where(org: org).select(:customer_id, :id, :org_id).take
         # next if customer == nil
         self.create_payment(element, payment, customer)
       end
