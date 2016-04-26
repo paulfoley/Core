@@ -60,17 +60,14 @@
     </div>
     <div class="pane" id="reports">
       <div id="r_button_container">
-        <div id="r_CRM" class="app_button r_button not_connected">
+        <div id="r_CRM" class="app_button r_button">
           <%= image_tag("salesforce.png") %>
-            <p class="not_connected_text"><%if !@connected_to_salesforce%>Not connected<%else%>&nbsp;<%end%></p>
         </div>
-        <div id="r_accounting" class="app_button r_button not_connected">
+        <div id="r_accounting" class="app_button r_button">
           <%= image_tag("quickbooks.png") %>
-          <p class="not_connected_text"><%if !@connected_to_quickbooks%>Not connected<%else%>&nbsp;<%end%></p>
         </div>
-        <div id="r_ecommerce" class="app_button r_button not_connected">
+        <div id="r_ecommerce" class="app_button r_button">
           <%= image_tag("stripe.png") %>
-          <p class="not_connected_text"><%if !@connected_to_stripe%>Not connected<%else%>&nbsp;<%end%></p>
         </div>
       </div>
       
@@ -79,13 +76,7 @@
           <%= account.name %><br>
         <% end %>
       </div>
-      <div id="marketing_pane" class="r_app_pane">
-        
-      </div>
       <div id="accounting_pane" class="r_app_pane">
-        
-      </div>
-      <div id="support_pane" class="r_app_pane">
         
       </div>
       <div id="ecommerce_pane" class="r_app_pane">
@@ -114,7 +105,7 @@
           <ul id="app_wrapper" class="wrapper">
             <li>
                 <a href="#">
-                <div id="a_CRM" class="app_button not_connected">
+                <div id="a_CRM" class="admin_app_button not_connected">
                   <%= image_tag("salesforce.png") %>
                 </div>
               </a>
@@ -124,7 +115,7 @@
             </li>
             <li>
                 <a href="#">
-                <div id="a_accounting" class="app_button not_connected">
+                <div id="a_accounting" class="admin_app_button not_connected">
                   <%= image_tag("quickbooks.png") %>
                 </div>
               </a>
@@ -134,7 +125,7 @@
             </li>
             <li>
                 <a href="#">
-                <div id="a_ecommerce" class="app_button not_connected">
+                <div id="a_ecommerce" class="admin_app_button not_connected">
                   <%= image_tag("stripe.png") %>
                 </div>
               </a>

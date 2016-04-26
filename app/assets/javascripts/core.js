@@ -43,9 +43,14 @@ function contextSwitch(button) {
 }
 
 function reportSwitch(button) {
+    
+    $(button).css("filter","grayscale(0%)");
+    $(button).css("-webkit-filter","grayscale(0%)");
     $(button).css("background-size","100%");
     $(".r_button").each(function() {
         if(this != button) {
+            $(this).css("filter","grayscale(100%)");
+            $(this).css("-webkit-filter","grayscale(100%)");
             $(this).css("background-size","90%");
         }
     });
@@ -148,7 +153,7 @@ $(document).ready(function() {
         });
         //admin page
         if(document.getElementById("admin")) {
-            $('.app_button').each(function() {
+            $('.admin_app_button').each(function() {
                 this.addEventListener('click', function() {
                     window.location = "/elements/show/?app_name=" + this.id;
                 });

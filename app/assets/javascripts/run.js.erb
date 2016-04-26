@@ -1,8 +1,5 @@
 $(document).ready(function() {
 
-    console.log(gon.payments);
-    console.log(gon.invoices);
-
     if(gon.connected_to_salesforce) {
         $('#a_CRM').removeClass('not_connected');
         $('#r_CRM').removeClass('not_connected');
@@ -24,7 +21,8 @@ $(document).ready(function() {
         },
         colors:['#A02020','#20A040'],
         title: {
-            text: 'Accounting Overview'
+            text: 'Accounting Overview',
+            style: {'fontSize':'2em'}
         },
         xAxis: {
             categories: [
