@@ -331,7 +331,6 @@ input[type=submit] {
 /*Reports*/
 
 #reports {
-    overflow-y:visible;
 }
 /*change to total width of content*/
 #r_button_container {
