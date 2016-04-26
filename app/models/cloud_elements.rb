@@ -515,10 +515,11 @@ class CloudElements
 
     response_parsed.each do |report|
       puts "Checking if report exists"
-      if SalesforceReport.where(org_id: org.id).select(:report_id).take.report_id == report['id']
-      else
-        puts "Adding report"
-        SalesforceReport.create(name: report['name'], report_id: report['id'], org: org)
+      SalesforceReport.where(org_id: org.id).select(:report_id).each do |report_id|
+        if report_id != report['id']
+          puts "Adding report"
+          SalesforceReport.create(name: report['name'], report_id: report['id'], org: org)
+        end
       end
     end
 
