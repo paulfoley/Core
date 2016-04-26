@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    console.log(gon.payments);
+    console.log(gon.invoices);
+
     if(gon.connected_to_salesforce) {
         $('#a_CRM').removeClass('not_connected');
         $('#r_CRM').removeClass('not_connected');
@@ -43,7 +46,7 @@ $(document).ready(function() {
         yAxis: {
             min: 0,
             title: {
-                text: 'Rainfall (mm)'
+                text: 'Value ($)'
             }
         },
         tooltip: {
@@ -63,11 +66,9 @@ $(document).ready(function() {
         series: [{
             name: 'Invoices',
             data: gon.invoices
-
         }, {
             name: 'Payments',
             data: gon.payments
-
         }]
     });
 });
