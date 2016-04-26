@@ -392,9 +392,19 @@ class Database
     end
   end
 
-  # TODO
+  # Update an existing payment from hashed parameters
   def self.update_payment(element, data)
-
+    #Can be extended to other elements
+    if element == "quickbooks"
+      QuickbooksPayment.where(:payment_id => data['id']).update_all(sync_token: data['syncToken'])
+      QuickbooksPayment.where(:payment_id => data['id']).update_all(domain: data['domain'])
+      QuickbooksPayment.where(:payment_id => data['id']).update_all(payment_ref_num: data['paymentRefNum'])
+      QuickbooksPayment.where(:payment_id => data['id']).update_all(txn_date: data['txnDate'])
+      QuickbooksPayment.where(:payment_id => data['id']).update_all(process_payments: data['processPayments'])
+      QuickbooksPayment.where(:payment_id => data['id']).update_all(sparse: data['sparse'])
+      QuickbooksPayment.where(:payment_id => data['id']).update_all(unapplied_amt: data['unappliedAmt'])
+      QuickbooksPayment.where(:payment_id => data['id']).update_all(total_amt: data['totalAmt'])
+    end
   end
 
   # Delete an existing payment from hashed parameters
@@ -462,9 +472,43 @@ class Database
     end
   end
 
-  # TODO
+  # Update an existing contact from hashed parameters
   def self.update_contact(element, data)
-
+  #Can be extended to other elements
+    if element == "sfdc"
+      SalesforceContact.where(:contact_id => data['Id']).update_all(assistant_phone: data['AssistantPhone'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(other_phone: data['OtherPhone'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(account_id: data['AccountId'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(email: data['Email'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(description: data['Description'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(assistant_name: data['AssistantName'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(last_referenced_date: data['LastReferenceDate'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(salutation: data['Salutation'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(other_state: data['OtherState'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(mobile_phone: data['MobilePhone'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(name: data['Name'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(department: data['Department'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(created_by_id: data['CreatedById'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(owner_id: data['OwnerId'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(other_city: data['OtherCity'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(phone: data['Phone'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(other_country: data['OtherCountry'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(photo_url: data['PhotoUrl'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(first_name: data['FirstName'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(other_postal_code: data['OtherPostalCode'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(last_viewed_date: data['LastViewedDate'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(title: data['Title'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(birthdate: data['Birthdate'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(other_street: data['OtherStreet'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(lead_source: data['LeadSource'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(home_phone: data['HomePhone'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(reports_to_id: data['ReportsToId'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(created_date: data['CreatedDate'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(last_name: data['LastName'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(fax: data['Fax'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(is_deleted: data['IsDeleted'])
+      SalesforceContact.where(:contact_id => data['Id']).update_all(is_email_bounced: data['IsEmailBounced'])
+   end
   end
 
   # Delete an existing contact from hashed parameters
@@ -531,9 +575,42 @@ class Database
     end
   end
 
-  # TODO
+  # Update an existing lead from hashed parameters
   def self.update_lead(element, data)
-
+    #Can be extended to other elements
+    if element == "sfdc"
+      SalesforceLead.where(:lead_id => data['Id']).update_all(number_of_employees: data['NumberOfEmployees'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(company: data['Company'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(email: data['Email'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(description: data['Description'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(rating: data['Rating'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(postal_code: data['PostalCode'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(website: data['Website'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(last_referenced_date: data['LastReferencedDate'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(salutation: data['Salutation'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(name: data['Name'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(industry: data['Industry'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(created_by_id: data['CreatedById'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(owner_id: data['OwnerId'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(phone: data['Phone'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(street: data['Street'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(photo_url: data['PhotoUrl'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(status: data['Status'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(first_name: data['FirstName'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(last_viewed_date: data['LastViewedDate'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(title: data['Title'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(city: data['City'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(lead_source: data['LeadSource'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(state: data['State'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(created_date: data['CreatedDate'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(country: data['Country'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(last_name: data['LastName'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(last_modified_by_id: data['LastModifiedById'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(is_deleted: data['IsDeleted'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(is_converted: data['IsConverted'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(is_unread_by_owner: data['IsUnreadByOwner'])
+      SalesforceLead.where(:lead_id => data['Id']).update_all(annual_revenue: data['AnnualRevenue'])
+      end
   end
 
   # Delete an existing lead from hashed parameters
@@ -556,7 +633,6 @@ class Database
     end
   end
 
-
   ## Methods for bulk import of data on first account conenction ##
 
   # Create multiple ccounts from hashed parameters when account is first connected
@@ -565,7 +641,7 @@ class Database
     if element == "sfdc"
       data.each do |account|
         org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
-        # next if org == nil
+        next if org == nil
         self.create_account(element, account, org)
       end
     else
@@ -579,7 +655,7 @@ class Database
     if element == "sfdc"
       data.each do |lead|
         org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
-        # next if org == nil
+        next if org == nil
         self.create_lead(element, lead, org)
       end
     else
@@ -594,7 +670,7 @@ class Database
       data.each do |contact|
         org = Org.where(salesforce_instance_id: instance_id).select(:name, :id).take
         account = SalesforceAccount.where(account_id: contact['AccountId']).where(org: org).select(:account_id, :id, :org_id).take
-        # next if account == nil
+        next if account == nil
         self.create_contact(element, contact, account)
       end
     else
@@ -637,7 +713,7 @@ class Database
     if element == "quickbooks"
       data.each do |invoice|
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
-        customer = QuickbooksCustomer.where(:name => invoice['customerRef']['name']).where(:org => org).select(:customer_id, :id, :org_id).take
+        customer = QuickbooksCustomer.where(name: invoice['customerRef']['name']).where(org: org).select(:customer_id, :id, :org_id).take
         next if customer == nil
         self.create_invoice(element, invoice, customer)
       end
