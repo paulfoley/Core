@@ -15,18 +15,20 @@ class CoreController < ApplicationController
     @opportunity_count = SalesforceOpportunity.count(:conditions=>'org = @org')
     @open_invoices_count = QuickbooksInvoice.count(:conditions=>'org = @org AND is_active = TRUE')
     
-    @invoices = Array.new(12)
+    @invoices = Array.new(30)
     if QuickbooksInvoice.count > 0
       QuickbooksInvoice.all.each do |f|
-        puts "invoices["+f.date_created.month-1+"] = "+@invoices[f.date_created.month-1]
-        @invoices.insert(f.date_created.month-1, @invoices[f.date_created.month-1].to_f + f.total_amt.to_f)
+        if f.date_created.month == Time.now.month
+          @invoices[f.date_created.day-1] = @invoices[f.date_created.day-1].to_f + f.total_amt.to_f
+        end
       end
     end
     if QuickbooksPayment.count > 0
-      @payments = Array.new(12)
+      @payments = Array.new(30)
       QuickbooksPayment.all.each do |f|
-        puts "payments["+f.date_created.month-1+"] = "+@payments[f.date_created.month-1]
-        @payments.insert(f.date_created.month-1, @payments[f.date_created.month-1].to_f + f.total_amt.to_f)
+        if f.date_created.month == Time.now.month
+          @payments[f.date_created.day-1] = @payments[f.date_created.day-1].to_f + f.total_amt.to_f
+        end
       end
     end
     
