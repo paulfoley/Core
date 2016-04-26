@@ -275,10 +275,6 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_customers = JSON.parse(response.body)
-
-    puts "***** Testing *****"
-    puts response_parsed_customers
-
     Database.bulk_create_customers("quickbooks", instance_id, response_parsed_customers)
 
     url_invoices = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/invoices")
@@ -343,8 +339,6 @@ class CloudElements
 
     response = http.request(request)
     response_parsed = JSON.parse(response.body)
-
-    puts response_parsed
 
   end
 
