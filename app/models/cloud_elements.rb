@@ -117,7 +117,7 @@ class CloudElements
     request = Net::HTTP::Get.new(url_accounts, headers)
     response = http.request(request)
     response_parsed_accounts = JSON.parse(response.body)
-    Database.bulk_create_accounts("sfdc", instance_id, response.body)
+    Database.bulk_create_accounts("sfdc", instance_id, response_parsed_accounts)
 
     url_contacts = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/contacts")
     http = Net::HTTP.new(url_contacts.host, url_contacts.port)
@@ -125,9 +125,8 @@ class CloudElements
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url_contacts, headers)
     response = http.request(request)
-    puts response.body
     response_parsed_contacts = JSON.parse(response.body)
-    Database.bulk_create_contacts("sfdc", instance_id, response.body)
+    Database.bulk_create_contacts("sfdc", instance_id, response_parsed_contacts)
 
     url_leads = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/leads")
     http = Net::HTTP.new(url_leads.host, url_leads.port)
@@ -135,9 +134,8 @@ class CloudElements
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url_leads, headers)
     response = http.request(request)
-    puts response.body
     response_parsed_leads = JSON.parse(response.body)
-    Database.bulk_create_leads("sfdc", instance_id, response.body)
+    Database.bulk_create_leads("sfdc", instance_id, response_parsed_leads)
 
     url_opportunities = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/opportunities")
     http = Net::HTTP.new(url_opportunities.host, url_opportunities.port)
@@ -145,9 +143,8 @@ class CloudElements
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url_opportunities, headers)
     response = http.request(request)
-    puts response.body
     response_parsed_opportunities = JSON.parse(response.body)
-    Database.bulk_create_opportunities("sfdc", instance_id, response.body)
+    Database.bulk_create_opportunities("sfdc", instance_id, response_parsed_opportunities)
 
   end
 
@@ -275,10 +272,6 @@ class CloudElements
     response = http.request(request)
     puts response.body
     response_parsed_customers = JSON.parse(response.body)
-
-    puts "***** Testing *****"
-    puts response_parsed_customers
-
     Database.bulk_create_customers("quickbooks", instance_id, response_parsed_customers)
 
     url_invoices = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/finance/invoices")
@@ -343,8 +336,6 @@ class CloudElements
 
     response = http.request(request)
     response_parsed = JSON.parse(response.body)
-
-    puts response_parsed
 
   end
 
@@ -502,6 +493,32 @@ class CloudElements
 
   end
 
+
+  def self.get_salesforce_reports(org_name)
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    org = Org.where(name: org_name).select(:salesforce_token, :id).take
+    salesforce_token = org.salesforce_token
+
+
+    salesforce_header = {
+        'Authorization' => 'Element ' + salesforce_token + ', User ' + user_secret
+    }
+
+    salesforce_url = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/reports/metadata")
+
+    http = Net::HTTP.new(salesforce_url.host, salesforce_url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(salesforce_url, salesforce_header)
+    response = http.request(request)
+    response_parsed = JSON.parse(response.body)
+
+    response_parsed.each do |report|
+      SalesforceReport.create(name: report['name'], report_id: report['id'], org: org)
+    end
+
+
+  end
 
 
    #check if customer exists in quickbooks. Used for Stripe integration.

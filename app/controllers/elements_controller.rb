@@ -20,10 +20,10 @@ class ElementsController < ApplicationController
     @state = @uri_params[:state]
     if @state == "sfdc"
       CloudElements.salesforce_instance(session[:org], @uri_params[:code])
-      # CloudElements.salesforce_pull_everything(session[:org])
+      CloudElements.salesforce_pull_everything(session[:org])
     elsif @state == "quickbooks"
       CloudElements.quickbooks_instance(session[:org], @uri_params[:oauth_token], @uri_params[:oauth_verifier], @uri_params[:realmId], @uri_params[:dataSource])
-      # CloudElements.quickbooks_pull_everything(session[:org])
+      CloudElements.quickbooks_pull_everything(session[:org])
     end
 
   end
