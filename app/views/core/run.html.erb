@@ -72,7 +72,8 @@
       </div>
       
       <div id="CRM_pane" class="r_app_pane">
-        <% SalesforceReport.all.each do |t| %>
+        <% org_id = Org.where(name: session[:org]).select(:id) %>
+        <% SalesforceReport.where(org_id: org_id).select(:name).each do |t| %>
           <p class="reports_option"><%= t.name %></p>
         <% end %>
       </div>
