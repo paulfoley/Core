@@ -17,11 +17,11 @@ class CoreController < ApplicationController
     
     @invoices = Array.new(12)
     QuickbooksInvoice.all.each do |f|
-      @invoices.insert(f.date_created.month-1, @invoices[f.date_created.month-1] + f.total_amt.to_f
+      @invoices.insert(f.date_created.month-1, @invoices[f.date_created.month-1] + f.total_amt.to_f)
     end
     @payments = Array.new(12)
     QuickbooksPayment.all.each do |f|
-      @payments.insert(f.date_created.month-1, @payments[f.date_created.month-1] + f.total_amt.to_f
+      @payments.insert(f.date_created.month-1, @payments[f.date_created.month-1] + f.total_amt.to_f)
     end
     
     
