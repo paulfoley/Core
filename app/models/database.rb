@@ -309,6 +309,9 @@ class Database
   def self.create_invoice(element, data, customer)
     #Can be extended to other elements
     if element == "quickbooks"
+      puts "***** TESTING *****"
+      puts customer
+      puts customer.org
       invoice = QuickbooksInvoice.create(invoice_id: data['id'], quickbooks_customer: customer, org: customer.org)
       invoice.sync_token = data['syncToken']
       invoice.doc_number = data['docNumber']
