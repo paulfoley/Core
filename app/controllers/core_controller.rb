@@ -18,7 +18,7 @@ class CoreController < ApplicationController
     @invoices = Array.new(30)
     if QuickbooksInvoice.count > 0
       QuickbooksInvoice.all.each do |f|
-        if f.date_created.year == Time.now.year
+        if f.date_created.month == Time.now.month
           @invoices[f.date_created.day-1] = @invoices[f.date_created.day-1].to_f + f.total_amt.to_f
         end
       end
@@ -26,7 +26,7 @@ class CoreController < ApplicationController
     if QuickbooksPayment.count > 0
       @payments = Array.new(30)
       QuickbooksPayment.all.each do |f|
-        if f.date_created.year == Time.now.year
+        if f.date_created.month == Time.now.month
           @payments[f.date_created.day-1] = @payments[f.date_created.day-1].to_f + f.total_amt.to_f
         end
       end
