@@ -496,7 +496,7 @@ class CloudElements
 
   def self.get_reports(org_name)
     user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
-    salesforce_token = "qU7duRWUXseGkz7ylp4kqY0QMWG02A8quSqZTyRDyjI=" #Org.where(name: org_name).select(:salesforce_token).take.salesforce_token
+    salesforce_token = Org.where(name: org_name).select(:salesforce_token).take.salesforce_token
 
     salesforce_header = {
         'Authorization' => 'Element ' + salesforce_token + ', User ' + user_secret
