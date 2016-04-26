@@ -496,7 +496,9 @@ class CloudElements
 
   def self.get_salesforce_reports(org_name)
     user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
-    salesforce_token = Org.where(name: org_name).select(:salesforce_token).take.salesforce_token
+    org = Org.where(name: org_name).select(:salesforce_token, :id).take
+    salesforce_token = org.salesforce_token
+
 
     salesforce_header = {
         'Authorization' => 'Element ' + salesforce_token + ', User ' + user_secret
@@ -512,7 +514,7 @@ class CloudElements
     response_parsed = JSON.parse(response.body)
 
     response_parsed.each do |report|
-      SalesforceReport.create(name: report['name'], id: report['id'], org: org_name)
+      SalesforceReport.create(name: report['name'], id: report['id'], org: org)
     end
 
 
