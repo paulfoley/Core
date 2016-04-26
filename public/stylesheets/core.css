@@ -315,7 +315,7 @@ input[type=submit] {
     height:auto;
     margin:0.5em auto;
     text-align:center;
-    border:1px solid #D0D0D0;
+    border:3px solid #d5c8e5;
 }
 .number_metric h1 {
     font-size:3em;
@@ -366,6 +366,10 @@ input[type=submit] {
     border: 1px solid #4d3571;
     opacity:0;
     text-align:center;
+}
+.reports_option {
+    font-size:1.5em;
+    color:#4d3571;
 }
 #CRM_pane {
 }

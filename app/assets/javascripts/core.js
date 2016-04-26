@@ -113,9 +113,6 @@ $(document).ready(function() {
     //if main page
     if(!!document.getElementById("main")) {
         
-        //log out after x inactivity time
-        inactivity_time();
-        
         //view switches controlled via buttons
         if(getQueryVariable("view")) {
             $('#' + getQueryVariable('view') + '_button').addClass('selected');
@@ -134,6 +131,19 @@ $(document).ready(function() {
         }
         document.getElementById(active[0].id.replace("_button", "")).style.opacity = 1;
         document.getElementById(active[0].id.replace("_button", "")).style.zIndex = 2;
+        
+        if(gon.connected_to_salesforce) {
+            $('#a_CRM').removeClass('not_connected');
+            $('#r_CRM').removeClass('not_connected');
+        }
+        if(gon.connected_to_quickbooks) {
+            $('#a_accounting').removeClass('not_connected');
+            $('#r_accounting').removeClass('not_connected');
+        }
+        if(gon.connected_to_stripe) {
+            $('#a_ecommerce').removeClass('not_connected');
+            $('#r_ecommerce').removeClass('not_connected');
+        }
     
         //menu button transitions
         $(".menu_button").each(function() {
