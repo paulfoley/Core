@@ -16,12 +16,18 @@ class CoreController < ApplicationController
     @open_invoices_count = QuickbooksInvoice.count(:conditions=>'org = @org AND is_active = TRUE')
     
     @invoices = Array.new(12)
-    QuickbooksInvoice.all.each do |f|
-      @invoices.insert(f.date_created.month-1, @invoices[f.date_created.month-1] + f.total_amt.to_f)
+    if QuickbooksInvoice.count > 0
+      QuickbooksInvoice.all.each do |f|
+        puts @invoices[f.date_created.month-1]
+        @invoices.insert(f.date_created.month-1, @invoices[f.date_created.month-1].to_f + f.total_amt.to_f)
+      end
     end
-    @payments = Array.new(12)
-    QuickbooksPayment.all.each do |f|
-      @payments.insert(f.date_created.month-1, @payments[f.date_created.month-1] + f.total_amt.to_f)
+    if QuickbooksPayment.count > 0
+      @payments = Array.new(12)
+      QuickbooksPayment.all.each do |f|
+        puts @payments[f.date_created.month-1]
+        @payments.insert(f.date_created.month-1, @payments[f.date_created.month-1].to_f + f.total_amt.to_f)
+      end
     end
     
     
