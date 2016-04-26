@@ -494,6 +494,30 @@ class CloudElements
   end
 
 
+  def self.get_reports(org_name)
+    user_secret = ENV['CLOUDELEMENTS_USER_SECRET']
+    salesforce_token = "qU7duRWUXseGkz7ylp4kqY0QMWG02A8quSqZTyRDyjI=" #Org.where(name: org_name).select(:salesforce_token).take.salesforce_token
+
+    salesforce_header = {
+        'Authorization' => 'Element ' + salesforce_token + ', User ' + user_secret
+    }
+
+    salesforce_url = URI("https://staging.cloud-elements.com/elements/api-v2/hubs/crm/reports/metadata")
+
+    http = Net::HTTP.new(salesforce_url.host, salesforce_url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(salesforce_url, salesforce_header)
+    response = http.request(request)
+    response_parsed = JSON.parse(response.body)
+
+    response_parsed.each do |report|
+      SalesforceReport.create(name: report['name'], id: report['id'], org: org_name)
+    end
+
+
+  end
+
 
    #check if customer exists in quickbooks. Used for Stripe integration.
    def self.quickbooks_payment(stripe_token, customer_name, amount_paid)
