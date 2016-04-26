@@ -107,7 +107,6 @@ class Database
       SalesforceAccount.where(:account_id => data['Id']).update_all(shipping_city: data['ShippingCity'])
       SalesforceAccount.where(:account_id => data['Id']).update_all(shipping_postal_code: data['ShippingPostalCode'])
       SalesforceAccount.where(:account_id => data['Id']).update_all(shipping_street: data['BillingStreet'])
-      SalesforceAccount.where(:account_id => data['Id']).update_all(created_date: data['CreatedDate'])
 
     end
   end
@@ -306,9 +305,7 @@ class Database
   def self.create_invoice(element, data, customer)
     #Can be extended to other elements
     if element == "quickbooks"
-      # puts "***** TESTING *****"
-      # puts customer
-      # puts customer.org
+
       invoice = QuickbooksInvoice.create(invoice_id: data['id'], quickbooks_customer: customer, org: customer.org)
       invoice.sync_token = data['syncToken']
       invoice.doc_number = data['docNumber']
@@ -640,13 +637,8 @@ class Database
     if element == "quickbooks"
       data.each do |invoice|
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
-        puts "***** TESTING *****"
-        puts org
         customer = QuickbooksCustomer.where(:name => invoice['customerRef']['name']).where(:org => org).select(:customer_id, :id, :org_id).take
-
-        puts "***** TESTING *****"
-        puts customer
-        # next if customer == nil
+        next if customer == nil
         self.create_invoice(element, invoice, customer)
       end
     else
@@ -660,10 +652,8 @@ class Database
     if element == "quickbooks"
       data.each do |payment|
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
-        puts "***** TESTING *****"
-        puts org
         customer = QuickbooksCustomer.where(name: payment['customerRef']['name']).where(org: org).select(:customer_id, :id, :org_id).take
-        # next if customer == nil
+        next if customer == nil
         self.create_payment(element, payment, customer)
       end
     else
