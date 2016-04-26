@@ -36,6 +36,7 @@ class CreateSalesforceLeads < ActiveRecord::Migration
       t.boolean :is_unread_by_owner
       t.decimal :annual_revenue
       t.timestamps null: false
+      t.date :date_created
     end
   end
 end

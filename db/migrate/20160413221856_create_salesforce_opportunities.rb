@@ -28,7 +28,7 @@ class CreateSalesforceOpportunities < ActiveRecord::Migration
       t.boolean :is_deleted
       t.boolean :has_opportunity_line_item
       t.boolean :is_closed
-
+      t.date :date_created
     end
   end
 end

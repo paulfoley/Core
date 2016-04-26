@@ -1,6 +1,6 @@
 class Database
 
-  def self.test
+  def self.test_me
     @org1 = Org.where(:name => "Acme Inc").select(:name).take
     puts SalesforceAccount.count(:org => @org1)
   end
@@ -57,8 +57,6 @@ class Database
   def self.create_account(element, data, org)
     #Can be extended to other elements
     if element == "sfdc"
-      puts "****** Testing ******"
-      puts data
       account = SalesforceAccount.create(name: data[:Name], org: org)
       account.account_id = data[:Id]
       account.description = data[:Description]
@@ -79,6 +77,7 @@ class Database
       account.shipping_city = data[:ShippingCity]
       account.shipping_postal_code = data[:ShippingPostalCode]
       account.shipping_street = data[:ShippingStreet]
+      account.date_created = DateTime.parse(data[:CreatedDate])
       account.save
     else
       # create another type of account here
@@ -108,6 +107,8 @@ class Database
       SalesforceAccount.where(:account_id => data[:Id]).update_all(shipping_city: data[:ShippingCity])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(shipping_postal_code: data[:ShippingPostalCode])
       SalesforceAccount.where(:account_id => data[:Id]).update_all(shipping_street: data[:BillingStreet])
+      SalesforceAccount.where(:account_id => data[:Id]).update_all(created_date: data[:CreatedDate])
+
     end
   end
 
@@ -160,6 +161,7 @@ class Database
       customer.active = data[:active]
       customer.balance = data[:balance]
       customer.balance_with_jobs = data[:balanceWithJobs]
+      customer.date_created = DateTime.parse(data[:metaData][:createTime])
       customer.save
     else
       # create another type of customer here
@@ -243,6 +245,7 @@ class Database
       opportunity.has_opportunity_line_item = data[:HasOpportunityLineItem]
       opportunity.is_closed = data[:IsClosed]
       opportunity.account_id = data[:AccountID]
+      opportunity.date_created = DateTime.parse(data[:CreatedDate])
       opportunity.save
     else
       # create another type of account here
@@ -319,6 +322,7 @@ class Database
       invoice.apply_tax_after_discount = data[:applyTaxAfterDiscount]
       invoice.allow_online_credit_card_payment = data[:allowOnlineCreditCardPayment]
       invoice.sparse = data[:sparse]
+      invoice.date_created = DateTime.parse(data[:metaData][:createTime])
       invoice.save
     else
       # create another type of account here
@@ -381,6 +385,7 @@ class Database
       payment.sparse = data[:sparse]
       payment.unapplied_amt = data[:unappliedAmt]
       payment.total_amt = data[:totalAmt]
+      payment.date_created = DateTime.parse(data[:metaData][:createTime])
       payment.save
     else
       # create another type of account here
@@ -450,6 +455,7 @@ class Database
       contact.fax =data[:Fax]
       contact.is_deleted =data[:IsDeleted]
       contact.is_email_bounced =data[:IsEmailBounced]
+      contact.date_created = DateTime.parse(data[:CreatedDate])
       contact.save
     else
       # create another type of account here
@@ -518,6 +524,7 @@ class Database
       lead.is_converted = data[:IsConverted]
       lead.is_unread_by_owner = data[:IsUnreadByOwner]
       lead.annual_revenue = data[:AnnualRevenue]
+      lead.date_created = DateTime.parse(data[:CreatedDate])
       lead.save
     else
       # create another type of account here

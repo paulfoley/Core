@@ -38,6 +38,7 @@ class CreateSalesforceContacts < ActiveRecord::Migration
       t.boolean :is_deleted
       t.boolean :is_email_bounced
       t.timestamps null: false
+      t.date :date_created
     end
   end
 end

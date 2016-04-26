@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.boolean  "active"
     t.decimal  "balance"
     t.decimal  "balance_with_jobs"
+    t.date     "date_created"
   end
 
   create_table "quickbooks_invoices", force: :cascade do |t|
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.boolean  "apply_tax_after_discount"
     t.boolean  "allow_online_credit_card_payment"
     t.boolean  "sparse"
+    t.date     "date_created"
   end
 
   create_table "quickbooks_payments", force: :cascade do |t|
@@ -88,6 +90,7 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.boolean  "sparse"
     t.decimal  "unapplied_amt"
     t.decimal  "total_amt"
+    t.date     "date_created"
   end
 
   create_table "salesforce_accounts", force: :cascade do |t|
@@ -114,6 +117,7 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.string   "shipping_city"
     t.string   "shipping_postal_code"
     t.string   "shipping_street"
+    t.date     "date_created"
   end
 
   create_table "salesforce_contacts", force: :cascade do |t|
@@ -154,6 +158,7 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.boolean  "is_email_bounced"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.date     "date_created"
   end
 
   create_table "salesforce_leads", force: :cascade do |t|
@@ -192,6 +197,7 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.decimal  "annual_revenue"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.date     "date_created"
   end
 
   create_table "salesforce_opportunities", force: :cascade do |t|
@@ -222,6 +228,7 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.boolean  "is_deleted"
     t.boolean  "has_opportunity_line_item"
     t.boolean  "is_closed"
+    t.date     "date_created"
   end
 
   create_table "stripe_customers", force: :cascade do |t|

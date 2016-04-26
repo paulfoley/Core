@@ -24,6 +24,7 @@ class CreateSalesforceAccounts < ActiveRecord::Migration
       t.string :shipping_city
       t.string :shipping_postal_code
       t.string :shipping_street
+      t.date :date_created
 
     end
   end

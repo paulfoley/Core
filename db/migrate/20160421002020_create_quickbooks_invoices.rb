@@ -21,6 +21,7 @@ class CreateQuickbooksInvoices < ActiveRecord::Migration
       t.boolean :apply_tax_after_discount
       t.boolean :allow_online_credit_card_payment
       t.boolean :sparse
+      t.date :date_created
     end
   end
 end

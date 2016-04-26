@@ -15,6 +15,7 @@ class CreateQuickbooksCustomers < ActiveRecord::Migration
       t.boolean :active
       t.decimal :balance
       t.decimal :balance_with_jobs
+      t.date :date_created
 
     end
   end

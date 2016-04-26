@@ -14,7 +14,7 @@ class CreateQuickbooksPayments < ActiveRecord::Migration
       t.boolean :sparse
       t.decimal :unapplied_amt
       t.decimal :total_amt
-
+      t.date :date_created
     end
   end
 end
