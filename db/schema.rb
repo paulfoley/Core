@@ -248,11 +248,6 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.integer  "org_id"
   end
 
-  create_table "stripe_transfers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.integer  "org_id"
     t.datetime "created_at",                             null: false

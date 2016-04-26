@@ -15,12 +15,23 @@ class CoreController < ApplicationController
     @opportunity_count = SalesforceOpportunity.count(:conditions=>'org = @org')
     @open_invoices_count = QuickbooksInvoice.count(:conditions=>'org = @org AND is_active = TRUE')
     
+    @invoices = []
+    QuickbooksInvoice.all.each do |f|
+      invoices[f.date_created.month] += f.total_amt
+    end
+    @payments = []
+    QuickbooksPayment.all.each do |f|
+      invoices[f.date_created.month] += f.total_amt
+    end
+    
     gon.push({
       :user=>@user,
       :org=>@org,
       :connected_to_salesforce=>@connected_to_salesforce,
       :connected_to_quickbooks=>@connected_to_quickbooks,
-      :connected_to_stripe=>@connected_to_stripe
+      :connected_to_stripe=>@connected_to_stripe,
+      :invoices=>@invoices,
+      :payments=>@payments
     })
   end
   

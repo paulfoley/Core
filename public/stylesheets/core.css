@@ -301,14 +301,14 @@ input[type=submit] {
     overflow:hidden;
 }
 .graph_container {
-    height:12em;
+    height:11em;
     margin-bottom:0.5em;
 }
 .number_metric {
     color:#606060;
     position:relative;
     width:80%;
-    height:85%;
+    height:auto;
     margin:0.5em auto;
     text-align:center;
     border:1px solid #D0D0D0;
@@ -319,6 +319,7 @@ input[type=submit] {
     margin-bottom:0;
 }
 .number_metric p {
+    font-size:1.5vw;
     margin-left:0.25em;
     margin-right:0.25em;
 }

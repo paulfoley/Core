@@ -16,41 +16,58 @@ $(document).ready(function() {
     //HIGHCHARTS
 
     $('#monthly_sales').highcharts({
-        title: {
-            text: gon.org.name,
-            x: -20 //center
+        chart: {
+            type: 'column'
         },
-        subtitle: {
-            text: '2015',
-            x: -20
+        colors:['#20A040', '#A02020'],
+        title: {
+            text: 'Accounting Overview'
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+            ],
+            crosshair: true
         },
         yAxis: {
+            min: 0,
             title: {
-                text: '$ (Millions)'
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
+                text: 'Rainfall (mm)'
+            }
         },
         tooltip: {
-            valuePrefix: '$'
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
         },
-        legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom',
-            borderWidth: 0
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
         },
         series: [{
-            name: 'San Francisco Office',
-            data: [7.0,7.1,9.5,7.5,7.7,8.5,10,12,15,20,30,50],
-            color: '#ff1a1a'
+            name: 'Invoices',
+            data: gon.invoices
+
+        }, {
+            name: 'Payments',
+            data: gon.payments
+
         }]
     });
 });
