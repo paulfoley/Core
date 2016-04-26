@@ -640,7 +640,10 @@ class Database
     if element == "quickbooks"
       data.each do |invoice|
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
-        customer = QuickbooksCustomer.where(name: invoice['customerRef']['name']).where(org: org).select(:customer_id, :id, :org_id).take
+        puts "***** TESTING *****"
+        puts org
+        customer = QuickbooksCustomer.where(:name => invoice['customerRef']['name']).where(:org => org).select(:customer_id, :id, :org_id).take
+
         # next if customer == nil
         self.create_invoice(element, invoice, customer)
       end
@@ -655,6 +658,8 @@ class Database
     if element == "quickbooks"
       data.each do |payment|
         org = Org.where(quickbooks_instance_id: instance_id).select(:name, :id).take
+        puts "***** TESTING *****"
+        puts org
         customer = QuickbooksCustomer.where(name: payment['customerRef']['name']).where(org: org).select(:customer_id, :id, :org_id).take
         # next if customer == nil
         self.create_payment(element, payment, customer)
