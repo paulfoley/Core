@@ -15,11 +15,11 @@ class CoreController < ApplicationController
     @opportunity_count = SalesforceOpportunity.count(:conditions=>'org = @org')
     @open_invoices_count = QuickbooksInvoice.count(:conditions=>'org = @org AND is_active = TRUE')
     
-    @invoices = []
+    @invoices = Array.new(12)
     QuickbooksInvoice.all.each do |f|
       @invoices.insert(f.date_created.month, f.total_amt)
     end
-    @payments = []
+    @payments = Array.new(12)
     QuickbooksPayment.all.each do |f|
       @payments.insert(f.date_created.month, f.total_amt)
     end
