@@ -77,7 +77,9 @@
         <% end %>
       </div>
       <div id="accounting_pane" class="r_app_pane">
-        
+        <% QuickbooksReport.all.each do |t| %>
+            <p class="reports_option"><%= t.report_id %></p>
+        <% end %>
       </div>
       <div id="ecommerce_pane" class="r_app_pane">
         
