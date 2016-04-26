@@ -514,7 +514,9 @@ class CloudElements
     response_parsed = JSON.parse(response.body)
 
     response_parsed.each do |report|
+      puts "Checking if report exists"
       if !!SalesforceReport.where(org_id: org.id).select(:report_id) == nil
+        puts "Adding report"
         SalesforceReport.create(name: report['name'], report_id: report['id'], org: org)
       end
     end
