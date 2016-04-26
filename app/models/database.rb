@@ -77,9 +77,6 @@ class Database
       account.shipping_city = data['ShippingCity']
       account.shipping_postal_code = data['ShippingPostalCode']
       account.shipping_street = data['ShippingStreet']
-      # puts "***** Testing *****"
-      # puts data['ShippingStreet'']
-      # puts data['ShippingStreet']
       account.date_created = DateTime.parse(data['CreatedDate'])
       account.save
     else
@@ -309,9 +306,9 @@ class Database
   def self.create_invoice(element, data, customer)
     #Can be extended to other elements
     if element == "quickbooks"
-      puts "***** TESTING *****"
-      puts customer
-      puts customer.org
+      # puts "***** TESTING *****"
+      # puts customer
+      # puts customer.org
       invoice = QuickbooksInvoice.create(invoice_id: data['id'], quickbooks_customer: customer, org: customer.org)
       invoice.sync_token = data['syncToken']
       invoice.doc_number = data['docNumber']
@@ -647,6 +644,8 @@ class Database
         puts org
         customer = QuickbooksCustomer.where(:name => invoice['customerRef']['name']).where(:org => org).select(:customer_id, :id, :org_id).take
 
+        puts "***** TESTING *****"
+        puts customer
         # next if customer == nil
         self.create_invoice(element, invoice, customer)
       end
