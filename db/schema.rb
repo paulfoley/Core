@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424194011) do
+ActiveRecord::Schema.define(version: 20160426013137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,12 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.decimal  "unapplied_amt"
     t.decimal  "total_amt"
     t.date     "date_created"
+  end
+
+  create_table "quickbooks_reports", force: :cascade do |t|
+    t.string   "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "salesforce_accounts", force: :cascade do |t|
@@ -229,6 +235,14 @@ ActiveRecord::Schema.define(version: 20160424194011) do
     t.boolean  "has_opportunity_line_item"
     t.boolean  "is_closed"
     t.date     "date_created"
+  end
+
+  create_table "salesforce_reports", force: :cascade do |t|
+    t.integer  "org_id"
+    t.string   "name"
+    t.string   "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stripe_customers", force: :cascade do |t|
