@@ -55,11 +55,12 @@ function reportSwitch(button) {
         }
     });
     $(".r_app_pane").each(function() {
-        if(this.id.replace("_pane","") != button.id) {
+        if(this.id.replace("r_","").replace("_pane","") != button.id) {
             $(this).removeClass("show");
         }
     });
-    $(document.getElementById(button.id+"_pane")).addClass("show");
+    $(document.getElementById(button.id.replace("r_","") +"_pane")).addClass("show");
+    console.log(button.id+"_pane");
     
 }
 
