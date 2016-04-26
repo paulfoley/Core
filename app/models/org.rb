@@ -8,4 +8,6 @@ class Org < ActiveRecord::Base
   has_many :salesforce_leads, :dependent => :destroy
   has_many :quickbooks_payments, :dependent => :destroy
   has_many :quickbooks_invoices, :dependent => :destroy
+  has_many :salesforce_reports, :dependent => :destroy
+  has_many :quickbooks_reports, :dependent => :destroy
 end
