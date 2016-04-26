@@ -77,6 +77,9 @@ class Database
       account.shipping_city = data[:ShippingCity]
       account.shipping_postal_code = data[:ShippingPostalCode]
       account.shipping_street = data[:ShippingStreet]
+      puts "***** Testing *****"
+      puts DateTime.parse(data[:CreatedDate])
+      puts data[:CreatedDate]
       account.date_created = DateTime.parse(data[:CreatedDate])
       account.save
     else
