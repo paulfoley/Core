@@ -236,6 +236,10 @@ input[type=submit] {
     color:#A0A0A0;
 }
 
+.admin_app_button {
+    /*wrapper for app_button in admin pane*/
+}
+
 .app_button {
     position: relative;
     top:0px;
@@ -315,7 +319,7 @@ input[type=submit] {
 }
 .number_metric h1 {
     font-size:3em;
-    color:#308020;
+    color:#4d3571;
     margin-bottom:0;
 }
 .number_metric p {
@@ -490,7 +494,6 @@ input[type=submit] {
 #settings_container {
     margin:1rem;
     width:calc(100% - 1em);
-    height:100%;
 }
 
 #settings h2 {
