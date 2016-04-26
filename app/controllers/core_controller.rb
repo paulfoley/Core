@@ -34,6 +34,10 @@ class CoreController < ApplicationController
       :invoices=>@invoices,
       :payments=>@payments
     })
+
+    if @connected_to_salesforce
+      CloudElements.get_salesforce_reports(session[:org])
+    end
   end
   
   def change_settings
