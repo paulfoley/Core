@@ -17,11 +17,11 @@ class CoreController < ApplicationController
     
     @invoices = []
     QuickbooksInvoice.all.each do |f|
-      invoices[f.date_created.month] += f.total_amt
+      @invoices[f.date_created.month] += f.total_amt
     end
     @payments = []
     QuickbooksPayment.all.each do |f|
-      invoices[f.date_created.month] += f.total_amt
+      @payments[f.date_created.month] += f.total_amt
     end
     
     gon.push({
