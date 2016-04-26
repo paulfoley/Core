@@ -38,6 +38,7 @@ class CoreController < ApplicationController
     if @connected_to_salesforce
       CloudElements.get_salesforce_reports(session[:org])
     end
+
   end
   
   def change_settings
