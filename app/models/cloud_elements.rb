@@ -514,7 +514,7 @@ class CloudElements
     response_parsed = JSON.parse(response.body)
 
     response_parsed.each do |report|
-      SalesforceReport.create(name: report['name'], id: report['id'], org: org)
+      SalesforceReport.create(name: report['name'], report_id: report['id'], org: org)
     end
 
 
