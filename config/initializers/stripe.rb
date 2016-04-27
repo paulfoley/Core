@@ -9,5 +9,7 @@ STRIPE_PUBLIC_KEY = Rails.configuration.stripe[:publishable_key]
 StripeEvent.event_retriever = Proc.new do |params|
   if params[:type] == "charge.succeeded"
     ChargeSucceeded.webhook(params)
+  elsif params[:type] == "transfer.paid"
+    TransferPaid.webhook(params)
   end
 end
