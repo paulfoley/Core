@@ -7,8 +7,10 @@ class ChargeSucceeded < ApplicationController
 
     customer_id = event[:data][:object][:customer]
     customer = Stripe::Customer.retrieve(customer_id.to_s)
+    #puts customer
     card_id = event[:data][:object][:source][:id]
     card = customer.sources.retrieve(card_id.to_s)
+    #puts card
     customer_name = card.name
     puts customer_name
 
@@ -19,7 +21,7 @@ class ChargeSucceeded < ApplicationController
     puts amount_paid
 
     # call quickbooks_payment to automate data transfer of payment from Stripe to QB
-    CloudElements.quickbooks_payment(stripe_token, customer_name.to_s, amount_paid)
+    CloudElements.quickbooks_payment(stripe_token, customer_name, amount_paid)
 
   end
 end
