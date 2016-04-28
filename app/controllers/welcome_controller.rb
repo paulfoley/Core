@@ -2,6 +2,7 @@ class WelcomeController < ApplicationController
   
   def index
     logout()
+    #variables for showing different views on page load - probably janky
     if params[:view] == "login"
       @show_login = "show"
       @show_signup = ""
@@ -21,6 +22,7 @@ class WelcomeController < ApplicationController
     end
   end
   
+  #called on login form submission
   def check_user
     
     @email = params[:email]
@@ -43,7 +45,7 @@ class WelcomeController < ApplicationController
   end
   helper_method :check_user
   
-  
+  #called on signup form submission
   def signup
     
     if Org.exists?(name: params[:org])
@@ -64,12 +66,14 @@ class WelcomeController < ApplicationController
     end
   end
   
+  #sends forgot password mail
   def pw_mail
     PwMailer.pw_mail(params[:email]).deliver_now
     flash[:success] = "Email Sent"
     redirect_to :action=>'index'
   end
   
+  #for linking apps in initial flow
   def setup
     @org = Org.find_by(:name=>session[:org])
     if params[:view] == "link_apps"
@@ -84,7 +88,7 @@ class WelcomeController < ApplicationController
     end
   end
   
-  #invites a user to an org
+  #sends email inviting a user to an org
   def invite_user
     @org = Org.find_by(:name=>session[:org])
     @org_name = @org.name
@@ -94,7 +98,7 @@ class WelcomeController < ApplicationController
     redirect_to controller:'core', action:'run'
   end
   
-  #page for new users
+  #page for new users - not sure if this is necessary anymore
   def new_user
     logout()
   end
