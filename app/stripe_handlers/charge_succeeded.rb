@@ -18,8 +18,8 @@ class ChargeSucceeded < ApplicationController
     #puts card
 
     customer_name = Org.where(stripe_token: stripe_token).select(:name).take.name
-    #customer_name = Org.where(salesforce_instance_id: 12345).select(:name).take.name
     puts customer_name
+
     #customer_name = card.name
     #puts customer_name
     #puts customer.sources.data.id
@@ -29,7 +29,7 @@ class ChargeSucceeded < ApplicationController
     amount_paid = event[:data][:object][:amount] * 0.01
     puts amount_paid
 
-    CloudElements.quickbooks_payment(stripe_token, customer_name, amount_paid)
+    CloudElements.quickbooks_payment(stripe_token, customer_name.to_s, amount_paid)
 
   end
 end
