@@ -5,16 +5,12 @@ class ChargeSucceeded < ApplicationController
     stripe_token = event[:user_id]
     puts stripe_token
 
-=begin
-    customer_id = event[:data][:object][:customer]
-    customer = Stripe::Customer.retrieve(customer_id.to_s)
-    #puts customer
-    card_id = event[:data][:object][:source][:id]
-    card = customer.sources.retrieve(card_id.to_s)
-    #puts card
-    customer_name = card.name
-    puts customer_name
-=end
+    # reassign stripe api key to fit test secret key of account matching stripe_token
+    #key = StripeCustomer.where(stripe_user_id: stripe_token).select(:access_token).take.access_token
+    #Stripe.api_key = key
+
+    #account = Stripe::Account.retrieve(stripe_token)
+    #puts account
 
     # pull customer from database
     # use email to match with the customer generated when sale made in SF -> invoice in QB
@@ -25,6 +21,7 @@ class ChargeSucceeded < ApplicationController
     #puts stripe_email
     customer_name = SalesforceContact.where(email: stripe_email).select(:name).take.name
     puts customer_name
+
 
     amount_paid = event[:data][:object][:amount] * 0.01
     puts amount_paid
