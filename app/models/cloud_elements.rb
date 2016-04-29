@@ -448,7 +448,7 @@ class CloudElements
 
     refresh = response_parsed['refresh_token']
     request2 = Net::HTTP::Post.new(url)
-    request2.set_form_data({'client_secret' => client_test, 'refresh_token' => refresh, 'grant_type' => 'refresh_token'})
+    request2.set_form_data({'client_secret' => client_secret, 'refresh_token' => refresh, 'grant_type' => 'refresh_token'})
 
     response2 = http.request(request)
     response2_parsed = JSON.parse(response2.body)
