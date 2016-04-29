@@ -24,7 +24,7 @@ class ChargeSucceeded < ApplicationController
     stripe_email = customer.email
     #puts stripe_email
     customer_name = SalesforceContact.where(email: stripe_email).select(:name).take.name
-    #puts customer_name
+    puts customer_name
 
     amount_paid = event[:data][:object][:amount] * 0.01
     puts amount_paid
