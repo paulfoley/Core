@@ -1,10 +1,12 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def stripe_connect
-    puts request
 
-    Stripe.api_key = request.env["omniauth.auth"].credentials.token
+    #Stripe.api_key = request.env["omniauth.auth"].credentials.token
     #STRIPE_PUBLIC_KEY = request.env["omniauth.auth"].info.stripe_publishable_key
+    auth = request.env["omniauth.auth"]
+    puts auth
+
 
 =begin
     @stripe_customer = current_user

@@ -474,7 +474,7 @@ class CloudElements
 
 
   def self.stripe_oauth(org_name, code)
-    client_secret = ENV['STRIPE_LIVE_SECRET_KEY']
+    client_secret = ENV['STRIPE_SECRET_KEY']
 
     url = URI('https://connect.stripe.com/oauth/token')
     http = Net::HTTP.new(url.host, url.port)

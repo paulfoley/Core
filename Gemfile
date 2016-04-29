@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.1.7'
 gem 'foreman'
 
 # some conflict somewhere- not sure why this is needed
@@ -20,6 +20,7 @@ gem 'json'
 
 gem 'stripe'
 gem 'stripe_event'
+gem 'stripe-ruby-mock'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

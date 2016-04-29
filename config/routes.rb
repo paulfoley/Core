@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   get 'omniauth_callbacks/stripe_connect'
 
   resources :stripe
-  #mount StripeEvent::Engine => '/stripe-Webhooks'
-  mount StripeEvent::Engine => '/users/auth/stripe_connect/callback'
+  mount StripeEvent::Engine => '/stripe-Webhooks'
+  #mount StripeEvent::Engine => '/users/auth/stripe_connect/callback'
   #post '/stripe/webhook' => 'stripe#webhook'
   
   get 'database/add_salesforce_account'
