@@ -1,22 +1,33 @@
 class ChargeSucceeded < ApplicationController
 
   def self.webhook(event)
-    #token = Org.where(stripe_token: stripe_token).select(:quickbooks_token).take.quickbooks_token
-    # secret key = SELECT access_token FROM database WHERE user_id = stripe_user_id
+    # stripe handler for charge.succeeded event
     stripe_token = event[:user_id]
-    #puts stripe_token
+    puts stripe_token
 
-    customer_name = event[:data][:object][:source][:name]
-    #puts customer_name
+    # reassign stripe api key to fit test secret key of account matching stripe_token
+    #key = StripeCustomer.where(stripe_user_id: stripe_token).select(:access_token).take.access_token
+    #Stripe.api_key = key
+
+    #account = Stripe::Account.retrieve(stripe_token)
+    #puts account
+
+    # pull customer from database
+    # use email to match with the customer generated when sale made in SF -> invoice in QB
+    customer_id = event[:data][:object][:customer]
+    customer = Stripe::Customer.retrieve(customer_id.to_s)
+    #puts customer
+    stripe_email = customer.email
+    #puts stripe_email
+    customer_name = SalesforceContact.where(email: stripe_email).select(:name).take.name
+    puts customer_name
+
 
     amount_paid = event[:data][:object][:amount] * 0.01
-    #puts amount_paid
+    puts amount_paid
 
-    if Org.where(stripe_token: stripe_token).select(:quickbooks_token).take.quickbooks_token
-      CloudElements.quickbooks_payment(stripe_token, customer_name, amount_paid)
-    else
-      puts "No Quickbooks account available for syncing."
-    end
+    # call quickbooks_payment to automate data transfer of payment from Stripe to QB
+    CloudElements.quickbooks_payment(stripe_token, customer_name, amount_paid)
 
   end
 end

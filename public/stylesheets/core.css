@@ -208,7 +208,7 @@ input[type=submit] {
     vertical-align: middle;
     font-family: sans-serif;
     color: #4d3571;
-    background-color: #EEEEEE;
+    background-color: #F0F0F0;
     border-bottom: 1px solid #FFFFFF;
     cursor: pointer;
     transition: padding-left 0.5s ease;
@@ -396,7 +396,7 @@ input[type=submit] {
 #admin_container h2 {
     margin:0;
     padding:0 1em 1em 1em;
-    border-bottom:2px solid #DDDDDD;
+    border-bottom:2px solid #F0F0F0;
     width:80%;
 }
 .wrapper {
@@ -501,7 +501,7 @@ input[type=submit] {
 
 #settings h2 {
     padding-bottom:1em;
-    border-bottom:2px solid #DDDDDD;
+    border-bottom:2px solid #F0F0F0;
 }
 #settings h4 {
     display:block;

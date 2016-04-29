@@ -431,6 +431,7 @@ class CloudElements
 
   def self.stripe_oauth(org_name, code)
     client_secret = ENV['STRIPE_LIVE_SECRET_KEY']
+    client_test = ENV['STRIPE_TEST_SECRET_KEY']
 
     url = URI('https://connect.stripe.com/oauth/token')
     http = Net::HTTP.new(url.host, url.port)
@@ -443,6 +444,14 @@ class CloudElements
     response_parsed = JSON.parse(response.body)
     org = Org.where(name: org_name).select(:name, :stripe_token, :id).take
     org.update_attributes(:stripe_token => response_parsed['stripe_user_id'])
+
+    refresh = response_parsed['refresh_token']
+    request2 = Net::HTTP::Post.new(url)
+    request2.set_form_data({'client_secret' => client_test, 'refresh_token' => refresh, 'grant_type' => 'authorization_code'})
+
+    response2 = http.request(request)
+    response2_parsed = JSON.parse(response2.body)
+    puts response2_parsed
 
   end
 

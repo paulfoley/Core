@@ -3,9 +3,9 @@ function contextSwitch(button) {
     else {
         /*
          sidebar button selection:
-         1. remove selected from active
-         2. hide pane
-         3. add selected to button
+         1. remove .selected from currently active button
+         2. hide current pane
+         3. add .selected to new button
          4. show new pane
          5. set active to new button
          */
@@ -44,6 +44,7 @@ function contextSwitch(button) {
 
 function reportSwitch(button) {
     
+    //onclick set all buttons to grayscale except clicked
     $(button).css("filter","grayscale(0%)");
     $(button).css("-webkit-filter","grayscale(0%)");
     $(button).css("background-size","100%");
@@ -54,6 +55,7 @@ function reportSwitch(button) {
             $(this).css("background-size","90%");
         }
     });
+    //switch lists of reports
     $(".r_app_pane").each(function() {
         if(this.id.replace("r_","").replace("_pane","") != button.id) {
             $(this).removeClass("show");
@@ -75,29 +77,7 @@ function closePopup() {
     $('#popup_wrapper').hide();
 }
 
-var inactivity_time = function () {
-   var t;
-   window.onload = reset_timer;
-   //document.addEventListener("mousemove",console.log("BUTTS"));
-   //window.addEventListener("keypress",console.log("POOP"));
-   $(document).mousemove(console.log("BUTTS"));
-   $(document).keypress(console.log("POOP"));
-
-   function logout() {
-       stop_timer();
-       alert("You have been logged out.");
-       window.location = '/welcome#index';
-   }
-
-   function reset_timer() {
-       t = setTimeout(function(){ logout(); }, 9000000);
-   }
-   function stop_timer() {
-       t = 0;
-   }
-}
-
-//get "xyz" from "variable=xyz"
+//get "xyz" from "variable=xyz" in URL
 function getQueryVariable(variable)
 {
     var query = window.location.search.substring(1);
@@ -164,6 +144,7 @@ $(document).ready(function() {
         });
         //admin page
         if(document.getElementById("admin")) {
+            //reroute to callback controller for linking apps
             $('.admin_app_button').each(function() {
                 this.addEventListener('click', function() {
                     window.location = "/elements/show/?app_name=" + this.id;
@@ -211,6 +192,7 @@ $(document).ready(function() {
             }, 200);
             
         });
+        //login screen view switching
         $('.back').each(function() {
             this.addEventListener("click", function() {
                 var grandparent = this.parentElement.parentElement;
@@ -227,8 +209,7 @@ $(document).ready(function() {
 
     //set up page
     else if(!!document.getElementsByClassName("setup_container")[0]) {
-        //log out after x inactivity time
-        inactivity_time();
+        //reroute for app linking
         $('.app_button').each(function() {
             this.addEventListener('click', function() {
                 window.location = "/elements/show/?app_name=" + this.id;
