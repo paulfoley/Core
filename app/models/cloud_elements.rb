@@ -455,6 +455,7 @@ class CloudElements
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
+    refresh = rt_8MSllPmxne2WuLAwBZJRGIpVZwga0nHW8H5ZSnTvs2ItA47t
     request = Net::HTTP::Post.new(url)
     request.set_form_data({'client_secret' => client_test, 'refresh_token' => refresh, 'grant_type' => 'refresh_token'})
     response = http.request(request)
