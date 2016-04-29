@@ -6,11 +6,8 @@ class ChargeSucceeded < ApplicationController
     puts stripe_token
 
     # reassign stripe api key to fit test secret key of account matching stripe_token
-    #key = StripeCustomer.where(stripe_user_id: stripe_token).select(:access_token).take.access_token
-    #Stripe.api_key = key
-
-    #account = Stripe::Account.retrieve(stripe_token)
-    #puts account
+    #stripe_key = StripeCustomer.where(stripe_user_id: stripe_token).select(:stripe_test_secret_key).take.stripe_test_secret_key
+    #Stripe.api_key = stripe_key
 
     # pull customer from database
     # use email to match with the customer generated when sale made in SF -> invoice in QB
@@ -19,7 +16,11 @@ class ChargeSucceeded < ApplicationController
     #puts customer
     stripe_email = customer.email
     #puts stripe_email
-    customer_name = SalesforceContact.where(email: stripe_email).select(:name).take.name
+    # use email to get SF contact
+    # then use sf_account_id to get the company name from the SF account
+    org_id_s = Org.where(stripe_token: stripe_token).take.org_id
+    sf_contact_to_account = SalesforceContact.where(email: stripe_email) and where(org_id: org_id_s).select(:salesforce_account_id).take.salesforce_account_id
+    customer_name = SalesforceAccount.where(account_id: sf_contact_to_account).select(:name).take.name
     puts customer_name
 
 
