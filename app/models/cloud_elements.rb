@@ -442,12 +442,13 @@ class CloudElements
     request.set_form_data({'client_secret' => client_secret, 'code' => code, 'grant_type' => 'authorization_code'})
     response = http.request(request)
     response_parsed = JSON.parse(response.body)
+    puts response_parsed
     org = Org.where(name: org_name).select(:name, :stripe_token, :id).take
     org.update_attributes(:stripe_token => response_parsed['stripe_user_id'])
 
     refresh = response_parsed['refresh_token']
     request2 = Net::HTTP::Post.new(url)
-    request2.set_form_data({'client_secret' => client_test, 'refresh_token' => refresh, 'grant_type' => 'authorization_code'})
+    request2.set_form_data({'client_secret' => client_test, 'refresh_token' => refresh, 'grant_type' => 'refresh_authorization_code'})
 
     response2 = http.request(request)
     response2_parsed = JSON.parse(response2.body)
