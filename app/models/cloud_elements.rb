@@ -446,12 +446,15 @@ class CloudElements
 
     stripe_user = response_parsed['stripe_user_id']
     if StripeCustomer.exists?(stripe_user_id: stripe_user)
+      # Stripe Customer already exists, so don't write it in the database
+    else
       @stripe_customer = StripeCustomer.new
       @stripe_customer.stripe_user_id = response_parsed['stripe_user_id']
       @stripe_customer.scope = response_parsed['scope']
       @stripe_customer.stripe_live_publishable_key = response_parsed['stripe_publishable_key']
       @stripe_customer.stripe_live_secret_key = response_parsed['access_token']
       @stripe_customer.access_token = response_parsed['access_token']
+      @stripe_customer.save
   end
   end
 
@@ -468,9 +471,10 @@ class CloudElements
     response = http.request(request)
     response_parsed = JSON.parse(response.body)
 
-    stripe_customer = StripeCustomer.where(stripe_user_id: response_parsed['stripe_user_id']).take
-    stripe_customer.update_attributes(:stripe_test_secret_key => response_parsed['access_token'])
-    stripe_customer.update_attributes(:stripe_test_publishable_key => response_parsed['stripe_publishable_key'])
+    @stripe_customer = StripeCustomer.where(stripe_user_id: response_parsed['stripe_user_id']).take
+    @stripe_customer.stripe_test_secret_key = response_parsed['access_token']
+    @stripe_customer.stripe_test_publishable_key = response_parsed['stripe_publishable_key']
+    @stripe_customer.save
 
   end
 
