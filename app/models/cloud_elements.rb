@@ -444,6 +444,7 @@ class CloudElements
     org = Org.where(name: org_name).select(:name, :stripe_token, :id).take
     org.update_attributes(:stripe_token => response_parsed['stripe_user_id'])
 
+    puts response_parsed
     stripe_user = response_parsed['stripe_user_id']
     if StripeCustomer.exists?(stripe_user_id: stripe_user)
       # Stripe Customer already exists, so don't write it in the database
@@ -470,6 +471,7 @@ class CloudElements
     response = http.request(request)
     response_parsed = JSON.parse(response.body)
 
+    puts response_parsed
     @stripe_customer = StripeCustomer.where(stripe_user_id: response_parsed['stripe_user_id']).take
     @stripe_customer.stripe_test_secret_key = response_parsed['access_token']
     @stripe_customer.stripe_test_publishable_key = response_parsed['stripe_publishable_key']
