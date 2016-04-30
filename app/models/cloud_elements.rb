@@ -454,7 +454,6 @@ class CloudElements
       @stripe_customer.stripe_live_publishable_key = response_parsed['stripe_publishable_key']
       @stripe_customer.stripe_live_secret_key = response_parsed['access_token']
       @stripe_customer.access_token = response_parsed['access_token']
-      @stripe_customer.save
   end
   end
 
