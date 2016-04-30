@@ -5,6 +5,11 @@ Devise.setup do |config|
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   # config.secret_key = '8d0fa357bb7086938072c91fb76bbe92db4f8059f457579ccfbf70e4c49ad79250aa717805891e60a9824ac933c96a54d085c8a8ea15d63b614b4b45e3836a63'
+  config.omniauth :stripe_connect,
+                  ENV['STRIPE_CLIENT_ID'],
+                  ENV['STRIPE_LIVE_SECRET_KEY'],
+                  :scope => 'read_write',
+                  :stripe_landing => 'register'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,

@@ -11,19 +11,20 @@ class CoreController < ApplicationController
     @connected_to_quickbooks = !!@org.quickbooks_token
     @connected_to_stripe = !!@org.stripe_token
     #variables for highcharts
-    @customer_count = SalesforceAccount.count(:conditions=>'org = @org')
-    @opportunity_count = SalesforceOpportunity.count(:conditions=>'org = @org')
-    @open_invoices_count = QuickbooksInvoice.count(:conditions=>'org = @org AND is_active = TRUE')
+    @customer_count = SalesforceAccount.count(:conditions=>'org_id = @org.id')
+    @opportunity_count = SalesforceOpportunity.count(:conditions=>'org_id = @org.id')
+    @open_invoices_count = QuickbooksInvoice.count(:conditions=>'org_id = @org.id AND is_active = TRUE')
     
+    #pull data for main graph
     @invoices = Array.new(30)
-    if QuickbooksInvoice.count > 0
+    if QuickbooksInvoice.count(:conditions=>'org_id = @org.id') > 0
       QuickbooksInvoice.all.each do |f|
         if f.date_created.month == Time.now.month
           @invoices[f.date_created.day-1] = @invoices[f.date_created.day-1].to_f + f.total_amt.to_f
         end
       end
     end
-    if QuickbooksPayment.count > 0
+    if QuickbooksPayment.count(:conditions=>'org_id = @org.id') > 0
       @payments = Array.new(30)
       QuickbooksPayment.all.each do |f|
         if f.date_created.month == Time.now.month
@@ -32,7 +33,7 @@ class CoreController < ApplicationController
       end
     end
     
-    
+    #variables for use in JS
     gon.push({
       :user=>@user,
       :org=>@org,
@@ -67,6 +68,7 @@ class CoreController < ApplicationController
     redirect_to :back
   end
   
+  #same as welcome controller invite_user, could probably be merged into application controller
   def invite_user
     @org = Org.find_by(:name=>session[:org])
     @org_name = @org.name
@@ -82,6 +84,7 @@ class CoreController < ApplicationController
     redirect_to controller:'welcome', action:'index'
   end
   
+  #prevent access to app without login
   def require_login
     if !session[:logged_in]
       flash[:failure] = "You must be logged in to access CORE"

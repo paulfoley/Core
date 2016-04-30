@@ -1,8 +1,6 @@
 $(document).ready(function() {
     
-        if(!!document.getElementById("main")) {
-    
-        //HIGHCHARTS
+    if(!!document.getElementById("main")) {
     
         $('#monthly_sales').highcharts({
             chart: {

@@ -32,6 +32,7 @@ class ElementsController < ApplicationController
     @uri_params = params
     redirect_to "https://corecloudapp.herokuapp.com/core/run?view=admin"
     CloudElements.stripe_oauth(session[:org], @uri_params[:code])
+    CloudElements.stripe_oauth_refresh
   end
 
 end
