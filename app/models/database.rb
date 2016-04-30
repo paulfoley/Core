@@ -35,7 +35,7 @@ class Database
   end
 
   # Create a new User
-  def self.create_user(name, email, password, is_admin, org)
+    def self.create_user(name, email, password, is_admin, org)
     if User.where(email: email).select(:email).take == nil
       User.create(:name => name, :email => email, :password => password, :is_admin => is_admin, :org => org)
     end
@@ -219,6 +219,8 @@ class Database
   def self.create_opportunity(element, data, account)
     #Can be extended to other elements
     if element == "sfdc"
+      puts "***** Testing *****"
+      puts data['Id']
       if SalesforceOpportunity.where(opportunity_id: data['Id']).select(:opportunity_id).take == nil
         opportunity = SalesforceOpportunity.create(opportunity_id: data['Id'], salesforce_account: account, org: account.org)
         opportunity.description = data['Description']
