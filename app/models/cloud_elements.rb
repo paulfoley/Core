@@ -447,19 +447,6 @@ class CloudElements
     puts response_parsed
     ENV['STRIPE_REFRESH'] = response_parsed['refresh_token']
 
-=begin
-    if StripeCustomer.exists?(stripe_user_id: stripe_user)
-      # Stripe Customer already exists, so don't write it in the database
-    else
-      @stripe_customer = StripeCustomer.new
-      @stripe_customer.stripe_user_id = response_parsed['stripe_user_id']
-      @stripe_customer.scope = response_parsed['scope']
-      @stripe_customer.stripe_live_publishable_key = response_parsed['stripe_publishable_key']
-      @stripe_customer.stripe_live_secret_key = response_parsed['access_token']
-      @stripe_customer.access_token = response_parsed['access_token']
-    end
-=end
-
   end
 
   def self.stripe_oauth_refresh
@@ -479,13 +466,6 @@ class CloudElements
     puts response_parsed
 
     ENV['STRIPE_TEST_SECRET_KEY'] = response_parsed['access_token']
-
-=begin
-    @stripe_customer = StripeCustomer.where(stripe_user_id: response_parsed['stripe_user_id']).take
-    @stripe_customer.stripe_test_secret_key = response_parsed['access_token']
-    @stripe_customer.stripe_test_publishable_key = response_parsed['stripe_publishable_key']
-    @stripe_customer.save
-=end
 
   end
 

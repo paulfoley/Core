@@ -6,7 +6,7 @@ class ChargeSucceeded < ApplicationController
     puts stripe_token
 
     # reassign stripe api key to fit test secret key of account matching stripe_token
-    stripe_key = StripeCustomer.where(stripe_user_id: stripe_token).select(:stripe_test_secret_key).take.stripe_test_secret_key
+    stripe_key = ENV['STRIPE_TEST_SECRET_KEY']
     Stripe.api_key = stripe_key
 
     # pull customer from database
