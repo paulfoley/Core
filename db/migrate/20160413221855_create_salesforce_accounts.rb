@@ -1,7 +1,6 @@
 class CreateSalesforceAccounts < ActiveRecord::Migration
   def change
     create_table :salesforce_accounts do |t|
-
       t.timestamps null: false
       t.string :account_id
       t.string :name
@@ -25,7 +24,6 @@ class CreateSalesforceAccounts < ActiveRecord::Migration
       t.string :shipping_postal_code
       t.string :shipping_street
       t.date :date_created
-
     end
   end
 end

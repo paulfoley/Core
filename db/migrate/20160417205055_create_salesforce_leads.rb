@@ -1,7 +1,6 @@
 class CreateSalesforceLeads < ActiveRecord::Migration
   def change
     create_table :salesforce_leads do |t|
-
       t.string :lead_id
       t.integer :org_id
       t.integer :number_of_employees

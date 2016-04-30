@@ -40,21 +40,6 @@ class AddDeviseToUsers < ActiveRecord::Migration
 
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
-    # add_index :users, :confirmation_token,   unique: true
-    # add_index :users, :unlock_token,         unique: true
-    #Test Users
-
-    org = Org.where(name: 'Acme Inc.').select(:name, :id).take
-    User.create :name => "Adam", :password => "password12345", :email => "adam@core.com", :org => org, :is_admin =>
-     true, :position => "Assassin"
-    User.create :name => "Madison", :password => "password12345", :email => "madison@core.com", :org => org, :is_admin =>
-        true, :position => "General"
-    User.create :name => "Jon", :password => "password12345", :email => "jon@core.com", :org => org, :is_admin =>
-        true, :position => "Sniper"
-    User.create :name => "Marc", :password => "password12345", :email => "marc@core.com", :org => org, :is_admin =>
-        true, :position => "Cook"
-    User.create :name => "Brian", :password => "password12345", :email => "brian@core.com", :org => org, :is_admin =>
-        true, :position => "Demolitions Specialist"
 
   end
 

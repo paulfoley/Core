@@ -1,10 +1,5 @@
 class Database
 
-  def self.test_me
-    @org1 = Org.where(:name => "Acme Inc").select(:name).take
-    puts SalesforceAccount.count(:org => @org1)
-  end
-
   # Create a new Org
   def self.create_org(name)
     if User.where(name: name).select(:name).take == nil

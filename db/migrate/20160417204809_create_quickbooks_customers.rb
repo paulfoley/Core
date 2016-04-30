@@ -1,7 +1,6 @@
 class CreateQuickbooksCustomers < ActiveRecord::Migration
   def change
     create_table :quickbooks_customers do |t|
-
       t.timestamps null: false
       t.string :customer_id
       t.string :name
@@ -16,7 +15,6 @@ class CreateQuickbooksCustomers < ActiveRecord::Migration
       t.decimal :balance
       t.decimal :balance_with_jobs
       t.date :date_created
-
     end
   end
 end

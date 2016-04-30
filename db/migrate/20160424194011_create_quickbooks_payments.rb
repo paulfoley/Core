@@ -1,7 +1,6 @@
 class CreateQuickbooksPayments < ActiveRecord::Migration
   def change
     create_table :quickbooks_payments do |t|
-
       t.timestamps null: false
       t.integer :org_id
       t.integer :quickbooks_customer_id

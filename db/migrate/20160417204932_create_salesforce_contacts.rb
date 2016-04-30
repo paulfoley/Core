@@ -1,7 +1,6 @@
 class CreateSalesforceContacts < ActiveRecord::Migration
   def change
     create_table :salesforce_contacts do |t|
-
       t.integer :org_id
       t.integer :salesforce_account_id
       t.string :contact_id

@@ -15,7 +15,6 @@ class CreateStripeCustomers < ActiveRecord::Migration
       t.decimal  "Stripe_Account",                  precision: 15, scale: 2, default: 0.00,  null: false
       t.string   "Net_for_charge_ID",               default: "", null: false
       t.integer :org_id
-
     end
   end
 end

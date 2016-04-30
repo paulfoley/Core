@@ -1,11 +1,9 @@
 class CreateQuickbooksReports < ActiveRecord::Migration
   def change
     create_table :quickbooks_reports do |t|
-
       t.string :report_id
       t.timestamps null: false
     end
-
     QuickbooksReport.create :report_id => "BalanceSheet"
     QuickbooksReport.create :report_id => "ProfitAndLoss"
     QuickbooksReport.create :report_id => "ProfitAndLossDetail"
@@ -28,7 +26,5 @@ class CreateQuickbooksReports < ActiveRecord::Migration
     QuickbooksReport.create :report_id => "VendorExpenses"
     QuickbooksReport.create :report_id => "AccountList"
     QuickbooksReport.create :report_id => "GeneralLedger"
-
-
   end
 end
