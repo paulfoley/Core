@@ -221,7 +221,7 @@ class Database
     if element == "sfdc"
       puts "***** Testing *****"
       puts data['Id']
-      if SalesforceOpportunity.where(opportunity_id: data['Id']).select(:opportunity_id).take == nil
+      if (SalesforceOpportunity.where(opportunity_id: data['Id']).select(:opportunity_id).take == nil && account != nil)
         opportunity = SalesforceOpportunity.create(opportunity_id: data['Id'], salesforce_account: account, org: account.org)
         opportunity.description = data['Description']
         opportunity.forecast_category = data['ForecastCategory']
@@ -437,7 +437,7 @@ class Database
   def self.create_contact(element, data, account)
     #Can be extended to other elements
     if element == "sfdc"
-      if SalesforceContact.where(contact_id: data['Id']).select(:contact_id).take == nil
+      if (SalesforceContact.where(contact_id: data['Id']).select(:contact_id).take == nil && account != nil)
         contact = SalesforceContact.create(contact_id: data['Id'], salesforce_account: account, org: account.org)
         contact.assistant_phone =data['AssistantPhone']
         contact.other_phone =data['OtherPhone']
