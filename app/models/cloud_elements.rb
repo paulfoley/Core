@@ -445,7 +445,9 @@ class CloudElements
     org.update_attributes(:stripe_token => response_parsed['stripe_user_id'])
 
     puts response_parsed
-    stripe_user = response_parsed['stripe_user_id']
+    ENV['STRIPE_REFRESH'] = response_parsed['refresh_token']
+
+=begin
     if StripeCustomer.exists?(stripe_user_id: stripe_user)
       # Stripe Customer already exists, so don't write it in the database
     else
@@ -455,11 +457,14 @@ class CloudElements
       @stripe_customer.stripe_live_publishable_key = response_parsed['stripe_publishable_key']
       @stripe_customer.stripe_live_secret_key = response_parsed['access_token']
       @stripe_customer.access_token = response_parsed['access_token']
-  end
+    end
+=end
+
   end
 
   def self.stripe_oauth_refresh
     client_test = ENV['STRIPE_TEST_SECRET_KEY']
+    refresh_token = ENV['STRIPE_REFRESH']
 
     url = URI('https://connect.stripe.com/oauth/token')
     http = Net::HTTP.new(url.host, url.port)
@@ -467,15 +472,20 @@ class CloudElements
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = Net::HTTP::Post.new(url)
-    request.set_form_data({'client_secret' => client_test, 'refresh_token' => 'rt_8MSllPmxne2WuLAwBZJRGIpVZwga0nHW8H5ZSnTvs2ItA47t', 'grant_type' => 'refresh_token'})
+    request.set_form_data({'client_secret' => client_test, 'refresh_token' => refresh_token, 'grant_type' => 'refresh_token'})
     response = http.request(request)
     response_parsed = JSON.parse(response.body)
 
     puts response_parsed
+
+    ENV['STRIPE_TEST_SECRET_KEY'] = response_parsed['access_token']
+
+=begin
     @stripe_customer = StripeCustomer.where(stripe_user_id: response_parsed['stripe_user_id']).take
     @stripe_customer.stripe_test_secret_key = response_parsed['access_token']
     @stripe_customer.stripe_test_publishable_key = response_parsed['stripe_publishable_key']
     @stripe_customer.save
+=end
 
   end
 
