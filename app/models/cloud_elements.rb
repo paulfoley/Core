@@ -441,7 +441,6 @@ class CloudElements
     request.set_form_data({'client_secret' => client_secret, 'code' => code, 'grant_type' => 'authorization_code'})
     response = http.request(request)
     response_parsed = JSON.parse(response.body)
-    puts response_parsed
     org = Org.where(name: org_name).select(:name, :stripe_token, :id).take
     org.update_attributes(:stripe_token => response_parsed['stripe_user_id'])
 
@@ -468,7 +467,6 @@ class CloudElements
     request.set_form_data({'client_secret' => client_test, 'refresh_token' => 'rt_8MSllPmxne2WuLAwBZJRGIpVZwga0nHW8H5ZSnTvs2ItA47t', 'grant_type' => 'refresh_token'})
     response = http.request(request)
     response_parsed = JSON.parse(response.body)
-    puts response_parsed
 
     stripe_customer = StripeCustomer.where(stripe_user_id: response_parsed['stripe_user_id']).take
     stripe_customer.update_attributes(:stripe_test_secret_key => response_parsed['access_token'])
