@@ -445,6 +445,15 @@ class CloudElements
     org = Org.where(name: org_name).select(:name, :stripe_token, :id).take
     org.update_attributes(:stripe_token => response_parsed['stripe_user_id'])
 
+    stripe_user = response_parsed['stripe_user_id']
+    if StripeCustomer.exists?(stripe_user_id: stripe_user)
+      @stripe_customer = StripeCustomer.new
+      @stripe_customer.stripe_user_id = response_parsed['stripe_user_id']
+      @stripe_customer.scope = response_parsed['scope']
+      @stripe_customer.stripe_live_publishable_key = response_parsed['stripe_publishable_key']
+      @stripe_customer.stripe_live_secret_key = response_parsed['access_token']
+      @stripe_customer.access_token = response_parsed['access_token']
+  end
   end
 
   def self.stripe_oauth_refresh
@@ -455,12 +464,15 @@ class CloudElements
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-    #refresh = 'rt_8MSllPmxne2WuLAwBZJRGIpVZwga0nHW8H5ZSnTvs2ItA47t'
     request = Net::HTTP::Post.new(url)
     request.set_form_data({'client_secret' => client_test, 'refresh_token' => 'rt_8MSllPmxne2WuLAwBZJRGIpVZwga0nHW8H5ZSnTvs2ItA47t', 'grant_type' => 'refresh_token'})
     response = http.request(request)
     response_parsed = JSON.parse(response.body)
     puts response_parsed
+
+    stripe_customer = StripeCustomer.where(stripe_user_id: response_parsed['stripe_user_id']).take
+    stripe_customer.update_attributes(:stripe_test_secret_key => response_parsed['access_token'])
+    stripe_customer.update_attributes(:stripe_test_publishable_key => response_parsed['stripe_publishable_key'])
 
   end
 
