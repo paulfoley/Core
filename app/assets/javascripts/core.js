@@ -125,7 +125,7 @@ $(document).ready(function() {
             $('#a_ecommerce').removeClass('not_connected');
             $('#r_ecommerce').removeClass('not_connected');
         }
-    
+        
         //menu button transitions
         $(".menu_button").each(function() {
             this.addEventListener("click", function() {
@@ -172,7 +172,7 @@ $(document).ready(function() {
         //hack to get login and signup transitions working properly
         $('#login').css("display","block");
         $('#signup').css("display","none");
-        $('#pw').css("display","none")
+        $('#pw').css("display","none");
         
         document.getElementById("signup_button").addEventListener("click", function() {
             $('#login').removeClass("show");
