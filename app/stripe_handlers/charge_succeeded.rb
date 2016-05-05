@@ -16,11 +16,15 @@ class ChargeSucceeded < ApplicationController
 
     stripe_email = customer.email
 
+    # currently experiencing bug with connecting Salesforce to the website
+    
     # use email to get SF contact
     # then use sf_account_id to get the company name from the SF account
     #org_id_s = Org.where(stripe_token: stripe_token).take.org_id
-    sf_contact_to_account = SalesforceContact.where(email: stripe_email).select(:salesforce_account_id).take.salesforce_account_id
-    customer_name = SalesforceAccount.where(account_id: sf_contact_to_account).select(:name).take.name
+    #sf_contact_to_account = SalesforceContact.where(email: stripe_email).select(:salesforce_account_id).take.salesforce_account_id
+    #customer_name = SalesforceAccount.where(account_id: sf_contact_to_account).select(:name).take.name
+    
+    customer_name = stripe_email.to_s
 
     amount_paid = event[:data][:object][:amount] * 0.01
 
