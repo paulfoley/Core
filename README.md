@@ -1,14 +1,11 @@
 # Core
-Repository for Core Project
+Integrating every business application
 
 
 ## Getting Started
-
-I think most of you are using windows so I enabled Docker support which will hopefully make it easier for you guys to get started.
+Adding in Docker support which will hopefully make it easier for you guys to get started.
 
 If you aren't familier with Docker it is a container technology that lets you quickly deploys apps. You can checkout a 5 minute intro here: [Docker in 5 Minutes](https://www.youtube.com/watch?v=Av2Umb6nELU)
-
-This is going to radically change the way software is built and will be good for your careers to learn about it. I wish it was around when I was a student!
 
 You can download the [Docker Toolbox](https://www.docker.com/products/docker-toolbox) to get started.
 Once you have docker intalled you should be able to make a machine, and start the app by doing:
@@ -25,8 +22,3 @@ We should start with Stripe, Quickbooks still needs some work.
 ## Configs
 
 We manage configs in the `.env` file. You will need to fill in the blanks with our tokens from stripe and quickbooks. These shouldn't be checked in to git- they are dependent on the environment. Development and Production will use different tokens.
-
-## Oauth
-
-TODO
-
